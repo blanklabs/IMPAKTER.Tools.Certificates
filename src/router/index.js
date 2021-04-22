@@ -14,6 +14,11 @@ import Home from "@/components/Home";
 import CertificateProfile from "@/components/CertificateProfile";
 import store from "@/store/index.js"
 import OrgForm from "@/components/OrgForm";
+import SignIn from "@/components/SignIn-SignUp/SignIn";
+import SignUp from "@/components/SignIn-SignUp/SignUp";
+import SignUpPart2 from "@/components/SignIn-SignUp/SignUp-Part2";
+import SetPassword from "@/components/SignIn-SignUp/SetPassword";
+import SignUpThankYou from "@/components/SignIn-SignUp/SignUp-ThankYou";
 
 Vue.use(VueRouter)
 
@@ -39,6 +44,31 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/signin',
+    name: 'Sign-in',
+    component: SignIn
+  },
+  {
+    path: '/signup',
+    name: 'Sign-up',
+    component: SignUp
+  },
+  {
+    path: '/signup/continue',
+    name: 'Sign-up-Part2',
+    component: SignUpPart2
+  },
+  {
+    path: '/signup/thankyou',
+    name: 'Sign-up-Thankyou',
+    component: SignUpThankYou
+  },
+  {
+    path: '/signup/setpassword',
+    name: 'SetPassword',
+    component: SetPassword
   },
   {
     path: '/profile/edit',

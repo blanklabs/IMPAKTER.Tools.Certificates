@@ -67,7 +67,6 @@ loggedIn: function(){ return this.$store.state.IsloggedIn}
      this.loggedIn = true;})
     
   },
-
   methods: {
     logout() {
       localStorage.removeItem("OrganizationID");
@@ -88,10 +87,8 @@ loggedIn: function(){ return this.$store.state.IsloggedIn}
 
 <style lang="scss">
 @import "assets/custom_vars.scss";
-
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootstrap-vue/src/index.scss";
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -99,83 +96,65 @@ loggedIn: function(){ return this.$store.state.IsloggedIn}
   text-align: center;
   color: #010101;
 }
-
 #nav {
-
   border-bottom: #a1a1a1 0.5px solid;
   box-shadow: 1px 1px 5px 1px #c0c0c0;
   background: aliceblue;
   z-index:100;
 }
-
 #nav a {
   font-weight: bold;
   font-size: 14px;
   color: #222222;
 }
-
 #nav a.router-link-exact-active {
   color: #fe6663;
 }
-
 button {
   margin-left: 10px;
 }
-
 #logo {
   width: 190px;
 }
-
 #refresh {
   color: rgb(79, 167, 162);
 }
-
 .main_row {
   margin-top: 0px;
 }
-
 .buttons_row {
   justify-content: center;
   margin-bottom: 10px;
   margin-top: 10px;
 }
-
 .buttons_row * {
   margin-right: 10px;
   margin-left: 10px;
 }
-
 .flex_and_start {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
 }
-
-
-
-
 #checkbox-group-1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
 }
-
 #input-group-1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
 }
-
 #input-group-2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
 }
-
 #spacer {
   background-color: white;
   position: fixed;
@@ -183,16 +162,11 @@ button {
   padding: 50px;
   width: 100%;
 }
-
 #router_view_container{
 margin-top: 100px;
-
 }
-
 .pagination {
   margin-top: 20px;
   margin-bottom: 40px;
 }
-
-
 </style>
