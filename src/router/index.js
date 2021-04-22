@@ -19,6 +19,7 @@ import SignUp from "@/components/SignIn-SignUp/SignUp";
 import SignUpPart2 from "@/components/SignIn-SignUp/SignUp-Part2";
 import SetPassword from "@/components/SignIn-SignUp/SetPassword";
 import SignUpThankYou from "@/components/SignIn-SignUp/SignUp-ThankYou";
+import NewsHome from "@/components/News/NewsHome";
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ const routes = [
     path: '/signup/setpassword',
     name: 'SetPassword',
     component: SetPassword
+  },
+  {
+    path: '/news',
+    name: 'News',
+    component: NewsHome
   },
   {
     path: '/profile/edit',
