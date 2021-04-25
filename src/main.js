@@ -8,6 +8,7 @@ import VueSimpleAlert from "vue-simple-alert";
 import ScrollView from 'vue-scrollview'
 
 
+import 'uicomponents/dist/impakter-ui-components.css'
 import './assets/custom_vars.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
