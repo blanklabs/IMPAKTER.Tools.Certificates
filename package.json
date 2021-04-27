@@ -11,6 +11,7 @@
   "dependencies": {
     "3": "^2.1.0",
     "-": "0.0.1",
+    "@auth0/auth0-spa-js": "^1.14.0",
     "@braid/vue-formulate": "^2.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",

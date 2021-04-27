@@ -17,6 +17,21 @@ import './assets/formulate.css'
 import router from './router'
 
 
+import { domain, clientId } from "../auth_config.json";
+import { Auth0Plugin } from "./auth";
+
+Vue.use(Auth0Plugin, {
+  domain,
+  clientId,
+  onRedirectCallback: appState => {
+    router.push(
+      appState && appState.targetUrl
+        ? appState.targetUrl
+        : window.location.pathname
+    );
+  }
+});
+
 Vue.use(VueSimpleAlert);
 Vue.use(ScrollView)
 Vue.use(BootstrapVue)
