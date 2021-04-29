@@ -73,10 +73,14 @@ loggedIn: function(){ return this.$store.state.IsloggedIn}
       localStorage.removeItem("OrganizationName");
       this.$store.dispatch("resetState")
       this.$store.dispatch("changeLoginStatus");
-      this.$router.push("/prompt");
+this.$auth.logout({
+        returnTo: window.location.origin
+      });
+      //this.$router.push("/prompt");
     },
     login() {
-      this.$router.push("/login");
+this.$auth.loginWithRedirect();
+      //this.$router.push("/login");
     },
   },
     created () {
