@@ -7,12 +7,15 @@
               <HeaderDescription headerTitle = "Impakter Certificate Tool">
                 We analyze how sustainable the Top 100 Global Brands 2020 are. We analyze how sustainable the Top 100 Global Brands 2020 are.
               </HeaderDescription> 
+              <b-container id="buttonHeader">
                 <ActionButton  btnIcon="chevron-right" btnDescription="   Get Started"></ActionButton>
                 <ActionButton  btnIcon="person-circle" btnDescription="   Sign In"></ActionButton>
           
+              </b-container>
+               
             </b-col>
             <b-col>
-            <img id="headerImage" src="../../assets/banner-newdpi.png"/>
+            <img id="headerImage" src="../../assets/dummyHeader.png"/>
             </b-col>
       </b-row>
     
@@ -88,13 +91,15 @@ div{
 
 
  #header{
-   min-height: 300px;
+   /* min-height: 300px; */
    padding: 20px;
  }
- #btnHrd{
+ #buttonHeader{
+   padding: 10px;
+   /* align-items: center;
     display: flex;
     flex-wrap: wrap;
-    align-content: center;
+    align-content: center; */
  }
  #smallCards{
    padding: 20px;
@@ -103,7 +108,8 @@ div{
    padding: 20px;
  }
  #headerImage{
-   max-width: 1200px;
+
+  max-width: 1100px;
  }
  
  #imgImpact{
@@ -113,4 +119,12 @@ div{
    max-width: 1200px;
  }
  
+
+@media screen and (min-width: 480px) {
+#headerImage {
+margin: auto;
+width: 100%;
+height: auto;
+}
+}
 </style>

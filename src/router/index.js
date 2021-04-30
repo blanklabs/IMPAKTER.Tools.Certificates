@@ -20,6 +20,7 @@ import SignUpPart2 from "@/components/SignIn-SignUp/SignUp-Part2";
 import SetPassword from "@/components/SignIn-SignUp/SetPassword";
 import SignUpThankYou from "@/components/SignIn-SignUp/SignUp-ThankYou";
 import NewsHome from "@/components/News/NewsHome";
+import HomeTest from "../components/Home/Home"; // This is just a TEST for future LandingPage
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,12 @@ else if(store.state.organizationID == null){
 
 
 const routes = [
+ 
+  {  // This is just a TEST for future LandingPage
+    path: '/test',
+    name: 'HomeTest',
+    component: HomeTest
+  },
   {
     path: '/login',
     name: 'Login',

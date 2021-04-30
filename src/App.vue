@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-container>
-      <b-row>
+    <b-row>
         <div id="nav">
           <b-navbar toggleable="lg" type="dark" fixed="top" variant="light">
             <b-navbar-brand href="https://index.impakter.com"
@@ -34,6 +34,7 @@
           </b-navbar>
         </div>
       </b-row>
+
       <b-row>
         <div id="spacer"></div>
       </b-row>
