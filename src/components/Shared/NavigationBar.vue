@@ -67,7 +67,12 @@
 
 <script>
 export default {
-  name: "NavBar",
+  name: "NavigationBar",
+  data(){
+    return{
+      loggedIn: false
+    }
+  },
   methods: {
     logout() {
       localStorage.removeItem("OrganizationID");

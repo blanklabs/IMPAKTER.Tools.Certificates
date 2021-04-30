@@ -5,7 +5,7 @@ import VueFormulate from '@braid/vue-formulate'
 import VueRouter from 'vue-router'
 import store from "./store";
 import VueSimpleAlert from "vue-simple-alert";
-import ScrollView from 'vue-scrollview'
+//import ScrollView from 'vue-scrollview'
 
 
 import 'uicomponents/dist/impakter-ui-components.css'
@@ -17,7 +17,7 @@ import './assets/formulate.css'
 import router from './router'
 
 Vue.use(VueSimpleAlert);
-Vue.use(ScrollView)
+//Vue.use(ScrollView)
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 Vue.use(VueFormulate)

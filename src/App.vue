@@ -2,51 +2,8 @@
   <div id="app">
     <b-container>
       <b-row>
-        <NavBar/>
-        <!--
-        <div id="nav">
-          <b-navbar toggleable="lg" type="dark" fixed="top" variant="light">
-            <b-navbar-brand href="https://index.impakter.com"
-              ><img id="logo" src="@/assets/logo_index.png"
-            /></b-navbar-brand>
-
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-            <b-collapse id="nav-collapse" is-nav>
-              <b-navbar-nav> </b-navbar-nav>
-
-              <b-navbar-nav class="ml-auto">
-                <b-nav-item
-                  ><router-link to="/wait"
-                    ><span id="refresh">REFRESH</span></router-link
-                  ></b-nav-item
-                >
-                <b-nav-item
-                  ><router-link to="/organization/home"
-                    >MY CERTIFICATES</router-link
-                  ></b-nav-item
-                >
-                <b-nav-item href="#"
-                  ><router-link to="/certificates/add"
-                    >ADD CERTIFICATE</router-link
-                  ></b-nav-item
-                >
-                <b-nav-item href="#"
-                  ><router-link to="/profile/edit"
-                    >MY PROFILE</router-link
-                  ></b-nav-item
-                >
-                <b-nav-item> | </b-nav-item>
-                <b-nav-item>
-                  <span v-if="loggedIn" @click="logout">LOGOUT</span>
-                  <span v-if="!loggedIn" @click="login">LOGIN</span></b-nav-item
-                >
-              </b-navbar-nav>
-            </b-collapse>
-          </b-navbar>
-        </div> -->
+        <NavigationBar/>
       </b-row>
-
       <b-row>
         <div id="spacer"></div>
       </b-row>
@@ -55,21 +12,12 @@
           <router-view/>
         </b-container>
       </b-row>
-      <b-row>
-        <b-col>
-          <br/>
-          <br/>
-          <span></span>
-          <br/>
-          <br/>
-        </b-col>
-      </b-row>
     </b-container>
   </div>
 </template>
 
 <script>
-import NavBar from "./components/Shared/NavBar";
+import NavigationBar from "./components/Shared/NavigationBar";
 
 export default {
   data() {
@@ -90,7 +38,7 @@ export default {
   created() {
     document.title = "Impakter - Certificates";
   },
-  components: {NavBar},
+  components: {NavigationBar},
 };
 </script>
 
