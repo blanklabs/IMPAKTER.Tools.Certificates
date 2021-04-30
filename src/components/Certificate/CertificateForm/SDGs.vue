@@ -44,10 +44,10 @@
 </template>
 
 <script>
-import SdgMixin from "../../mixins/SdgMixin";
+import SdgMixin from "../../../mixins/SdgMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import FormGuardMixin from "@/mixins/FormGuardMixin";
-import ProgressBar from "../Shared/ProgressBar.vue";
+import ProgressBar from "./ProgressBar.vue";
 export default {
   name: "FormSDGs",
   data() {

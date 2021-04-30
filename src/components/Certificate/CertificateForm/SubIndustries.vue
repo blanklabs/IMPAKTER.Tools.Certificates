@@ -72,14 +72,14 @@
 </template>
 
 <script>
-import PartialSubIndustries from "@/components/CertificateForm/PartialSubIndustries";
+import PartialSubIndustries from "@/components/Certificate/CertificateForm/PartialSubIndustries";
 import { ServicesFactory } from "@/services/ServicesFactory";
 const certificateService = ServicesFactory.get("certificates");
 
 import IndustryMixin from "@/mixins/IndustryMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import SubmitMixin from "@/mixins/SubmitMixin";
-import ProgressBar from "../Shared/ProgressBar.vue";
+import ProgressBar from "./ProgressBar.vue";
 import CertificateProfile from "../CertificateProfile.vue";
 
 export default {

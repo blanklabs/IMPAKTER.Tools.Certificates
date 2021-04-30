@@ -1,6 +1,6 @@
 <template>
- <div id="nav">
-    <b-navbar toggleable="lg" type="dark" fixed="top" variant="light">
+ <div >
+    <b-navbar toggleable="lg" type="light" fixed="top" id="nav">
       <b-navbar-brand href="https://index.impakter.com">
         <img id="logo" src="@/assets/logo_index.png"/>
       </b-navbar-brand>
@@ -11,88 +11,105 @@
 
         <!-- Right aligned nav items -->
          <b-navbar-nav class="ml-auto">
-              <b-nav-item ><router-link to="/wait">
-                  <span id="refresh">REFRESH</span></router-link>
+            <b-nav-item ><router-link to="/home">
+                  <span>HOME</span></router-link>
+            </b-nav-item>
+            <b-nav-item>
+                  <router-link to="#">ABOUT US</router-link>
+            </b-nav-item>
+            <b-nav-item>
+                  <router-link to="#"> HOW IT WORKS</router-link>
+            </b-nav-item>
+              <b-nav-item>
+                  <router-link to="#">CONTACT US</router-link>
               </b-nav-item>
               <b-nav-item>
-                  <router-link to="/organization/home">ABOUT US</router-link>
+                <router-link to="/signin">
+                  <span v-if="loggedIn" @click="logout">SIGN-OUT</span>
+                  <span v-if="!loggedIn" @click="login">SIGN-IN</span>
+                  </router-link>
+              
+              </b-nav-item> 
+               <b-nav-item >
+                  <router-link to="#">INDEX</router-link>
               </b-nav-item>
-              <b-nav-item href="#">
-                  <router-link to="/certificates/add"> HOW IT WORKS</router-link>
-              </b-nav-item>
-              <b-nav-item href="#">
-                  <router-link to="/profile/edit">CONTANCT US</router-link>
-              </b-nav-item>
-              <b-nav-item> | </b-nav-item>
               <b-nav-item>
-                  <span v-if="loggedIn" @click="logout">LOGOUT</span>
-                  <span v-if="!loggedIn" @click="login">LOGIN</span>
-              </b-nav-item>  
-              <b-nav-form>
+                  <router-link to="#">MARKETPLACE</router-link>
+              </b-nav-item>
+              <b-nav-item>
+              <b-icon  icon="search" style="color: #EA5456"></b-icon>
+              </b-nav-item>
+             
+        <!-- <b-nav-item-dropdown right>
+      
+          <template #button-content>
+            <b-icon  icon="search" style="color: #EA5456"></b-icon>
+          </template>
+        <b-dropdown-item href="#"> <b-nav-form>
                 <b-form-input
                   size="sm"
                   class="mr-sm-2"
                   placeholder="Search">
                   </b-form-input>
-                <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+                <b-button type="submit"><b-icon  icon="search" style="color: #EA5456"></b-icon></b-button>
               </b-nav-form>
+              </b-dropdown-item>
+        </b-nav-item-dropdown> -->
 
-          <!-- <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown> -->
-
-          <b-nav-item-dropdown right> 
-            <!-- Using 'button-content' slot -->
-            <template #button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>
+      
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
   </div> 
 
-  <!--<div id="nav">
-          <b-navbar toggleable="lg" type="dark" fixed="top" variant="light">
-            <b-navbar-brand href="https://index.impakter.com"
-              ><img id="logo" src="@/assets/logo_index.png"
-            /></b-navbar-brand>
 
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-            <b-collapse id="nav-collapse" is-nav>
-              <b-navbar-nav> </b-navbar-nav> -->
-
-              <!-- Right aligned nav items -->
-               <!-- <b-navbar-nav class="ml-auto">
-                <b-nav-item ><router-link to="/wait"><span id="refresh">REFRESH</span></router-link></b-nav-item>
-                <b-nav-item
-                  ><router-link to="/organization/home">MY CERTIFICATES</router-link></b-nav-item>
-                <b-nav-item href="#"><router-link to="/certificates/add">ADD CERTIFICATE</router-link></b-nav-item>
-                <b-nav-item href="#"><router-link to="/profile/edit">MY PROFILE</router-link></b-nav-item>
-                <b-nav-item> | </b-nav-item>
-                <b-nav-item>
-                  <span v-if="loggedIn" @click="logout"
-                    >LOGOUT</span
-                  >
-                  <span v-if="!loggedIn" @click="login"
-                    >LOGIN</span
-                  ></b-nav-item
-                >
-              </b-navbar-nav>
-            </b-collapse>
-          </b-navbar>
- </div> -->
-
-  </template>
+</template>
 
 <script>
 export default {
-  name:"Navigation"
-}
+  name: "NavBar",
+  methods: {
+    logout() {
+      localStorage.removeItem("OrganizationID");
+      localStorage.removeItem("OrganizationName");
+      this.$store.dispatch("resetState");
+      this.$store.dispatch("changeLoginStatus");
+      this.$router.push("/signin");
+    },
+    login() {
+      this.$router.push("/signin");
+    },
+  }
+};
 </script>
+<style scoped>
+#nav{
+  font-family: Montserrat;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+#nav a {
+  font-weight: bold;
+  font-size: 14px;
+  color: #222222;
+  text-decoration: none;
+}
+.nav-item{
+  padding-left: 8px;
+  padding-right: 8px;
+
+}
+.nav-item:hover{
+   border-bottom-style: solid;
+  border-bottom-color: #fe6663;
+}
+a.router-link-exact-active {
+  border-bottom-style: solid;
+  border-bottom-color: #fe6663;
+}
+button {
+  margin-left: 10px;
+}
+#logo {
+  width: 190px;
+}
+</style>

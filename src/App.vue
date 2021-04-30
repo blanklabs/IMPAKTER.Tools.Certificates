@@ -2,6 +2,8 @@
   <div id="app">
     <b-container>
       <b-row>
+        <NavBar/>
+        <!--
         <div id="nav">
           <b-navbar toggleable="lg" type="dark" fixed="top" variant="light">
             <b-navbar-brand href="https://index.impakter.com"
@@ -13,40 +15,53 @@
             <b-collapse id="nav-collapse" is-nav>
               <b-navbar-nav> </b-navbar-nav>
 
-              <!-- Right aligned nav items -->
               <b-navbar-nav class="ml-auto">
-                <b-nav-item ><router-link to="/wait"><span id="refresh">REFRESH</span></router-link></b-nav-item>
                 <b-nav-item
-                  ><router-link to="/organization/home">MY CERTIFICATES</router-link></b-nav-item>
-                <b-nav-item href="#"><router-link to="/certificates/add">ADD CERTIFICATE</router-link></b-nav-item>
-                <b-nav-item href="#"><router-link to="/profile/edit">MY PROFILE</router-link></b-nav-item>
+                  ><router-link to="/wait"
+                    ><span id="refresh">REFRESH</span></router-link
+                  ></b-nav-item
+                >
+                <b-nav-item
+                  ><router-link to="/organization/home"
+                    >MY CERTIFICATES</router-link
+                  ></b-nav-item
+                >
+                <b-nav-item href="#"
+                  ><router-link to="/certificates/add"
+                    >ADD CERTIFICATE</router-link
+                  ></b-nav-item
+                >
+                <b-nav-item href="#"
+                  ><router-link to="/profile/edit"
+                    >MY PROFILE</router-link
+                  ></b-nav-item
+                >
                 <b-nav-item> | </b-nav-item>
                 <b-nav-item>
-                  <span v-if="loggedIn" @click="logout"
-                    >LOGOUT</span
-                  >
-                  <span v-if="!loggedIn" @click="login"
-                    >LOGIN</span
-                  ></b-nav-item
+                  <span v-if="loggedIn" @click="logout">LOGOUT</span>
+                  <span v-if="!loggedIn" @click="login">LOGIN</span></b-nav-item
                 >
               </b-navbar-nav>
             </b-collapse>
           </b-navbar>
-        </div>
+        </div> -->
       </b-row>
+
       <b-row>
         <div id="spacer"></div>
       </b-row>
       <b-row>
-        <b-container id="router_view_container"><router-view /></b-container>
+        <b-container id="router_view_container">
+          <router-view/>
+        </b-container>
       </b-row>
       <b-row>
         <b-col>
-          <br />
-          <br />
+          <br/>
+          <br/>
           <span></span>
-          <br />
-          <br />
+          <br/>
+          <br/>
         </b-col>
       </b-row>
     </b-container>
@@ -54,34 +69,28 @@
 </template>
 
 <script>
+import NavBar from "./components/Shared/NavBar";
+
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
-loggedIn: function(){ return this.$store.state.IsloggedIn} 
-  },
-  mounted(){
-    this.$root.$on('myEvent', () => { // here you need to use the arrow function
-     this.loggedIn = true;})
-    
-  },
-  methods: {
-    logout() {
-      localStorage.removeItem("OrganizationID");
-      localStorage.removeItem("OrganizationName");
-      this.$store.dispatch("resetState")
-      this.$store.dispatch("changeLoginStatus");
-      this.$router.push("/prompt");
-    },
-    login() {
-      this.$router.push("/login");
+    loggedIn: function () {
+      return this.$store.state.IsloggedIn;
     },
   },
-    created () {
-            document.title = "Impakter - Certificates";
-        }
+  mounted() {
+    this.$root.$on("myEvent", () => {
+      // here you need to use the arrow function
+      this.loggedIn = true;
+    });
+  },
+  methods: {},
+  created() {
+    document.title = "Impakter - Certificates";
+  },
+  components: {NavBar},
 };
 </script>
 
@@ -89,6 +98,7 @@ loggedIn: function(){ return this.$store.state.IsloggedIn}
 @import "assets/custom_vars.scss";
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootstrap-vue/src/index.scss";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -96,75 +106,91 @@ loggedIn: function(){ return this.$store.state.IsloggedIn}
   text-align: center;
   color: #010101;
 }
+
 #nav {
   border-bottom: #a1a1a1 0.5px solid;
   box-shadow: 1px 1px 5px 1px #c0c0c0;
   background: aliceblue;
-  z-index:100;
+  z-index: 100;
 }
+
 #nav a {
   font-weight: bold;
   font-size: 14px;
   color: #222222;
 }
+
 #nav a.router-link-exact-active {
   color: #fe6663;
 }
+
 button {
   margin-left: 10px;
 }
+
 #logo {
   width: 190px;
 }
+
 #refresh {
   color: rgb(79, 167, 162);
 }
+
 .main_row {
   margin-top: 0px;
 }
+
 .buttons_row {
   justify-content: center;
   margin-bottom: 10px;
   margin-top: 10px;
 }
+
 .buttons_row * {
   margin-right: 10px;
   margin-left: 10px;
 }
+
 .flex_and_start {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
 }
+
 #checkbox-group-1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
 }
+
 #input-group-1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
 }
+
 #input-group-2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
 }
+
 #spacer {
   background-color: white;
   position: fixed;
-  z-index:90;
+  z-index: 90;
   padding: 50px;
   width: 100%;
 }
-#router_view_container{
-margin-top: 100px;
+
+#router_view_container {
+  margin-top: 100px;
 }
+
 .pagination {
   margin-top: 20px;
   margin-bottom: 40px;

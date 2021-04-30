@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import IndustryMixin from "../../mixins/IndustryMixin";
+import IndustryMixin from "../../../mixins/IndustryMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
-import ProgressBar from "../Shared/ProgressBar.vue";
+import ProgressBar from "./ProgressBar.vue";
 export default {
   name: "FormIndustries",
   data() {

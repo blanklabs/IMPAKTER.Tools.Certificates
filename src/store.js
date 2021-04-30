@@ -5,8 +5,8 @@ import axios from 'axios'
 
 const certificateService = ServicesFactory.get("certificates");
 const organizationService = ServicesFactory.get("organizations");
-import certificateModel from "../models/certificate";
-import organizationModel from "../models/organization";
+import certificateModel from "./models/certificate";
+import organizationModel from "./models/organization";
 import {awsConfig} from "@/models/constants"
 
 Vue.use(Vuex);

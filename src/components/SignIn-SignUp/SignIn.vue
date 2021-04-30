@@ -2,7 +2,7 @@
   <b-container fluid="md" id="signin_main">
     <img id="impakterLogo" src="@/assets/logo_index.png" />
     <h1 >Sign In to Index Certificate Tool</h1>
-    <p>We suggest sin gth emeail address you use at work.</p>
+    <p>We suggest you to sign in with the email address you use at work.</p>
     <b-button id="GoogleButton" @click="login">
       <img src="@/assets/google_logo.png" id="googleLogo"/> Sign in with Google
     </b-button>
@@ -10,11 +10,18 @@
       <hr><h5>OR</h5><hr>
     </div>
     <b-form-input id="identifier"
-        v-model="identifier"
+        v-model="email"
         placeholder="name@work-email.com"
         required>
     </b-form-input>
-   
+
+    <b-form-input id="identifier"
+                  v-model="password"
+                  placeholder="password"
+                  required>
+    </b-form-input>
+
+
     <b-button @click="login" id="signInButton">Sign in with Email</b-button>
     <hr>
     <p>Don’t have an account? <a href="#">Sign Up</a></p>
@@ -24,6 +31,17 @@
 <script>
 export default {
   name: "SignIn",
+  data(){
+    return{
+      email:null,
+      password:null
+    }
+  },
+  methods:{
+    login(){
+      console.log(this.email, this.password)
+    }
+  }
 };
 
 </script>

@@ -41,10 +41,10 @@
 </template>
 
 <script>
-import PartialSdgTargets from "@/components/CertificateForm/PartialSdgTargets";
+import PartialSdgTargets from "@/components/Certificate/CertificateForm/PartialSdgTargets";
 import SdgMixin from "@/mixins/SdgMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
-import ProgressBar from "../Shared/ProgressBar.vue";
+import ProgressBar from "./ProgressBar.vue";
 export default {
   name: "FormSDGtargets",
   components: { PartialSdgTargets, ProgressBar },

@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production' ? '/dev.certificates/' : '/',
     "devServer": {
       "port": 8080,
       "proxy": {

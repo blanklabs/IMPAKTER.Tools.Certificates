@@ -268,7 +268,7 @@
 
 <script>
 import compute from "@/models/compute";
-import CertificateProfile from "../CertificateProfile.vue";
+import CertificateProfile from "./CertificateProfile.vue";
 
 export default {
   name: "OrgHome",
