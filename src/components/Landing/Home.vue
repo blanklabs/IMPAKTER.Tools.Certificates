@@ -19,7 +19,8 @@
                
             </b-col>
             <b-col>
-            <img id="headerImage" src="@/assets/LandingPage/dummyHeader.png"/>
+            <b-img src="./dummyHeader.png" fluid> </b-img>
+            <!-- <img id="headerImage" src="@/assets/LandingPage/dummyHeader.png"/> -->
             </b-col>
       </b-row>
     
