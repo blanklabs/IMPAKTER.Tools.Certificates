@@ -5,7 +5,9 @@ import axios from 'axios'
 
 const certificateService = ServicesFactory.get("certificates");
 const organizationService = ServicesFactory.get("organizations");
-import certificateModel from "./models/certificate";
+//import certificateModel from "./models/certificate";
+import {certificateModel} from "../.././SHARED.CODE";
+//import certificateModel from "shared.code";
 import organizationModel from "./models/organization";
 import {awsConfig} from "@/models/constants"
 
@@ -138,7 +140,7 @@ export default new Vuex.Store({
         },
 
         resetCertificate(state) {
-            state.certificate = new certificateModel()
+            state.certificate = new certificateModel.certificateModel()
 
         },
 
@@ -157,7 +159,7 @@ export default new Vuex.Store({
             else {
                 state.isNetworkConnected = true
                 for (var i = 0; i < certificatesResponse.length; i++) {
-                    var cert = new certificateModel()
+                    var cert = new certificateModel.certificateModel()
                     cert.change(certificatesResponse[i])
                     state.certificates.push(cert)
                 }
@@ -236,7 +238,7 @@ export default new Vuex.Store({
                 this.responseStatus = response.data.status
             });
             console.log(this.responseMessage)
-            state.certificate = new certificateModel()
+            state.certificate = new certificateModel.certificateModel()
 
         },
 
@@ -246,7 +248,7 @@ export default new Vuex.Store({
                 this.responseStatus = response.data.status
             });
             console.log(this.responseMessage)
-            state.certificate = new certificateModel()
+            state.certificate = new certificateModel.certificateModel()
 
         },
 
