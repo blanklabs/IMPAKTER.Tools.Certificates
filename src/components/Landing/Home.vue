@@ -7,14 +7,20 @@
                 We analyze how sustainable the Top 100 Global Brands 2020 are. We analyze how sustainable the Top 100 Global Brands 2020 are.
               </HeaderDescription> 
               <b-container id="buttonHeader">
+                <div>
                 <ActionButton  btnIcon="chevron-right" btnDescription="   Get Started"></ActionButton>
-                <ActionButton  btnIcon="person-circle" btnDescription="   Sign In"></ActionButton>
-          
+                </div>
+                <div>
+                <ActionButton  btnIcon="chevron-right" btnDescription="   Get Started"></ActionButton>
+                </div>
+                <!-- <ActionButton  btnIcon="person-circle" btnDescription="   Sign In"></ActionButton>
+           -->
               </b-container>
                
             </b-col>
             <b-col>
-            <img id="headerImage" src="../../assets/dummyHeader.png"/>
+            <b-img src="./dummyHeader.png" fluid> </b-img>
+            <!-- <img id="headerImage" src="@/assets/LandingPage/dummyHeader.png"/> -->
             </b-col>
       </b-row>
     
@@ -30,18 +36,19 @@
             <b-col><CardItemLarge cardIcon="building" cardTitle="Large Sample Title">We analyze how sustainable the Top 100 Global Brands 2020 are.</CardItemLarge></b-col>
         </b-row>
         <div>
-          <img src="@/assets/banner-newdpi.png" id="imgImpact"/>
+          <img src="@/assets/LandingPage/banner-newdpi.png" id="imgImpact_Desktop"/>
+          <img src="@/assets/LandingPage/1dpi-768x866.png" id="imgImpactBig_Mobile"/>
+          <img src="@/assets/LandingPage/2dpi-768x866.png" id="imgImpactBig_Mobile"/>
+          <img src="@/assets/LandingPage/3dpi-768x866.png" id="imgImpactBig_Mobile"/>
         </div>
         <div>
           <h3>Our Partners</h3>
-          <img src="@/assets/Partners_Landing.png" id="partners"/>
+          <img src="@/assets/LandingPage/loghi-mobile1dpi-768x148.png" id="partners"/>
+          <img src="@/assets/LandingPage/loghi-mobile2dpi-768x107.png" id="partners"/>
         </div>     
         <Footer/>
     </div>
    
-
-
-
 </template>
 
 <script>
@@ -75,6 +82,7 @@ components:{
 
 </script>
 <style scoped>
+@media screen and (min-width:601px) {
 .fullscreen { 
   font-family: 'Montserrat', sans-serif;
   position: absolute;
@@ -94,10 +102,9 @@ div{
  }
  #buttonHeader{
    padding: 10px;
-   /* align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center; */
+   display: flex;
+   align-items: center;
+  flex-wrap: wrap;
  }
  #smallCards{
    padding: 20px;
@@ -110,19 +117,55 @@ div{
   max-width: 1100px;
  }
  
- #imgImpact{
+ #imgImpact_Desktop{
    width: 100%;
+   height: auto;
+ }
+
+ #imgImpactBig_Mobile{
+   display:none;
  }
  #partners{
-   max-width: 1200px;
+   width: 100%;
+   height: auto;
  }
+}
  
 
-@media screen and (min-width: 480px) {
-#headerImage {
-margin: auto;
-width: 100%;
-height: auto;
-}
+@media screen and (max-width:600px) {
+  
+  .row{
+    align-content: stretch;
+    flex-direction: column;
+    align-items: center;
+  }
+  .col{
+    width: 100%;
+    padding: 15px;
+  }
+  #headerImage {
+  width: 100%;
+  height: auto;
+  }
+   .fullscreen { 
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  }
+
+   #bigCards, #smallCards{
+   padding: 5px;
+   width: 100%;
+  }
+   #imgImpact_Desktop{
+   display: none;
+ }
+  #imgImpactBig_Mobile{
+   align-items: center;
+   width:100%;
+   height: auto;
+ }
+
+ 
 }
 </style>
