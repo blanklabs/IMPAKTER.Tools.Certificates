@@ -75,6 +75,7 @@ components:{
 
 </script>
 <style scoped>
+@media screen and (min-width: 700px) {
 .fullscreen { 
   font-family: 'Montserrat', sans-serif;
   position: absolute;
@@ -116,13 +117,35 @@ div{
  #partners{
    max-width: 1200px;
  }
+}
  
 
-@media screen and (min-width: 480px) {
-#headerImage {
-margin: auto;
-width: 100%;
-height: auto;
-}
+@media screen and (max-width: 700px) {
+  
+  .row{
+    align-content: stretch;
+    flex-direction: column;
+    align-items: center;
+  }
+  .col{
+    width: 100%;
+    padding: 15px;
+  }
+  #headerImage {
+  width: 100%;
+  height: auto;
+  }
+   .fullscreen { 
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  }
+
+   #bigCards, #smallCards{
+   padding: 5px;
+   width: 100%;
+ }
+
+ 
 }
 </style>

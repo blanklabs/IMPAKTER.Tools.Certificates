@@ -4,9 +4,9 @@
       <b-row>
         <NavigationBar/>
       </b-row>
-      <b-row>
+      <!-- <b-row>
         <div id="spacer"></div>
-      </b-row>
+      </b-row> -->
       <b-row>
         <b-container id="router_view_container">
           <router-view/>
@@ -53,23 +53,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #010101;
-}
-
-#nav {
-  border-bottom: #a1a1a1 0.5px solid;
-  box-shadow: 1px 1px 5px 1px #c0c0c0;
-  background: aliceblue;
-  z-index: 100;
-}
-
-#nav a {
-  font-weight: bold;
-  font-size: 14px;
-  color: #222222;
-}
-
-#nav a.router-link-exact-active {
-  color: #fe6663;
 }
 
 button {
