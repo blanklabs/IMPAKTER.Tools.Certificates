@@ -1,55 +1,80 @@
 <template>
   <b-container fluid="md" id="signup_main">
-      <img src="@/assets/logo_index.png" id="impakterLogo"/>
+    <img src="@/assets/logo_index.png" id="impakterLogo" />
 
-      <h1>Sign-up</h1>
+    <h1>Sign-up</h1>
 
-      <h4>Contact info</h4>
-        
+    <h4>Contact info</h4>
+    <b-form @submit="onSubmit">
       <b-form-input
-          id="identifier"
-          v-model="identifier"
-          placeholder="Name"
-          required>
-      </b-form-input>
-       
-      <b-form-input
-          id="identifier"
-          v-model="identifier"
-          placeholder="Lastname"
-          required>
+        id="identifier"
+        v-model="signupModel.user.firstName"
+        placeholder="First Name"
+        required
+      >
       </b-form-input>
 
       <b-form-input
-          id="identifier"
-          v-model="identifier"
-          placeholder="Email Address"
-          required>
+        id="identifier"
+        v-model="signupModel.user.lastName"
+        placeholder="Last Name"
+      >
       </b-form-input>
-        
-      <b-button @click="login" id="action_btt">Continue ></b-button>
-      
+
+      <b-form-input
+        id="identifier"
+        v-model="signupModel.user.email"
+        placeholder="Email Address"
+      >
+      </b-form-input>
+      <b-form-input
+        id="identifier"
+        v-model="signupModel.user.password"
+        placeholder="New Password"
+      >
+      </b-form-input>
+
+      <b-form-input
+        id="identifier"
+        v-model="passwordConfirmation"
+        placeholder="Confirm Password"
+      >
+      </b-form-input>
+      <b-button id="action_btt" type="submit" variant="primary">Next</b-button>
+    </b-form>
   </b-container>
-  
 </template>
 
 <script>
+import SignUpMixin from "@/mixins/SignUpMixin";
+
 export default {
   name: "SignUp",
-  
+  data() {
+    return {
+      passwordConfirmation: "",
+    };
+  },
+  mixins: [SignUpMixin],
+  methods: {
+    onSubmit() {
+      //todo - save user in state
+      this.$router.push("/signup/continue");
+    },
+  },
 };
 </script>
 
 <style scoped>
-h1{
+h1 {
   padding: 10px;
   font-weight: bold;
 }
 
-hr{
+hr {
   flex: 1;
   height: 1px;
-  background-color: #BBBBBB;
+  background-color: #bbbbbb;
 }
 
 a:link {
@@ -57,46 +82,44 @@ a:link {
   color: black;
   text-decoration: none;
 }
-#identifier{
-    margin-top: 10px;
-    margin-bottom: 10px;
+#identifier {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-#signup_main{
+#signup_main {
   margin-top: 10px;
   max-width: 500px;
 }
 
-#impakterLogo{
-  margin-left:60px;
+#impakterLogo {
+  margin-left: 60px;
   padding: 10px;
   max-width: 300px;
 }
 
+#action_btt {
+  display: inline-block;
+  background: white;
+  color: #1d2029;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid #989898;
+  white-space: nowrap;
+  font-weight: bold;
+}
 
-  #action_btt{
-    display: inline-block;
-    background: white;
-    color: #1D2029;
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid #989898;
-    white-space: nowrap;
-    font-weight: bold;
-  }
+.separator {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
 
-  .separator{
-    padding: 10px;
-    display: flex;
-    align-items: center;
-  }
+.separator h5 {
+  padding: 0 2rem; /* creates the space */
+}
 
-  .separator h5{
-    padding: 0 2rem; /* creates the space */
-  }
-
-  #emailForm{
-    padding: 10px;
-  }
-
+#emailForm {
+  padding: 10px;
+}
 </style>

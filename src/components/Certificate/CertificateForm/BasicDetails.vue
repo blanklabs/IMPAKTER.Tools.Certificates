@@ -50,7 +50,7 @@
             </b-tooltip>
 
             <br />
-            
+
             <!--
             <b-form-group
               label-cols="4"
@@ -121,53 +121,45 @@
                 required
               ></b-form-input>
             </b-form-group>
-            
+
             <br />
-            <p>Please add links to documents that describe this certificate </p>
+            <p>Please add links to documents that describe this certificate</p>
             <b-card>
               <b-card-text>
-            
-            <div v-for="(item,index) in documentCount" :key="index">
-            <b-form-group
-              label-cols="4"
-              label-cols-lg="3"
-              label="Name of the Document:"
-              label-for="name"
-              label-align-sm="left"
-            >
-              <b-form-input
-                id="name"
-                v-model="form.documents[index].documentName"
-                placeholder="Certificate attaining procedure"
-              ></b-form-input>
-            </b-form-group>
-                        <b-form-group
-              label-cols="4"
-              label-cols-lg="3"
-              label="Link to the document:"
-              label-for="name"
-              label-align-sm="left"
-            >
-              <b-form-input
-                id="name"
-                v-model="form.documents[index].documentUrl"
-                placeholder="https://www.iso.org/obp/ui/#iso:std:iso:14001:ed-3:v1:en"
-              ></b-form-input>
-            
-            </b-form-group>
-            <hr>
-            </div>
-
-
-
+                <div v-for="(item, index) in documentCount" :key="index">
+                  <b-form-group
+                    label-cols="4"
+                    label-cols-lg="3"
+                    label="Name of the Document:"
+                    label-for="name"
+                    label-align-sm="left"
+                  >
+                    <b-form-input
+                      id="name"
+                      v-model="form.documents[index].documentName"
+                      placeholder="Certificate attaining procedure"
+                    ></b-form-input>
+                  </b-form-group>
+                  <b-form-group
+                    label-cols="4"
+                    label-cols-lg="3"
+                    label="Link to the document:"
+                    label-for="name"
+                    label-align-sm="left"
+                  >
+                    <b-form-input
+                      id="name"
+                      v-model="form.documents[index].documentUrl"
+                      placeholder="https://www.iso.org/obp/ui/#iso:std:iso:14001:ed-3:v1:en"
+                    ></b-form-input>
+                  </b-form-group>
+                  <hr />
+                </div>
               </b-card-text>
 
-
-              <b-button @click= "incrementDocumentCount">Add another document </b-button>
-
-
-
-
+              <b-button @click="incrementDocumentCount"
+                >Add another document
+              </b-button>
             </b-card>
 
             <b-row class="buttons_row">
@@ -190,7 +182,7 @@
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import FormGuardMixin from "@/mixins/FormGuardMixin";
 import ProgressBar from "./ProgressBar.vue";
-import {documentObject} from "@/models/certificateObjects"
+import { documentObject } from "@/models/certificateObjects";
 
 export default {
   data() {
@@ -223,7 +215,7 @@ export default {
         },
       ],
       sdgEngagementOther: null,
-      documentCount: 1
+      documentCount: 1,
     };
   },
   methods: {
@@ -277,19 +269,19 @@ export default {
           });
       }
     },
-    incrementDocumentCount(){
-      this.documentCount++
-      this.form.documents.push(new documentObject())
-    }
+    incrementDocumentCount() {
+      this.documentCount++;
+      this.form.documents.push(new documentObject());
+    },
   },
   mixins: [CertificateFormMixin, FormGuardMixin],
   components: { ProgressBar },
   mounted() {
-    if(this.form.documents.length != 0){
-      this.documentCount = this.form.documents.length
+    if (this.form.documents.length != 0) {
+      this.documentCount = this.form.documents.length;
     }
-this.form.documents.push(new documentObject())
-  }
+    this.form.documents.push(new documentObject());
+  },
 };
 </script>
 
