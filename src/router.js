@@ -20,7 +20,9 @@ import SignUpPart2 from "@/components/SignIn-SignUp/SignUp-Part2";
 import SetPassword from "@/components/SignIn-SignUp/SetPassword";
 import SignUpThankYou from "@/components/SignIn-SignUp/SignUp-ThankYou";
 import NewsHome from "@/components/News/NewsHome";
-import HomeTest from "./components/Landing/Home"; // This is just a TEST for future LandingPage
+import HomeTest from "@/components/Landing/Home"; // This is just a TEST for future LandingPage
+import Dashboard from "@/components/Dashboard/Dashboard";
+
 
 Vue.use(VueRouter)
 
@@ -97,6 +99,11 @@ const routes = [
     path: '/wait',
     name: 'InProgress',
     component: InProgress
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
   },
   {
     path: '/home',
