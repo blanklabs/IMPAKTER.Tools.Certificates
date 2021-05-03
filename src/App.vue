@@ -19,6 +19,7 @@
 
 <script>
 import NavigationBar from "./components/Shared/NavigationBar";
+
 export default {
   data() {
     return {};
