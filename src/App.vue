@@ -12,13 +12,13 @@
           <router-view/>
         </b-container>
       </b-row>
+      
     </b-container>
   </div>
 </template>
 
 <script>
 import NavigationBar from "./components/Shared/NavigationBar";
-
 export default {
   data() {
     return {};

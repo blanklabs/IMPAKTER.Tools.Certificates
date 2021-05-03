@@ -1,8 +1,9 @@
 <template>
     <footer id="footerLand">
          <hr>
+         <b-container>
          <b-row id="rows">
-           <b-col cols="3">
+           <b-col cols="3" >
               <h4>ABOUT IMPAKTER INDEX</h4>
               <a href="#"><p>Home</p></a>
               <a href="#"><p>Link</p></a>
@@ -31,7 +32,7 @@
 
            </b-col>
          </b-row>
-        
+        </b-container>
     </footer>
 </template>
 <script>
@@ -44,15 +45,16 @@ export default {
 footer{
 width:100%; 
 background: #E4E4E4;
+margin-top: auto;
    
  }
- #rows{
+ /* #rows{
      padding: 15px 0 0 100px;
      text-align: left;
- }
+ } */
 h4{
-  font-weight: bold;
-  font-size: 16px;
+  font-weight:bolder;
+  font-size: 18px;
 }
 a{
   color: black;
@@ -61,11 +63,22 @@ a:link {
   text-decoration: none;
   color: black;
 }
-
 hr{
   height: 3px;
   background-color: #EA5456;
 }
 
 
+  
+@media screen and (max-width:600px) {
+
+  .row{
+    flex-direction: column;
+    align-items: center;
+  }
+  .col-3{
+    max-width: 100%;
+    padding: 10px;
+  }
+}
 </style>

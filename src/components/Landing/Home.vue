@@ -1,5 +1,4 @@
 <template>
-
     <div class="fullscreen">
         <b-row id="header">
             <b-col>
@@ -48,7 +47,7 @@
         </div>     
         <Footer/>
     </div>
-   
+    
 </template>
 
 <script>
@@ -58,15 +57,11 @@ import {
     CardItemLarge,
     ActionButton } from "uicomponents"
 import Footer from "./Footer"
-
-
 export default {
 name: "Home",
 data(){
     return {
-
     }
-
 },
 components:{
      HeaderDescription,
@@ -75,27 +70,29 @@ components:{
      ActionButton,
      Footer
      }
-
-
-
 }
-
 </script>
 <style scoped>
+html{
+  height: 100%;
+}
+body{
+  margin:0;
+  display: flex;
+}
 @media screen and (min-width:601px) {
+
 .fullscreen { 
   font-family: 'Montserrat', sans-serif;
   position: absolute;
+  min-height: 100vh;
   top: 100px;
   left: 100px;
   right: 100px;
 }
-
 div{
   padding: 15px;
 }
-
-
  #header{
    /* min-height: 300px; */
    padding: 20px;
@@ -113,7 +110,6 @@ div{
    padding: 20px;
  }
  #headerImage{
-
   max-width: 1100px;
  }
  
@@ -121,7 +117,6 @@ div{
    width: 100%;
    height: auto;
  }
-
  #imgImpactBig_Mobile{
    display:none;
  }
@@ -131,7 +126,6 @@ div{
  }
 }
  
-
 @media screen and (max-width:600px) {
   
   .row{
@@ -152,7 +146,6 @@ div{
   left: 0px;
   right: 0px;
   }
-
    #bigCards, #smallCards{
    padding: 5px;
    width: 100%;
@@ -165,7 +158,6 @@ div{
    width:100%;
    height: auto;
  }
-
  
 }
 </style>
