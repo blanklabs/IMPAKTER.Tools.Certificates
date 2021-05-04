@@ -271,7 +271,7 @@ import compute from "@/models/compute";
 import CertificateProfile from "./CertificateProfile.vue";
 
 export default {
-  name: "OrgHome",
+  name: "MyCertificates",
   data() {
     return {
       showModal: false,
@@ -342,7 +342,7 @@ export default {
     },
     delet() {
       this.$store.dispatch("deleteCertificate");
-        setTimeout(() => {
+      setTimeout(() => {
         this.$alert(this.$store.responseMessage);
       }, 3000);
       this.$store.responseMessage = "_blank_";

@@ -5,6 +5,14 @@
     <h1>Sign-up</h1>
 
     <h4>Contact info</h4>
+    <b-alert
+      :show="isStatusMessage"
+      @dismissed="isStatusMessage = false"
+      variant="danger"
+      dismissible
+      fade
+      >{{ statusMessage }}</b-alert
+    >
     <b-form @submit="onSubmit">
       <b-form-input
         id="identifier"
@@ -40,13 +48,19 @@
         placeholder="Confirm Password"
       >
       </b-form-input>
-      <b-button id="action_btt" type="submit" variant="primary">Next</b-button>
+      <b-button id="action_btt" type="submit" variant="primary"
+        >Sign up</b-button
+      >
     </b-form>
   </b-container>
 </template>
 
 <script>
-import SignUpMixin from "@/mixins/SignUpMixin";
+import AccountMixin from "@/mixins/AccountMixin";
+import CommonMixin from "@/mixins/CommonMixin";
+
+import { ServicesFactory } from "@/services/ServicesFactory";
+const account = ServicesFactory.get("account");
 
 export default {
   name: "SignUp",
@@ -55,11 +69,48 @@ export default {
       passwordConfirmation: "",
     };
   },
-  mixins: [SignUpMixin],
+  mixins: [AccountMixin, CommonMixin],
   methods: {
-    onSubmit() {
-      //todo - save user in state
-      this.$router.push("/signup/continue");
+    async onSubmit(event) {
+      event.preventDefault();
+      this.request.data = this.signupModel;
+      try {
+        this.response = await account.signup(this.request);
+      } catch (err) {
+        this.statusMessage = "Something went wrong. Please retry";
+        this.isStatusMessage = true;
+      }
+      let responseStatus = this.response.data.status;
+
+      if (responseStatus.code == 1) {
+        if (responseStatus.case == this.signupCases.SUCCESS) {
+          let responseData = this.response.data.data;
+          if (responseData.accessToken) {
+            window.localStorage.setItem(
+              "accessToken",
+              responseData.accessToken
+            );
+            this.$store.dispatch("user/setSignupStatus", true);
+            this.$router.push("/signup/continue");
+          } else {
+            this.statusMessage = "Something went wrong. Please retry";
+            this.isStatusMessage = true;
+          }
+        } else if (responseStatus.case == this.signupCases.EXISTING) {
+          this.statusMessage =
+            "You are already signed up. Please sign in instead";
+          this.isStatusMessage = true;
+        } else if (responseStatus.case == this.signupCases.FAILED) {
+          this.statusMessage = responseStatus.message;
+          this.isStatusMessage = true;
+        }
+      } else {
+        if (responseStatus.code == 0) {
+          this.statusMessage =
+            "Sign up failed. Please try again in a bit or contact administrator";
+          this.isStatusMessage = true;
+        }
+      }
     },
   },
 };

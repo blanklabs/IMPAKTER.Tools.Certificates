@@ -14,8 +14,11 @@ import {
 export default {
     data() {
         return {
+            statusMessage: "",
+            isStatusMessage: false,
             user: new User(),
             request: new Transport(),
+            response: new Transport(),
             transportCodes: transportCodes
 
         }

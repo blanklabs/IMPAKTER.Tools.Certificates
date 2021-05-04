@@ -5,6 +5,9 @@
     <h1>Sign-up</h1>
 
     <h4>Contact info</h4>
+    <b-alert v-if="isSignupSuccess" variant="success" show dismissible fade
+      >Signed up successfully. Please fill the below information</b-alert
+    >
 
     <b-form @submit="onSubmit">
       <b-form-input
@@ -29,22 +32,22 @@
 </template>
 
 <script>
-import { ServicesFactory } from "@/services/ServicesFactory";
-const account = ServicesFactory.get("account");
-import SignUpMixin from "@/mixins/SignUpMixin";
+import AccountMixin from "@/mixins/AccountMixin";
 import CommonMixin from "@/mixins/CommonMixin";
 
 export default {
   name: "SignUp-Part2",
-  mixins: [SignUpMixin, CommonMixin],
+  data() {
+    return {
+      isSignupSuccess: false,
+    };
+  },
+  mixins: [AccountMixin, CommonMixin],
   methods: {
-    async onSubmit() {
-      console.log(this.signupModel);
-      this.request.data = this.signupModel;
-      let response = await account.signup(this.request);
-      let user = response.data.data;
-      window.localStorage.setItem("user", user.email);
-      console.log(user);
+    onSubmit(event) {
+      event.preventDefault();
+      //updateUser
+      this.$router.push("/dashboard");
     },
   },
 };

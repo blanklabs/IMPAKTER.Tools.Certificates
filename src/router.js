@@ -6,7 +6,7 @@ import FormSDGTargets from "@/components/Certificate/CertificateForm/SDGTargets"
 import FormSDGs from "@/components/Certificate/CertificateForm/SDGs";
 import FormSubIndustries from "@/components/Certificate/CertificateForm/SubIndustries";
 import FormIndustries from "@/components/Certificate/CertificateForm/Industries";
-import OrgHome from "@/components/Certificate/MyCertificates";
+import MyCertificates from "@/components/Certificate/MyCertificates";
 import Login from "@/components/Archives/Login";
 import LoginPrompt from "@/components/Archives/LoginPrompt";
 import InProgress from "@/components/Shared/InProgress";
@@ -27,24 +27,23 @@ import Dashboard from "@/components/Dashboard/Dashboard";
 Vue.use(VueRouter)
 
 
-function guardMyRoute(to, from, next)
-{
+function guardMyRoute(to, from, next) {
 
-if(localStorage.getItem('OrganizationID') == null)
-  { console.log(localStorage.getItem("OrganizationID"))
+  if (localStorage.getItem('OrganizationID') == null) {
+    console.log(localStorage.getItem("OrganizationID"))
     next('/prompt');
   }
 
-else if(store.state.organizationID == null){
-  next('/wait');
-}
- else next();
+  else if (store.state.organizationID == null) {
+    next('/wait');
+  }
+  else next();
 
 }
 
 
 const routes = [
- 
+
   {  // This is just a TEST for future LandingPage
     path: '/test',
     name: 'HomeTest',
@@ -108,20 +107,20 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    beforeEnter : guardMyRoute,
+    beforeEnter: guardMyRoute,
     component: Home
   },
   {
     path: '/organization/home',
     name: 'OrgHome',
-    beforeEnter : guardMyRoute,
-    component: OrgHome,
+    beforeEnter: guardMyRoute,
+    component: MyCertificates,
     alias: '/'
   },
   {
     path: '/certificate',
     name: 'CertificateProfile',
-    beforeEnter : guardMyRoute,
+    beforeEnter: guardMyRoute,
     component: CertificateProfile,
     alias: '/'
   },
@@ -136,31 +135,31 @@ const routes = [
   {
     path: '/certificates/add',
     name: 'formPage1',
-    beforeEnter : guardMyRoute,
+    beforeEnter: guardMyRoute,
     component: BasicDetails
   },
   {
     path: '/certificates/add/sdgs',
     name: 'formPage2-1',
-    beforeEnter : guardMyRoute,
+    beforeEnter: guardMyRoute,
     component: FormSDGs
   },
   {
     path: '/certificates/add/sdgtargets',
     name: 'formPage2-2',
-    beforeEnter : guardMyRoute,
+    beforeEnter: guardMyRoute,
     component: FormSDGTargets
   },
   {
     path: '/certificates/add/industries',
     name: 'formPage3-1',
-    beforeEnter : guardMyRoute,
+    beforeEnter: guardMyRoute,
     component: FormIndustries
   },
   {
     path: '/certificates/add/subindustries',
     name: 'formPage3-2',
-    beforeEnter : guardMyRoute,
+    beforeEnter: guardMyRoute,
     component: FormSubIndustries
   },
   {

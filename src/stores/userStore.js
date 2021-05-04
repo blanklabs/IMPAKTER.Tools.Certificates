@@ -6,16 +6,28 @@ const userStore = {
     namespaced: true,
     state: {
         user: new User(),
-        signupModel: new signupModel()
+        signupModel: new signupModel(),
+        signupStatus: false
     },
     getters: {
         signupForm: state => {
             state.signupModel.details.company = "Impakter"
             return state.signupModel
         },
+        signupStatus: state => {
+            return state.signupStatus;
+        }
     },
-    mutations: {},
-    actions: {}
+    mutations: {
+        setSignupStatus(state, payload) {
+            state.signupStatus = payload
+        },
+    },
+    actions: {
+        setSignupStatus(context, payload) {
+            context.commit("setSignupStatus", payload)
+        },
+    }
 }
 
 export { userStore };

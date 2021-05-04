@@ -3,6 +3,14 @@
     <img id="impakterLogo" src="@/assets/logo_index.png" />
     <h1>Sign In to Index Certificate Tool</h1>
     <p>We suggest you to sign in with the email address you use at work.</p>
+    <b-alert
+      :show="isStatusMessage"
+      @dismissed="isStatusMessage = false"
+      variant="danger"
+      dismissible
+      fade
+      >{{ statusMessage }}</b-alert
+    >
     <b-button id="GoogleButton" v-on:click="login">
       <img src="@/assets/google_logo.png" id="googleLogo" /> Sign in with Google
     </b-button>
@@ -39,22 +47,56 @@
 import { ServicesFactory } from "@/services/ServicesFactory";
 const account = ServicesFactory.get("account");
 import CommonMixin from "@/mixins/CommonMixin";
+import AccountMixin from "@/mixins/AccountMixin";
 
 export default {
   name: "SignIn",
   data() {
     return {};
   },
-  mixins: [CommonMixin],
+  mixins: [CommonMixin, AccountMixin],
   methods: {
     async login() {
-      console.log(this.user.email, this.user.password);
       this.request.status.code = this.transportCodes.SUCCESS;
       this.request.data = this.user;
-      let response = await account.login(this.request);
-      let user = response.data.data;
-      window.localStorage.setItem("user", user.email);
-      console.log(user);
+      try {
+        this.response = await account.login(this.request);
+      } catch (err) {
+        this.statusMessage = "Something went wrong. Please retry";
+        this.isStatusMessage = true;
+      }
+
+      let responseStatus = this.response.data.status;
+
+      if (responseStatus.code == 1) {
+        if (responseStatus.case == this.loginCases.SUCCESS) {
+          let responseData = this.response.data.data;
+          if (responseData.accessToken) {
+            window.localStorage.setItem(
+              "accessToken",
+              responseData.accessToken
+            );
+            this.$store.dispatch("user/setLoginStatus", true);
+            this.$router.push("/dashboard");
+          } else {
+            this.statusMessage = "Something went wrong. Please retry";
+            this.isStatusMessage = true;
+          }
+        } else if (responseStatus.case == this.loginCases.NEWUSER) {
+          this.statusMessage =
+            "Email is not registered. Please sign up instead";
+          this.isStatusMessage = true;
+        } else if (responseStatus.case == this.loginCases.INCORRECTPASSWORD) {
+          this.statusMessage = responseStatus.message;
+          this.isStatusMessage = true;
+        }
+      } else {
+        if (responseStatus.code == 0) {
+          this.statusMessage =
+            "Sign up failed. Please try again in a bit or contact administrator";
+          this.isStatusMessage = true;
+        }
+      }
     },
   },
 };
