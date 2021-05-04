@@ -20,9 +20,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sidenav {
- font-family: Montserrat;
+  font-family: 'Montserrat';
   height: 100%;
   width: 230px;
   position: fixed;
