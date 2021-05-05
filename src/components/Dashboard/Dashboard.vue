@@ -73,6 +73,6 @@ export default {
     padding: 20px;
 }
  #smallCards{
-   padding: 10px;
+   padding: 30px;
  }
 </style>
