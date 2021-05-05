@@ -75,16 +75,17 @@ export default {
       event.preventDefault();
       this.request.data = this.signupModel;
       try {
-        this.response = await account.signup(this.request);
+        let webResponse = await account.signup(this.request);
+        this.response = webResponse.data;
       } catch (err) {
         this.statusMessage = "Something went wrong. Please retry";
         this.isStatusMessage = true;
       }
-      let responseStatus = this.response.data.status;
+      let responseStatus = this.response.status;
 
       if (responseStatus.code == 1) {
         if (responseStatus.case == this.signupCases.SUCCESS) {
-          let responseData = this.response.data.data;
+          let responseData = this.response.data;
           if (responseData.accessToken) {
             window.localStorage.setItem(
               "accessToken",

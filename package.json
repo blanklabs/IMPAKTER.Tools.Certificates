@@ -22,6 +22,7 @@
     "core-js": "^3.11.1",
     "jquery": ">=3.5.0",
     "package.json": "^2.0.1",
+    "rxjs": "^7.0.0",
     "shared.code": "git+https://github.com/Impakter/SHARED.CODE.git",
     "tiptap": "^1.32.1",
     "uicomponents": "git+https://github.com/Impakter/SHARED.UI.git",

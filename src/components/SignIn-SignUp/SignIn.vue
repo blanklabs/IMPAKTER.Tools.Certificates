@@ -11,7 +11,7 @@
       fade
       >{{ statusMessage }}</b-alert
     >
-    <b-button id="GoogleButton" v-on:click="login">
+    <b-button id="GoogleButton" v-on:click="login('GOOGLE')">
       <img src="@/assets/google_logo.png" id="googleLogo" /> Sign in with Google
     </b-button>
     <div class="separator">
@@ -35,7 +35,9 @@
     >
     </b-form-input>
 
-    <b-button v-on:click="login" id="signInButton">Sign in with Email</b-button>
+    <b-button v-on:click="login('DIRECT')" id="signInButton"
+      >Sign in with Email</b-button
+    >
     <hr />
     <p>
       Don’t have an account? <router-link to="/signup">Sign Up</router-link>
@@ -56,27 +58,53 @@ export default {
   },
   mixins: [CommonMixin, AccountMixin],
   methods: {
-    async login() {
-      this.request.status.code = this.transportCodes.SUCCESS;
-      this.request.data = this.user;
-      try {
-        this.response = await account.login(this.request);
-      } catch (err) {
-        this.statusMessage = "Something went wrong. Please retry";
-        this.isStatusMessage = true;
+    async login(type) {
+      if (type == "GOOGLE") {
+        this.$gAuth
+          .signIn()
+          .then(async (GoogleUser) => {
+            this.request.status.case = this.loginCases.GOOGLE;
+            this.request.data = GoogleUser;
+            try {
+              let webResponse = await account.login(this.request);
+              this.response = webResponse.data;
+            } catch (err) {
+              console.error(err);
+              this.statusMessage = "Something went wrong. Please retry";
+              this.isStatusMessage = true;
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            this.statusMessage = "Google login failed. Please retry";
+            this.isStatusMessage = true;
+          });
+      } else {
+        this.request.status.case = this.loginCases.DIRECT;
+        this.request.data = this.user;
+        try {
+          let webResponse = await account.login(this.request);
+          this.response = webResponse.data;
+        } catch (err) {
+          console.error(err);
+          this.statusMessage = "Something went wrong. Please retry";
+          this.isStatusMessage = true;
+        }
       }
 
-      let responseStatus = this.response.data.status;
+      let responseStatus = this.response.status;
 
+      console.log("this.response.status:", this.response.status);
+      console.log("responseStatus:", responseStatus);
       if (responseStatus.code == 1) {
         if (responseStatus.case == this.loginCases.SUCCESS) {
-          let responseData = this.response.data.data;
+          let responseData = this.response.data;
           if (responseData.accessToken) {
             window.localStorage.setItem(
               "accessToken",
               responseData.accessToken
             );
-            this.$store.dispatch("user/setLoginStatus", true);
+            //this.$store.dispatch("user/setLoginStatus", true);
             this.$router.push("/dashboard");
           } else {
             this.statusMessage = "Something went wrong. Please retry";

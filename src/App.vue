@@ -2,27 +2,29 @@
   <div id="app">
     <b-container>
       <b-row>
-        <NavigationBar/>
+        <NavigationBar />
       </b-row>
       <!-- <b-row>
         <div id="spacer"></div>
       </b-row> -->
       <b-row>
         <b-container id="router_view_container">
-          <router-view/>
+          <router-view />
         </b-container>
       </b-row>
-      
     </b-container>
   </div>
 </template>
 
 <script>
 import NavigationBar from "./components/Shared/NavigationBar";
+import { messageService } from "./messageService";
 
 export default {
   data() {
-    return {};
+    return {
+      messages: [],
+    };
   },
   computed: {
     loggedIn: function () {
@@ -36,10 +38,22 @@ export default {
     });
   },
   methods: {},
+  components: { NavigationBar },
   created() {
     document.title = "Impakter - Certificates";
+    this.subscription = messageService.getMessage().subscribe((message) => {
+      if (message) {
+        // add message to local state if not empty
+        this.messages.push(message);
+      } else {
+        // clear messages when empty message received
+        this.messages = [];
+      }
+    });
   },
-  components: {NavigationBar},
+  beforeDestroy() {
+    this.subscription.unsubscribe();
+  },
 };
 </script>
 

@@ -43,6 +43,9 @@ export default {
     };
   },
   mixins: [AccountMixin, CommonMixin],
+  mounted() {
+    this.isSignupSuccess = this.$store.getters["user/signupStatus"];
+  },
   methods: {
     onSubmit(event) {
       event.preventDefault();

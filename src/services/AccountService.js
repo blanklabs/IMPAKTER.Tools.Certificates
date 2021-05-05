@@ -19,5 +19,4 @@ export default {
         return Api().delete(`${resource}/user/${ID}`);
     },
 
-
 }
