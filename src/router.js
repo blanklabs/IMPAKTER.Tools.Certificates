@@ -22,6 +22,9 @@ import SignUpThankYou from "@/components/SignIn-SignUp/SignUp-ThankYou";
 import NewsHome from "@/components/News/NewsHome";
 import HomeTest from "@/components/Landing/Home"; // This is just a TEST for future LandingPage
 import Dashboard from "@/components/Dashboard/Dashboard";
+import PublicationsHome from "@/components/Publications/PublicationsHome"
+import MatchesHome from "@/components/Matches/MatchesHome"
+import LibraryHome  from "@/components/Library/LibraryHome"
 
 
 Vue.use(VueRouter)
@@ -83,6 +86,21 @@ const routes = [
     path: '/news',
     name: 'News',
     component: NewsHome
+  },
+  {
+    path: '/publications',
+    name: 'Publicatons',
+    component: PublicationsHome
+  },
+  {
+    path: '/matches',
+    name: 'Matches',
+    component: MatchesHome
+  },
+  {
+    path: '/library',
+    name: 'Library',
+    component: LibraryHome
   },
   {
     path: '/profile/edit',

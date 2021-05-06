@@ -8,12 +8,14 @@
 
         </DashBoardTab>
         <DashBoardTab :isSelected="selected === 'Tailored'" >
-        <h1>Test 1</h1>
+        <h1>Tailored</h1>
       </DashBoardTab>
       <DashBoardTab :isSelected="selected === 'Social Media'"  >
-        <h1>Test 2</h1>
+        <h1>Social Media</h1>
       </DashBoardTab>
     </DashBoardTabNav>
+
+    
 
     
 </div>
@@ -21,7 +23,6 @@
 </template>
 
 <script>
-
 import {NewsArticle, HeaderImage} from "uicomponents"
 import DashBoardTabNav from "../Shared/DashBoardTabNav"
 import DashBoardTab from "../Shared/DashBoardTab"
@@ -33,7 +34,7 @@ data() {
    }
   },
 components:{ 
-    NewsArticle, 
+     NewsArticle, 
     HeaderImage, 
     DashBoardTab,
     DashBoardTabNav 
