@@ -17,6 +17,11 @@ import DashBoardTabNav from "../Shared/DashBoardTabNav"
 import DashBoardTab from "../Shared/DashBoardTab"
 export default {
   name: "Publications",
+  data() {
+    return{
+     selected: 'Articles'
+   }
+  },
   components:{ 
     DashBoardTab,
     DashBoardTabNav 
