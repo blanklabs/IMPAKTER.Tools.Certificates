@@ -1,5 +1,6 @@
 <template>
 <div>
+   
     <div>
         <b-nav>
             <b-nav-item active>All</b-nav-item>
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+
 import {NewsArticle, HeaderImage} from "uicomponents"
 
 export default {
@@ -24,7 +26,10 @@ data(){
     }
 
 },
-components:{ NewsArticle, HeaderImage}
+components:{ 
+    NewsArticle, 
+    HeaderImage, 
+    }
 
 
 
