@@ -69,10 +69,7 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.removeItem("OrganizationID");
-      localStorage.removeItem("OrganizationName");
-      this.$store.dispatch("resetState");
-      this.$store.dispatch("changeLoginStatus");
+      this.$store.dispatch("user/signOut");
       this.$router.push("/signin");
     },
     login() {

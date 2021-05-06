@@ -22,6 +22,9 @@ const userStore = {
         setSignupStatus(state, payload) {
             state.signupStatus = payload
         },
+        signOut() {
+            localStorage.removeItem("accessToken");
+        }
     },
     actions: {
         setSignupStatus(context, payload) {
