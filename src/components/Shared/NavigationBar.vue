@@ -69,12 +69,16 @@ export default {
   },
   methods: {
     logout() {
+      this.loggedIn = false;
       this.$store.dispatch("user/signOut");
       this.$router.push("/signin");
     },
     login() {
       this.$router.push("/signin");
     },
+  },
+  mounted() {
+    this.loggedIn = this.$store.get("user/isLoggedin");
   },
 };
 </script>

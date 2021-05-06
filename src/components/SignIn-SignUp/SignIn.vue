@@ -100,11 +100,7 @@ export default {
         if (responseStatus.case == this.loginCases.SUCCESS) {
           let responseData = this.response.data;
           if (responseData.accessToken) {
-            window.localStorage.setItem(
-              "accessToken",
-              responseData.accessToken
-            );
-            //this.$store.dispatch("user/setLoginStatus", true);
+            this.$store.dispatch("user/login", responseData.accessToken);
             this.$router.push("/dashboard");
           } else {
             this.statusMessage = "Something went wrong. Please retry";
