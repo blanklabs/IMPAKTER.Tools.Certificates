@@ -7,7 +7,8 @@ const userStore = {
     state: {
         user: new User(),
         signupModel: new signupModel(),
-        signupStatus: false
+        signupStatus: false,
+        isLoggedin: false
     },
     getters: {
         signupForm: state => {
@@ -16,16 +17,26 @@ const userStore = {
         },
         signupStatus: state => {
             return state.signupStatus;
+        },
+        isLoggedIn: state => {
+            return state.isLoggedin;
         }
     },
     mutations: {
-        setSignupStatus(state, payload) {
-            state.signupStatus = payload
+        signOut() {
+            localStorage.removeItem("accessToken");
         },
+        login(state, payload) {
+            window.localStorage.setItem(
+                "accessToken",
+                payload
+            );
+            state.isLoggedin = true;
+        }
     },
     actions: {
-        setSignupStatus(context, payload) {
-            context.commit("setSignupStatus", payload)
+        login(context, payload) {
+            context.commit("login", payload)
         },
     }
 }

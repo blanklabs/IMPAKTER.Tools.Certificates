@@ -69,15 +69,16 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.removeItem("OrganizationID");
-      localStorage.removeItem("OrganizationName");
-      this.$store.dispatch("resetState");
-      this.$store.dispatch("changeLoginStatus");
+      this.loggedIn = false;
+      this.$store.dispatch("user/signOut");
       this.$router.push("/signin");
     },
     login() {
       this.$router.push("/signin");
     },
+  },
+  mounted() {
+    this.loggedIn = this.$store.get("user/isLoggedin");
   },
 };
 </script>
