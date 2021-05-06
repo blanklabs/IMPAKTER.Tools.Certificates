@@ -5,6 +5,7 @@ import VueFormulate from '@braid/vue-formulate'
 import VueRouter from 'vue-router'
 import store from "./store";
 import VueSimpleAlert from "vue-simple-alert";
+import VueCompositionAPI from '@vue/composition-api'
 //import ScrollView from 'vue-scrollview'
 
 import GoogleAuth from '@/services/external//google_oAuth.js'
@@ -29,7 +30,7 @@ Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 Vue.use(VueFormulate)
 Vue.use(VueRouter)
-
+Vue.use(VueCompositionAPI)
 new Vue({
   store,
   router,
