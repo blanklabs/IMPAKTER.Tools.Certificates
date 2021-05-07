@@ -11,7 +11,7 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item
-            ><router-link to="/home"> <span>HOME</span></router-link>
+            ><router-link to="/dashboard"> <span>HOME</span></router-link>
           </b-nav-item>
           <b-nav-item>
             <router-link to="#">ABOUT US</router-link>
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import { messageService } from "../../messageService";
+
 export default {
   name: "NavigationBar",
   data() {
@@ -78,7 +80,22 @@ export default {
     },
   },
   mounted() {
-    this.loggedIn = this.$store.get("user/isLoggedin");
+    this.loggedIn = this.$store.getters["user/isLoggedin"];
+  },
+  created() {
+    document.title = "Impakter - Certificates";
+    this.subscription = messageService.getMessage().subscribe((message) => {
+      if (message) {
+        // add message to local state if not empty
+        this.loggedIn = !this.loggedIn;
+      } else {
+        // clear messages when empty message received
+        this.messages = [];
+      }
+    });
+  },
+  beforeDestroy() {
+    this.subscription.unsubscribe();
   },
 };
 </script>

@@ -87,11 +87,11 @@ export default {
         if (responseStatus.case == this.signupCases.SUCCESS) {
           let responseData = this.response.data;
           if (responseData.accessToken) {
-            window.localStorage.setItem(
-              "accessToken",
-              responseData.accessToken
-            );
-            this.$store.dispatch("user/setSignupStatus", true);
+            let payload = {
+              accessToken: responseData.accessToken,
+              case: "SIGNUP",
+            };
+            this.$store.dispatch("user/login", payload);
             this.$router.push("/signup/continue");
           } else {
             this.statusMessage = "Something went wrong. Please retry";

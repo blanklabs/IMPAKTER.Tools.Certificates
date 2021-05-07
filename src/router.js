@@ -12,7 +12,7 @@ import LoginPrompt from "@/components/Archives/LoginPrompt";
 import InProgress from "@/components/Shared/InProgress";
 import Home from "@/components/DevDebug";
 import CertificateProfile from "@/components/Certificate/CertificateProfile";
-import store from "@/store.js"
+//import store from "@/store.js"
 import OrgForm from "@/components/Organization/OrgForm";
 import SignIn from "@/components/SignIn-SignUp/SignIn";
 import SignUp from "@/components/SignIn-SignUp/SignUp";
@@ -24,7 +24,7 @@ import HomeTest from "@/components/Landing/Home"; // This is just a TEST for fut
 import Dashboard from "@/components/Dashboard/Dashboard";
 import PublicationsHome from "@/components/Publications/PublicationsHome"
 import MatchesHome from "@/components/Matches/MatchesHome"
-import LibraryHome  from "@/components/Library/LibraryHome"
+import LibraryHome from "@/components/Library/LibraryHome"
 
 
 Vue.use(VueRouter)
@@ -32,16 +32,10 @@ Vue.use(VueRouter)
 
 function guardMyRoute(to, from, next) {
 
-  if (localStorage.getItem('OrganizationID') == null) {
-    console.log(localStorage.getItem("OrganizationID"))
-    next('/prompt');
-  }
-
-  else if (store.state.organizationID == null) {
-    next('/wait');
+  if (localStorage.getItem('accessToken') == null) {
+    next('/signin');
   }
   else next();
-
 }
 
 
@@ -129,8 +123,8 @@ const routes = [
     component: Home
   },
   {
-    path: '/organization/home',
-    name: 'OrgHome',
+    path: '/certificates',
+    name: 'MyCertificates',
     beforeEnter: guardMyRoute,
     component: MyCertificates,
     alias: '/'

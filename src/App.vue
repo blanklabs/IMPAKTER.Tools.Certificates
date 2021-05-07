@@ -1,8 +1,10 @@
 <template>
   <div id="app">
+    <Sidebar />
     <b-container>
       <b-row>
         <NavigationBar />
+        <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->
       </b-row>
       <!-- <b-row>
         <div id="spacer"></div>
@@ -18,12 +20,15 @@
 
 <script>
 import NavigationBar from "./components/Shared/NavigationBar";
+//import DashBoardTabNav from "./components/Shared/DashBoardTabNav.vue";
+import Sidebar from "./components/Shared/Sidebar";
 import { messageService } from "./messageService";
 
 export default {
   data() {
     return {
       messages: [],
+      tabs: ["Home", "Hello"],
     };
   },
   computed: {
@@ -38,7 +43,7 @@ export default {
     });
   },
   methods: {},
-  components: { NavigationBar },
+  components: { NavigationBar, Sidebar },
   created() {
     document.title = "Impakter - Certificates";
     this.subscription = messageService.getMessage().subscribe((message) => {
@@ -135,6 +140,7 @@ button {
 
 #router_view_container {
   margin-top: 100px;
+  margin-left: 100px;
 }
 
 .pagination {

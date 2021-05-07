@@ -60,14 +60,17 @@ export default {
   methods: {
     async login(type) {
       if (type == "GOOGLE") {
+        console.log("Executing Google login");
         this.$gAuth
           .signIn()
           .then(async (GoogleUser) => {
+            console.log("Google login success");
             this.request.status.case = this.loginCases.GOOGLE;
             this.request.data = GoogleUser;
             try {
               let webResponse = await account.login(this.request);
               this.response = webResponse.data;
+              this.afterLogin();
             } catch (err) {
               console.error(err);
               this.statusMessage = "Something went wrong. Please retry";
@@ -85,22 +88,29 @@ export default {
         try {
           let webResponse = await account.login(this.request);
           this.response = webResponse.data;
+          this.afterLogin();
         } catch (err) {
           console.error(err);
           this.statusMessage = "Something went wrong. Please retry";
           this.isStatusMessage = true;
         }
       }
-
+    },
+    afterLogin() {
       let responseStatus = this.response.status;
 
-      console.log("this.response.status:", this.response.status);
-      console.log("responseStatus:", responseStatus);
+      //console.log("this.response.status:", this.response.status);
+      //console.log("responseStatus:", responseStatus);
       if (responseStatus.code == 1) {
+        console.log("Impakter login Success");
         if (responseStatus.case == this.loginCases.SUCCESS) {
           let responseData = this.response.data;
           if (responseData.accessToken) {
-            this.$store.dispatch("user/login", responseData.accessToken);
+            let payload = {
+              accessToken: responseData.accessToken,
+              case: "LOGIN",
+            };
+            this.$store.dispatch("user/login", payload);
             this.$router.push("/dashboard");
           } else {
             this.statusMessage = "Something went wrong. Please retry";
