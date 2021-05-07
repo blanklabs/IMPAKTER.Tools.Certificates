@@ -1,6 +1,7 @@
 <template>
     <div>
-        Matches Page
+      Coming Soon 
+      
     </div>
 </template>
 <script>
