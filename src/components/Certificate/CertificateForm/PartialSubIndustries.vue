@@ -6,7 +6,7 @@
       <b-form-group
         label="Please select the industry description that applies to this certificate:"
         v-slot="{ ariaDescribedby }"
-      ><b-form-checkbox
+        ><b-form-checkbox
           class="flex_and_start"
           v-model="allSelected"
           :indeterminate="indeterminate"
@@ -22,15 +22,14 @@
           name="flavour-1"
           stacked
         >
-        <b-form-checkbox
-              v-for="subIndustry in computedSubIndustries"
-              :value="subIndustry.value"
-              class="mb-3"
-              :key="subIndustry.text"
-              ><b>{{subIndustry.value + ": " }} </b>
-              {{ subIndustry.text }}
-            </b-form-checkbox>
-
+          <b-form-checkbox
+            v-for="subIndustry in computedSubIndustries"
+            :value="subIndustry.value"
+            class="mb-3"
+            :key="subIndustry.text"
+            ><b>{{ subIndustry.value + ": " }} </b>
+            {{ subIndustry.text }}
+          </b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
     </b-row>
@@ -88,7 +87,7 @@ export default {
       ) {
         this.$emit("isLast");
       }
-      this.$store.dispatch("addSubIndustries", this.selected);
+      this.$store.dispatch("certificate/addSubIndustries", this.selected);
       this.subindustries = [];
       this.$emit("next");
       window.scrollTo(0, 0);

@@ -8,7 +8,8 @@
         <div class="position-fixed" id="subb">
           <h3>Industries</h3>
           <p>You have selected the following industries</p>
-          <div class="flex_and_start"
+          <div
+            class="flex_and_start"
             v-for="(industry, index) in form.computedIndustries"
             :key="index"
           >
@@ -36,7 +37,6 @@
       </b-col>
     </b-row>
 
-
     <!--<b-card class="mt-3" header="Form result so far">
       <pre class="m-0">{{ form }}</pre>
     </b-card>-->
@@ -63,7 +63,7 @@
       <div class="flex_and_center">-Or-</div>
       <b-button id="bottom_button" to="/wait">Go to my certificates</b-button>
     </b-modal>
-        <certificate-profile
+    <certificate-profile
       ref="preview_modal"
       :isSavePreview="true"
       @submit="submit"
@@ -84,12 +84,12 @@ import CertificateProfile from "../CertificateProfile.vue";
 
 export default {
   name: "FormSubIndustries",
-  components: { PartialSubIndustries, ProgressBar,CertificateProfile },
+  components: { PartialSubIndustries, ProgressBar, CertificateProfile },
   data() {
     return {
       currentIndustry: null,
       industryIndex: 0,
-      isLast: false
+      isLast: false,
     };
   },
   methods: {
@@ -98,40 +98,37 @@ export default {
       if (this.industryIndex < this.form.industries.length) {
         this.currentIndustry = this.form.industries[this.industryIndex];
       } else {
-        this.$refs.preview_modal.showModal()
+        this.$refs.preview_modal.showModal();
       }
     },
-    async submit(){
-        var mode = this.$store.getters.mode;
-        var req = this.$store.getters.payload;
-        this.InProgress = true;
-        this.$refs["proceed-modal"].show();
-        if (mode == "edit") {
-          //this.$alert("updating the certificate");
-          await certificateService.updateCertificate(req).then((response) => {
-            this.responseMessage = response.data.msg;
-            this.responseStatus = response.data.status;
-          });
-        } else {
-          await certificateService.createCertificate(req).then((response) => {
-            this.responseMessage = response.data.msg;
-            this.responseStatus = response.data.status;
-            this.$store.state.certificate.certificateID =
-              response.data.insertId;
-          });
-        }
+    async submit() {
+      var mode = this.$store.getters["certificate/mode"];
+      var req = this.$store.getters["certificate/payload"];
+      this.InProgress = true;
+      this.$refs["proceed-modal"].show();
+      if (mode == "edit") {
+        //this.$alert("updating the certificate");
+        await certificateService.updateCertificate(req).then((response) => {
+          this.responseMessage = response.data.msg;
+          this.responseStatus = response.data.status;
+        });
+      } else {
+        await certificateService.createCertificate(req).then((response) => {
+          this.responseMessage = response.data.msg;
+          this.responseStatus = response.data.status;
+          this.$store.state.certificate.certificateID = response.data.insertId;
+        });
+      }
 
-        //this.$store.dispatch("resetCertificate");
-        this.InProgress = false;
-        if (this.responseStatus == 1) {
-          this.ProgressCompleted = true;
-        } else this.ProgressFailed = true;
-
-
+      //this.$store.dispatch("certificate/resetCertificate");
+      this.InProgress = false;
+      if (this.responseStatus == 1) {
+        this.ProgressCompleted = true;
+      } else this.ProgressFailed = true;
     },
     back() {
       if (this.industryIndex == 0) {
-        this.$store.dispatch("resetComputed");
+        this.$store.dispatch("certificate/resetComputed");
         this.$router.go(-1);
       }
       this.industryIndex--;
@@ -141,17 +138,17 @@ export default {
       this.$router.push({ name: "formPart2" });
     },
     addNew() {
-      this.$store.dispatch("resetCertificate");
-      this.$store.dispatch("resetComputed");
+      this.$store.dispatch("certificate/resetCertificate");
+      this.$store.dispatch("certificate/resetComputed");
       this.$router.push({ name: "formPage1" });
     },
     reselect() {
-      this.$store.dispatch("resetComputed");
+      this.$store.dispatch("certificate/resetComputed");
       this.$router.go(-1);
     },
-    toggleIsLast(){
-      this.isLast = true
-    }
+    toggleIsLast() {
+      this.isLast = true;
+    },
   },
   computed: {},
   mounted() {

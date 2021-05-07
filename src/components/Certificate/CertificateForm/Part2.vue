@@ -2,7 +2,7 @@
   <div>
     <b-container class="bv-example-row">
       <b-row>
-        <h5>Additional Information for {{form.name}}</h5>
+        <h5>Additional Information for {{ form.name }}</h5>
       </b-row>
       <b-row>
         <b-col></b-col>
@@ -111,7 +111,7 @@
               >
               </b-form-radio-group>
             </b-form-group>
-                        <b-form-group
+            <b-form-group
               label-align-sm="left"
               description="As you selected other, please specify"
               v-if="form.rating == 'P3'"
@@ -123,7 +123,6 @@
                 required
               ></b-form-input>
             </b-form-group>
-
 
             <br />
             <b-form-group
@@ -152,23 +151,25 @@
       <!--<b-card class="mt-3" header="Form result so far">
         <pre class="m-0">{{ form }}</pre>
       </b-card>-->
-          <b-modal ref="proceed-modal" hide-footer>
-      <b-alert v-if="InProgress" show variant="primary"
-        >Adding/Updating Certificate...</b-alert
-      >
-      <b-alert v-if="ProgressCompleted" show variant="success">{{
-        this.responseMessage
-      }}</b-alert>
-      <b-alert v-if="ProgressFailed" show variant="danger">{{
-        this.responseMessage
-      }}</b-alert>
-      <b-row class="buttons_row">
-      <b-button @click="addNew" variant="primary" class="button_group">
-        Add another certificate</b-button
-      >
-      <b-button to="/wait" class="button_group">Go to my certificates</b-button>
-      </b-row>
-    </b-modal>
+      <b-modal ref="proceed-modal" hide-footer>
+        <b-alert v-if="InProgress" show variant="primary"
+          >Adding/Updating Certificate...</b-alert
+        >
+        <b-alert v-if="ProgressCompleted" show variant="success">{{
+          this.responseMessage
+        }}</b-alert>
+        <b-alert v-if="ProgressFailed" show variant="danger">{{
+          this.responseMessage
+        }}</b-alert>
+        <b-row class="buttons_row">
+          <b-button @click="addNew" variant="primary" class="button_group">
+            Add another certificate</b-button
+          >
+          <b-button to="/wait" class="button_group"
+            >Go to my certificates</b-button
+          >
+        </b-row>
+      </b-modal>
     </b-container>
   </div>
 </template>
@@ -180,8 +181,6 @@ import SubmitMixin from "@/mixins/SubmitMixin";
 
 import { ServicesFactory } from "@/services/ServicesFactory";
 const certificateService = ServicesFactory.get("certificates");
-
-
 
 export default {
   data() {
@@ -237,41 +236,41 @@ export default {
       searchText: "", // If value is falsy, reset searchText & searchItem
       lastSelectItem: {},
 
-      ratingOther: null
+      ratingOther: null,
     };
   },
   methods: {
     async onSubmit(event) {
       event.preventDefault();
       //alert(JSON.stringify(this.form));
-      if(this.form.sdgEngagement == "5"){
-        this.form.sdgEngagement = this.sdgEngagementOther
+      if (this.form.sdgEngagement == "5") {
+        this.form.sdgEngagement = this.sdgEngagementOther;
       }
-      if(this.form.rating == "P3"){
-        this.form.rating = this.ratingOther
+      if (this.form.rating == "P3") {
+        this.form.rating = this.ratingOther;
       }
-      
-      await this.$store.dispatch("changeCertificate", this.form);
-        var mode = this.$store.getters.mode;
-        var req = this.$store.getters.payload;
-        this.InProgress = true;
-        this.$refs["proceed-modal"].show();
-        if (mode == "edit") {
-          //this.$alert("updating the certificate");
-          await certificateService.updateCertificate(req).then((response) => {
-            this.responseMessage = response.data.msg;
-            this.responseStatus = response.data.status;
-          });
-        }
 
-        this.$store.dispatch("resetCertificate");
-        this.InProgress = false;
-        if (this.responseStatus == 1) {
-          this.ProgressCompleted = true;
-        } else this.ProgressFailed = true;
+      await this.$store.dispatch("certificate/changeCertificate", this.form);
+      var mode = this.$store.getters.mode;
+      var req = this.$store.getters.payload;
+      this.InProgress = true;
+      this.$refs["proceed-modal"].show();
+      if (mode == "edit") {
+        //this.$alert("updating the certificate");
+        await certificateService.updateCertificate(req).then((response) => {
+          this.responseMessage = response.data.msg;
+          this.responseStatus = response.data.status;
+        });
+      }
+
+      this.$store.dispatch("certificate/resetCertificate");
+      this.InProgress = false;
+      if (this.responseStatus == 1) {
+        this.ProgressCompleted = true;
+      } else this.ProgressFailed = true;
     },
     onReset() {
-      this.$store.dispatch("resetCertificate");
+      this.$store.dispatch("certificate/resetCertificate");
     },
     onSelect(items, lastSelectItem) {
       this.form.countries = items;
@@ -280,17 +279,17 @@ export default {
     reset() {
       this.items = []; // reset
     },
-        addNew() {
-      this.$store.dispatch("resetCertificate");
-      this.$store.dispatch("resetComputed");
+    addNew() {
+      this.$store.dispatch("certificate/resetCertificate");
+      this.$store.dispatch("certificate/resetComputed");
       this.$router.push({ name: "formPage1" });
     },
   },
   //components: { MultiSelect },
-  mixins: [CertificateFormMixin,SubmitMixin],
-  mounted(){
-    this.$store.dispatch("changeMode", "edit");
-  }
+  mixins: [CertificateFormMixin, SubmitMixin],
+  mounted() {
+    this.$store.dispatch("certificate/changeMode", "edit");
+  },
 };
 </script>
 

@@ -56,14 +56,16 @@ export default {
     };
   },
   methods: {
-        toggleAll(checked) {
-        this.selected = checked ? this.industries.map(x => {
-          return x.value
-        }): []
-      },
+    toggleAll(checked) {
+      this.selected = checked
+        ? this.industries.map((x) => {
+            return x.value;
+          })
+        : [];
+    },
     next() {
       this.selected.sort();
-      this.$store.dispatch("addIndustries", this.selected);
+      this.$store.dispatch("certificate/addIndustries", this.selected);
       this.$router.push({ name: "formPage3-2" });
     },
     back() {

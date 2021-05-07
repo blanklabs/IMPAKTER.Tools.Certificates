@@ -9,13 +9,19 @@
           <h3>UN Sustainable Development Goals</h3>
           <p>You selected the following SDGs</p>
 
-          <div class="flex_and_start" v-for="(sdg, index) in form.computedSdgs" :key="index">
+          <div
+            class="flex_and_start"
+            v-for="(sdg, index) in form.computedSdgs"
+            :key="index"
+          >
             <h5 :class="sdg.value === currentSdg ? 'bold' : ''">
               {{ sdg.text }}
             </h5>
           </div>
-          <br/>
-          <b-button @click="reselect" variant="outline-primary">Reselect SDGs</b-button>
+          <br />
+          <b-button @click="reselect" variant="outline-primary"
+            >Reselect SDGs</b-button
+          >
         </div>
       </b-col>
       <b-col
@@ -68,7 +74,7 @@ export default {
     },
     back() {
       if (this.sdgIndex == 0) {
-        this.$store.dispatch("resetComputed");
+        this.$store.dispatch("certificate/resetComputed");
         this.$router.go(-1);
       }
       this.sdgIndex--;
@@ -78,13 +84,13 @@ export default {
       this.$router.push({ name: "formPart2" });
     },
     addNew() {
-      this.$store.dispatch("resetCertificate");
+      this.$store.dispatch("certificate/resetCertificate");
       this.$router.push({ name: "formPage1" });
     },
-    reselect(){
-        this.$store.dispatch("resetComputed");
-        this.$router.go(-1);
-    }
+    reselect() {
+      this.$store.dispatch("certificate/resetComputed");
+      this.$router.go(-1);
+    },
   },
   computed: {},
   mounted() {

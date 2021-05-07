@@ -229,13 +229,13 @@ export default {
         this.form.rating = this.ratingOther;
       }
 
-      await this.$store.dispatch("changeCertificate", this.form);
+      await this.$store.dispatch("certificate/changeCertificate", this.form);
       this.permitNavigation = true;
       this.$router.push({ name: "formPage2-1" });
     },
     onReset() {
-      this.$store.dispatch("resetCertificate");
-      this.$store.dispatch("resetComputed");
+      this.$store.dispatch("certificate/resetCertificate");
+      this.$store.dispatch("certificate/resetComputed");
     },
     onFileChange() {
       this.file = this.$refs.file.files[0];

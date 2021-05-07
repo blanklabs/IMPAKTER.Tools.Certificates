@@ -13,7 +13,7 @@
             label="Please select all the United Nations Susainable Development Goals (SDGs) applicable to this certificate"
           >
             <b-form-checkbox
-            class="flex_and_start"
+              class="flex_and_start"
               v-model="allSelected"
               :indeterminate="indeterminate"
               @change="toggleAll"
@@ -58,13 +58,15 @@ export default {
   },
   methods: {
     toggleAll(checked) {
-        this.selected = checked ? this.sdgs.map(x => {
-          return x.value
-        }): []
-      },
+      this.selected = checked
+        ? this.sdgs.map((x) => {
+            return x.value;
+          })
+        : [];
+    },
     next() {
       this.selected.sort((a, b) => a - b);
-      this.$store.dispatch("addSdgs", this.selected);
+      this.$store.dispatch("certificate/addSdgs", this.selected);
       this.permitNavigation = true;
       this.$router.push({ name: "formPage2-2" });
     },

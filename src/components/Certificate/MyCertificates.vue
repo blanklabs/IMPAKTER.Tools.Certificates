@@ -295,11 +295,14 @@ export default {
     };
   },
   async mounted() {
-    this.certificates = this.$store.getters.certificates.sort(
+    await this.$store.dispatch("certificate/fetchCertificates");
+    this.certificates = this.$store.getters["certificate/certificates"].sort(
       compute.compareByName
     );
-    this.organization = this.$store.getters.organization;
-    this.networkConnected = this.$store.getters.isNetworkConnected;
+    this.organization = this.$store.getters["certificate/organization"];
+    this.networkConnected = this.$store.getters[
+      "certificate/isNetworkConnected"
+    ];
     if (this.networkConnected == false) {
       setTimeout(() => {
         this.$alert("Network failure: Please contact Administrator");
@@ -309,19 +312,19 @@ export default {
   components: { CertificateProfile },
   methods: {
     add() {
-      this.$store.dispatch("changeMode", "new");
-      this.$store.dispatch("resetCertificate");
-      this.$store.dispatch("resetComputed");
+      this.$store.dispatch("certificate/changeMode", "new");
+      this.$store.dispatch("certificate/resetCertificate");
+      this.$store.dispatch("certificate/resetComputed");
       this.$router.push({ name: "formPage1" });
     },
     copy(item) {
-      this.$store.dispatch("changeMode", "new");
-      this.$store.dispatch("changeCertificate", item);
+      this.$store.dispatch("certificate/changeMode", "new");
+      this.$store.dispatch("certificate/changeCertificate", item);
       this.$router.push({ name: "formPage1" });
     },
     edit(item) {
-      this.$store.dispatch("changeCertificate", item);
-      this.$store.dispatch("changeMode", "edit");
+      this.$store.dispatch("certificate/changeCertificate", item);
+      this.$store.dispatch("certificate/changeMode", "edit");
       this.$router.push({ name: "formPage1" });
     },
     updateStatus(item) {
@@ -333,22 +336,25 @@ export default {
     },
     view(item) {
       console.log(item);
-      this.$store.dispatch("changeCertificate", item);
+      this.$store.dispatch("certificate/changeCertificate", item);
       setTimeout(() => {}, 500);
     },
     view2(record, index) {
-      this.$store.dispatch("changeCertificate", this.certificates[index]);
+      this.$store.dispatch(
+        "certificate/changeCertificate",
+        this.certificates[index]
+      );
       this.$router.push({ name: "CertificateProfile" });
     },
     delet() {
-      this.$store.dispatch("deleteCertificate");
+      this.$store.dispatch("certificate/deleteCertificate");
       setTimeout(() => {
         this.$alert(this.$store.responseMessage);
       }, 3000);
       this.$store.responseMessage = "_blank_";
     },
     editFromProfile() {
-      this.$store.dispatch("changeMode", "edit");
+      this.$store.dispatch("certificate/changeMode", "edit");
       this.$router.push({ name: "formPage1" });
     },
   },

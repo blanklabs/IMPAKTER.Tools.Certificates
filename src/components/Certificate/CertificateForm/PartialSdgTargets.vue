@@ -10,13 +10,13 @@
       <b-row>
         <b-form-group v-slot="{ ariaDescribedby }">
           <b-form-checkbox
-              class="flex_and_start"
-              v-model="allSelected"
-              :indeterminate="indeterminate"
-              @change="toggleAll"
-            >
-              <b>{{ allSelected ? "Un-select All" : "Select All" }}</b>
-            </b-form-checkbox>
+            class="flex_and_start"
+            v-model="allSelected"
+            :indeterminate="indeterminate"
+            @change="toggleAll"
+          >
+            <b>{{ allSelected ? "Un-select All" : "Select All" }}</b>
+          </b-form-checkbox>
           <b-form-checkbox-group
             id="checkbox-group-1"
             v-model="selected"
@@ -24,7 +24,6 @@
             name="flavour-1"
             stacked
           >
-            
             <b-form-checkbox
               v-for="target in computedTargets"
               :value="target.value"
@@ -72,7 +71,7 @@ export default {
         : [];
     },
     next() {
-      this.$store.dispatch("addSdgTargets", this.selected);
+      this.$store.dispatch("certificate/addSdgTargets", this.selected);
       this.targets = [];
       this.$emit("next");
       window.scrollTo(0, 0);
