@@ -16,6 +16,7 @@
         </div>
       </DashBoardTab>
       <DashBoardTab :isSelected="selected === 'Tailored'">
+        <FilterBar/>
         <NewsArticle
           :articleImage="'https://placekitten.com/380/200'"
           articleTitle="Can the New US and EU Climate Goals Save the World?"
@@ -47,6 +48,8 @@ import CommonMixin from "@/mixins/CommonMixin";
 import { NewsArticle } from "uicomponents";
 import DashBoardTabNav from "../Shared/DashBoardTabNav";
 import DashBoardTab from "../Shared/DashBoardTab";
+import FilterBar from "./FilterBar"
+
 export default {
   name: "NewsHome",
   data() {
@@ -60,6 +63,7 @@ export default {
     NewsArticle,
     DashBoardTab,
     DashBoardTabNav,
+    FilterBar,
   },
   methods: {
     setSelected(tab) {

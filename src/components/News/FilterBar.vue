@@ -1,0 +1,48 @@
+<template>
+
+    <b-form >
+       
+        <b-form-input
+          id="keywords"
+          v-model="form.keywords"
+          placeholder="Input Keywords..."
+          required
+        ></b-form-input>
+        <b-form-select
+          id="date"
+          v-model="form.date"
+          
+          :options="dates"
+        ></b-form-select>
+        <b-form-select
+          id="publicationPriority"
+          v-model="form.priority"
+          
+          :options="priorities"
+        ></b-form-select>
+         <b-button type="submit" variant="primary">Go</b-button>
+   
+      </b-form>
+
+</template>
+
+<script>
+export default {
+    name: 'FilterBar',
+    data() {
+    return {
+        form: {
+          keywords: '',
+          date: null,
+          priority: null,
+        },
+        dates: [{ text: 'Date', value: null }, 'Test', 'Test1', 'Test 2'],
+        priorities: [{ text: 'Publication Priority', value: null }, 'Tier 1', 'Tier 2', 'Tier 3'],
+    
+      }
+    }
+}
+</script>
+<style scoped>
+
+</style>
