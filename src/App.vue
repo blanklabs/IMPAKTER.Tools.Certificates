@@ -1,8 +1,14 @@
 <template>
   <div id="app">
-    <Sidebar />
+   
     <b-container>
-      <b-row>
+      <b-row v-if="loggedIn">
+        <DashBoardNav/>
+        <Sidebar />
+        <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->
+      </b-row>
+      <b-row v-else>
+       
         <NavigationBar />
         <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->
       </b-row>
@@ -22,6 +28,7 @@
 import NavigationBar from "./components/Shared/NavigationBar";
 //import DashBoardTabNav from "./components/Shared/DashBoardTabNav.vue";
 import Sidebar from "./components/Shared/Sidebar";
+import DashBoardNav from "./components/Shared/DashBoardNav";
 import { messageService } from "./messageService";
 
 export default {
@@ -43,7 +50,7 @@ export default {
     });
   },
   methods: {},
-  components: { NavigationBar, Sidebar },
+  components: { NavigationBar, Sidebar, DashBoardNav },
   created() {
     document.title = "Impakter - Certificates";
     this.subscription = messageService.getMessage().subscribe((message) => {
