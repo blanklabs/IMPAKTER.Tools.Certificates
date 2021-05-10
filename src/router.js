@@ -26,9 +26,7 @@ import PublicationsHome from "@/components/Publications/PublicationsHome"
 import MatchesHome from "@/components/Matches/MatchesHome"
 import LibraryHome from "@/components/Library/LibraryHome"
 
-
 Vue.use(VueRouter)
-
 
 function guardMyRoute(to, from, next) {
 

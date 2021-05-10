@@ -14,7 +14,7 @@
             ><router-link to="/dashboard"> <span>HOME</span></router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link to="#">ABOUT US</router-link>
+            <router-link to="/about">ABOUT US</router-link>
           </b-nav-item>
           <b-nav-item>
             <router-link to="#"> HOW IT WORKS</router-link>
@@ -34,25 +34,16 @@
           <b-nav-item>
             <router-link to="#">MARKETPLACE</router-link>
           </b-nav-item>
-          <!--<b-nav-item>
-              <b-icon  icon="search" style="color: #EA5456"></b-icon>
-              </b-nav-item>-->
-
-          <!-- <b-nav-item-dropdown right>
-      
-          <template #button-content>
-            <b-icon  icon="search" style="color: #EA5456"></b-icon>
-          </template>
-        <b-dropdown-item href="#"> <b-nav-form>
-                <b-form-input
-                  size="sm"
-                  class="mr-sm-2"
-                  placeholder="Search">
-                  </b-form-input>
-                <b-button type="submit"><b-icon  icon="search" style="color: #EA5456"></b-icon></b-button>
-              </b-nav-form>
-              </b-dropdown-item>
-        </b-nav-item-dropdown> -->
+           <b-nav-item class="search">
+              <b-icon icon="search" style="color: #EA5456"></b-icon>
+              <div class="search-content">
+                  <b-nav-form>
+                  <input type="text" placeholder="Search...">
+                  </b-nav-form>
+                  
+              </div>
+              
+            </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -123,10 +114,37 @@ a.router-link-exact-active {
   border-bottom-style: solid;
   border-bottom-color: #fe6663;
 }
-button {
-  margin-left: 10px;
-}
+
 #logo {
   width: 190px;
 }
+.search{
+  position: relative;
+}
+.search-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  right: 0;
+  background: none;
+
+}
+
+.search-content input {
+  border: none;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  margin-top: 20px;
+  width: 250px;
+  text-decoration: none;
+  display:inline-block;
+}
+.search-content a:hover {
+  background-color: #ddd;
+  }
+
+.search:hover .search-content {display:block;}
+
+
+
 </style>

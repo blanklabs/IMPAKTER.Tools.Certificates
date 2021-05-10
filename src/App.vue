@@ -8,9 +8,7 @@
         <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->
       </b-row>
       <b-row v-else>
-       
         <NavigationBar />
-        <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->
       </b-row>
       <!-- <b-row>
         <div id="spacer"></div>
