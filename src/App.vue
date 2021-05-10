@@ -10,9 +10,6 @@
       <b-row v-else>
         <NavigationBar />
       </b-row>
-      <!-- <b-row>
-        <div id="spacer"></div>
-      </b-row> -->
       <b-row>
         <b-container id="router_view_container">
           <router-view />

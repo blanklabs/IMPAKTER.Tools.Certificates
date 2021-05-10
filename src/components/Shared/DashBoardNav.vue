@@ -16,29 +16,18 @@
           <b-nav-item>
             <router-link to="#">NEWS</router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="#"><b-icon icon="person-circle"></b-icon></router-link>
-          </b-nav-item>
-      
-          <!--<b-nav-item>
-              <b-icon  icon="search" style="color: #EA5456"></b-icon>
-              </b-nav-item>-->
-
-          <!-- <b-nav-item-dropdown right>
-      
-          <template #button-content>
-            <b-icon  icon="search" style="color: #EA5456"></b-icon>
-          </template>
-        <b-dropdown-item href="#"> <b-nav-form>
-                <b-form-input
-                  size="sm"
-                  class="mr-sm-2"
-                  placeholder="Search">
-                  </b-form-input>
-                <b-button type="submit"><b-icon  icon="search" style="color: #EA5456"></b-icon></b-button>
-              </b-nav-form>
-              </b-dropdown-item>
-        </b-nav-item-dropdown> -->
+        
+        <b-nav-item class="profile">
+            <b-icon icon="person-circle" style="color: #EA5456"></b-icon>
+            <div class="profile-content">
+                <b-dropdown-item href="#">View Profile</b-dropdown-item>
+                <b-dropdown-item href="#">Edit Profile</b-dropdown-item>
+                <b-dropdown-item href="#">Index</b-dropdown-item>
+                <b-dropdown-item href="#">Marketplace</b-dropdown-item>
+                <hr>
+                <b-dropdown-item href="#">Logout</b-dropdown-item>
+              </div>
+            </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -87,7 +76,7 @@ export default {
 </script>
 <style scoped>
 #nav {
-  font-family: Montserrat;
+  font-family: 'Montserrat';
   background: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
@@ -115,4 +104,33 @@ button {
 #logo {
   width: 190px;
 }
+.profile{
+  position: relative;
+}
+.profile-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  margin-top: 10px;
+  background: white;
+  right: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+}
+
+.profile-content input {
+  border: none;
+  
+  padding: 12px 16px;
+  width: 250px;
+  text-decoration: none;
+  display:inline-block;
+}
+.profile-content a:hover {
+  background-color: #ddd;
+  }
+
+.profile:hover .profile-content {display:block;}
+
+
 </style>
