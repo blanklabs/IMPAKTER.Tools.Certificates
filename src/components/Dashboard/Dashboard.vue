@@ -32,6 +32,9 @@
               cardIcon="files"
               cardTitle="Certificates"
               iconColor="#8EC184"
+              buttonIcon="arrow-right"
+              btnLink="/certificates"
+
               ><h1>4</h1></CardItem
             ></b-col
           >
@@ -40,6 +43,8 @@
               cardIcon="file-text"
               cardTitle="Drafts"
               iconColor="#E2CB2C"
+              buttonIcon="arrow-right"
+              btnLink="#"
               ><h1>4</h1></CardItem
             ></b-col
           >
@@ -48,13 +53,20 @@
               cardIcon="file-earmark"
               cardTitle="Articles"
               iconColor="#F79755"
+              buttonIcon="arrow-right"
+              btnLink="/publications"
               ><h1>4</h1></CardItem
             ></b-col
           >
         </b-row>
         <b-row id="smallCards">
           <b-col
-            ><CardItem cardIcon="newspaper" cardTitle="News" iconColor="#2880C3"
+            ><CardItem 
+              cardIcon="newspaper"
+              cardTitle="News" 
+              iconColor="#2880C3" 
+              buttonIcon="arrow-right"
+              btnLink="/news"
               ><h1>4</h1></CardItem
             ></b-col
           >
@@ -63,6 +75,8 @@
               cardIcon="folder2-open"
               cardTitle="Documents"
               iconColor="#2880C3"
+              buttonIcon="arrow-right"
+              btnLink="/library"
               ><h1>4</h1></CardItem
             ></b-col
           >
@@ -71,7 +85,7 @@
               cardIcon="check2-all"
               cardTitle="Matches"
               iconColor="#2880C3"
-              ><h1>4</h1></CardItem
+              ><h2>Comming Soon</h2></CardItem
             ></b-col
           >
         </b-row>
