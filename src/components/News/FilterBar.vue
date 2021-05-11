@@ -1,20 +1,23 @@
 <template>
 
-    <b-form >
+    <b-form inline>
        
         <b-form-input
+          class="mb-2 mr-sm-2 mb-sm-0"
           id="keywords"
           v-model="form.keywords"
           placeholder="Input Keywords..."
           required
         ></b-form-input>
-        <b-form-select
+        <b-form-datepicker
+          class="mb-2 mr-sm-2 mb-sm-0"
           id="date"
           v-model="form.date"
-          
+          placeholder="Date"
           :options="dates"
-        ></b-form-select>
+        ></b-form-datepicker>
         <b-form-select
+          class="mb-2 mr-sm-2 mb-sm-0"
           id="publicationPriority"
           v-model="form.priority"
           
