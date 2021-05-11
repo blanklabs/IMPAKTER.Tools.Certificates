@@ -11,9 +11,9 @@
         ></b-nav-item
       >
       <b-nav-item> <router-link to="/news">News</router-link></b-nav-item>
-      <b-nav-item href="#">Publications</b-nav-item>
-      <b-nav-item href="#">Matches</b-nav-item>
-      <b-nav-item href="#">Library</b-nav-item>
+      <b-nav-item href="/publications">Publications</b-nav-item>
+      <b-nav-item href="/matches">Matches</b-nav-item>
+      <b-nav-item href="/library">Library</b-nav-item>
     </b-nav>
   </div>
 </template>

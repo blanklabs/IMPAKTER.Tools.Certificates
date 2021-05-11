@@ -14,16 +14,16 @@
             ><router-link to="/dashboard"> <span>HOME</span></router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link to="#">NEWS</router-link>
+            <router-link to="/news">NEWS</router-link>
           </b-nav-item>
         
         <b-nav-item class="profile">
             <b-icon icon="person-circle" style="color: #EA5456"></b-icon>
             <div class="profile-content">
-                <b-dropdown-item href="#">View Profile</b-dropdown-item>
-                <b-dropdown-item href="#">Edit Profile</b-dropdown-item>
-                <b-dropdown-item href="#">Index</b-dropdown-item>
-                <b-dropdown-item href="#">Marketplace</b-dropdown-item>
+                <b-dropdown-item href="/profile/">View Profile</b-dropdown-item>
+                <b-dropdown-item href="/profile/edit">Edit Profile</b-dropdown-item>
+                <b-dropdown-item href="https://index.impakter.com" target="_blank">Index</b-dropdown-item>
+                <b-dropdown-item href="https://eco.impakter.com/" target="_blank">Marketplace</b-dropdown-item>
                 <hr>
                 <b-dropdown-item href="#">Logout</b-dropdown-item>
               </div>
@@ -38,7 +38,7 @@
 import { messageService } from "../../messageService";
 
 export default {
-  name: "NavigationBar",
+  name: "NavDashboard",
   data() {
     return {
       loggedIn: false,

@@ -20,7 +20,7 @@
             <router-link to="#"> HOW IT WORKS</router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link to="#">CONTACT US</router-link>
+            <router-link to="/contact">CONTACT US</router-link>
           </b-nav-item>
           <b-nav-item>
             <router-link to="/signin">
@@ -28,11 +28,11 @@
               <span v-if="!loggedIn" @click="login">SIGN-IN</span>
             </router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="#">INDEX</router-link>
+          <b-nav-item href="https://index.impakter.com" target="_blank">
+            INDEX
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="#">MARKETPLACE</router-link>
+          <b-nav-item href="https://eco.impakter.com/" target="_blank">
+            MARKETPLACE
           </b-nav-item>
            <b-nav-item class="search">
               <b-icon icon="search" style="color: #EA5456"></b-icon>
