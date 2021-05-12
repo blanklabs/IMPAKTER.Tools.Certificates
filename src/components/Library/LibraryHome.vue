@@ -2,14 +2,14 @@
     <div>
      <DashBoardTabNav :tabs="['My Documents', 'My Articles', 'News']" :selected="selected" @selected="setSelected">
         <DashBoardTab :isSelected="selected === 'My Documents'" >
-            <h1>My Documents</h1>
+            <MyDocuments/>
     
         </DashBoardTab>
         <DashBoardTab :isSelected="selected === 'My Articles'" >
-        <h1>My Articles</h1>
+          <MyArticles/>
       </DashBoardTab>
       <DashBoardTab :isSelected="selected === 'News'" >
-        <h1>News</h1>
+          <News/>
       </DashBoardTab>
       
     </DashBoardTabNav>
@@ -18,6 +18,9 @@
 <script>
 import DashBoardTabNav from "../Shared/DashBoardTabNav"
 import DashBoardTab from "../Shared/DashBoardTab"
+import MyArticles from "./Articles"
+import MyDocuments from "./MyDocuments"
+import News from "./News"
 export default {
   name: "Library",
   data() {
@@ -27,7 +30,10 @@ export default {
   },
   components:{ 
     DashBoardTab,
-    DashBoardTabNav 
+    DashBoardTabNav,
+    MyArticles,
+    MyDocuments,
+    News 
   },
   methods: {
       setSelected(tab) {
