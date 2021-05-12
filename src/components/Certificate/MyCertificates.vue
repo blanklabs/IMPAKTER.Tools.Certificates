@@ -1,5 +1,18 @@
 <template>
   <div>
+    <DashBoardTabNav :tabs="['Active', 'Inactive', 'Editing']" :selected="selected" @selected="setSelected">
+        <DashBoardTab :isSelected="selected === 'Active'" >
+            <h1>Active</h1>
+    
+        </DashBoardTab>
+        <DashBoardTab :isSelected="selected === 'Inactive'" >
+        <h1>Inactive</h1>
+      </DashBoardTab>
+      <DashBoardTab :isSelected="selected === 'Editing'" >
+        <h1>Editing</h1>
+      </DashBoardTab>
+      
+    </DashBoardTabNav>
     <!--<div >
         <b-card no-body>
     <b-tabs pills card vertical>
@@ -269,6 +282,8 @@
 <script>
 import compute from "@/models/compute";
 import CertificateProfile from "./CertificateProfile.vue";
+import DashBoardTabNav from "../Shared/DashBoardTabNav"
+import DashBoardTab from "../Shared/DashBoardTab"
 
 export default {
   name: "MyCertificates",
@@ -292,6 +307,7 @@ export default {
         "activeStatus",
         "actions",
       ],
+      selected: 'Active',
     };
   },
   async mounted() {
@@ -309,8 +325,15 @@ export default {
       }, 500);
     }
   },
-  components: { CertificateProfile },
+  components: { 
+    CertificateProfile,   
+    DashBoardTab,
+    DashBoardTabNav 
+  },
   methods: {
+    setSelected(tab) {
+        this.selected = tab;
+    },
     add() {
       this.$store.dispatch("certificate/changeMode", "new");
       this.$store.dispatch("certificate/resetCertificate");
