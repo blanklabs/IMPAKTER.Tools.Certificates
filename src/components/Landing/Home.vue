@@ -42,8 +42,7 @@
         </div>
         <div>
           <h3>Our Partners</h3>
-          <img src="@/assets/LandingPage/loghi-mobile1dpi-768x148.png" id="partners"/>
-          <img src="@/assets/LandingPage/loghi-mobile2dpi-768x107.png" id="partners"/>
+          <img src="../../assets/LandingPage/Partners_Landing.png" id="partners"/>
         </div>     
         <Footer/>
     </div>

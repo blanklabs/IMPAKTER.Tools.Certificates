@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id=app>
     <Sidebar v-if="isInside" />
-    <b-container>
+    <b-container class="page-wrap">
       <b-row v-if="loggedIn">
         <NavDashboard />
         <Sidebar />
@@ -15,8 +15,14 @@
           <router-view />
         </b-container>
       </b-row>
+     
     </b-container>
+      <footer class="site-footer">
+      <p>2021 Copyright © ImpakterLimited</p>
+    </footer>
+ 
   </div>
+  
 </template>
 
 <script>
@@ -47,7 +53,11 @@ export default {
     });
   },
   methods: {},
-  components: { NavigationBar, Sidebar, NavDashboard },
+  components: {
+    NavigationBar, 
+    Sidebar, 
+    NavDashboard,
+    },
   created() {
     document.title = "Impakter - Certificates";
     this.subscription = messageService.getMessage().subscribe((message) => {
@@ -71,6 +81,9 @@ export default {
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootstrap-vue/src/index.scss";
 
+// html, body {
+//   height: 100%;
+// }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -78,6 +91,23 @@ export default {
   text-align: center;
   color: #010101;
 }
+.page-wrap {
+  /* equal to footer height */
+  margin-bottom: 100%; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+.site-footer {
+  padding-top: 15px;
+  justify-content: center;
+  text-align: center;
+  height: 50px; background: white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
 
 button {
   margin-left: 10px;
