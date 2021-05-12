@@ -2,14 +2,14 @@
   <div>
     <DashBoardTabNav :tabs="['Active', 'Inactive', 'Editing']" :selected="selected" @selected="setSelected">
         <DashBoardTab :isSelected="selected === 'Active'" >
-            <h1>Active</h1>
+           
     
         </DashBoardTab>
         <DashBoardTab :isSelected="selected === 'Inactive'" >
-        <h1>Inactive</h1>
+        
       </DashBoardTab>
       <DashBoardTab :isSelected="selected === 'Editing'" >
-        <h1>Editing</h1>
+        
       </DashBoardTab>
       
     </DashBoardTabNav>
