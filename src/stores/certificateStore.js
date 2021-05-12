@@ -4,7 +4,7 @@ import axios from 'axios'
 const certificateService = ServicesFactory.get("certificates");
 const organizationService = ServicesFactory.get("organizations");
 //import certificateModel from "./models/certificate";
-import { certificateModel } from "../../.././SHARED.CODE";
+import certificateModel from "../../../SHARED.CODE/Objects/Certificate/certificate";
 //import {certificateModel} from "shared.code";
 import organizationModel from ".././models/organization";
 import { awsConfig } from "@/models/constants"
@@ -160,7 +160,7 @@ const certificateStore = {
             else {
                 state.isNetworkConnected = true
                 for (var i = 0; i < certificatesResponse.length; i++) {
-                    var cert = new certificateModel.certificateModel()
+                    var cert = new certificateModel()
                     cert.change(certificatesResponse[i])
                     state.certificates.push(cert)
                 }

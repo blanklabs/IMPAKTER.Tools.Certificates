@@ -24,7 +24,9 @@
           </b-nav-item>
           <b-nav-item>
             <router-link to="/signin">
-              <span v-if="loggedIn" @click="logout">SIGN-OUT</span>
+              <span disabled="!loggedIn" v-if="loggedIn" @click="logout"
+                >SIGN-OUT</span
+              >
               <span v-if="!loggedIn" @click="login">SIGN-IN</span>
             </router-link>
           </b-nav-item>

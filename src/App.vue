@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Sidebar />
+    <Sidebar v-if="isInside" />
     <b-container>
       <b-row>
         <NavigationBar />
@@ -27,6 +27,7 @@ import { messageService } from "./messageService";
 export default {
   data() {
     return {
+      isInside: false,
       messages: [],
       tabs: ["Home", "Hello"],
     };
@@ -37,6 +38,7 @@ export default {
     },
   },
   mounted() {
+    this.isInside = this.$store.getters["user/isLoggedin"];
     this.$root.$on("myEvent", () => {
       // here you need to use the arrow function
       this.loggedIn = true;
@@ -49,7 +51,7 @@ export default {
     this.subscription = messageService.getMessage().subscribe((message) => {
       if (message) {
         // add message to local state if not empty
-        this.messages.push(message);
+        this.isInside = !this.isInside;
       } else {
         // clear messages when empty message received
         this.messages = [];

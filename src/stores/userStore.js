@@ -25,6 +25,7 @@ const userStore = {
     mutations: {
         signOut(state) {
             console.log("logging out and removing accessToken");
+            messageService.sendMessage("loggedOut");
             window.localStorage.removeItem("accessToken");
             state.isLoggedin = false;
         },
