@@ -43,7 +43,8 @@ const routes = [
   {  // This is just a TEST for future LandingPage
     path: '/test',
     name: 'HomeTest',
-    component: HomeTest
+    component: HomeTest,
+    alias: '/'
   },
   {
     path: '/login',
@@ -125,8 +126,7 @@ const routes = [
     path: '/certificates',
     name: 'MyCertificates',
     beforeEnter: guardMyRoute,
-    component: MyCertificates,
-    alias: '/'
+    component: MyCertificates
   },
   {
     path: '/certificate',
