@@ -14,37 +14,19 @@
             ><router-link to="/dashboard"> <span>HOME</span></router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link to="/about">ABOUT US</router-link>
+            <router-link to="/news">NEWS</router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="#"> HOW IT WORKS</router-link>
-          </b-nav-item>
-          <b-nav-item>
-            <router-link to="/contact">CONTACT US</router-link>
-          </b-nav-item>
-          <b-nav-item>
-            <router-link to="/signin">
-              <span disabled="!loggedIn" v-if="loggedIn" @click="logout"
-                >SIGN-OUT</span
-              >
-              <span v-if="!loggedIn" @click="login">SIGN-IN</span>
-            </router-link>
-          </b-nav-item>
-          <b-nav-item href="https://index.impakter.com" target="_blank">
-            INDEX
-          </b-nav-item>
-          <b-nav-item href="https://eco.impakter.com/" target="_blank">
-            MARKETPLACE
-          </b-nav-item>
-           <b-nav-item class="search">
-              <b-icon icon="search" style="color: #EA5456"></b-icon>
-              <div class="search-content">
-                  <b-nav-form>
-                  <input type="text" placeholder="Search...">
-                  </b-nav-form>
-                  
+        
+        <b-nav-item class="profile">
+            <b-icon icon="person-circle" style="color: #EA5456"></b-icon>
+            <div class="profile-content">
+                <b-dropdown-item href="/profile/">View Profile</b-dropdown-item>
+                <b-dropdown-item href="/profile/edit">Edit Profile</b-dropdown-item>
+                <b-dropdown-item href="https://index.impakter.com" target="_blank">Index</b-dropdown-item>
+                <b-dropdown-item href="https://eco.impakter.com/" target="_blank">Marketplace</b-dropdown-item>
+                <hr>
+                <b-dropdown-item href="#">Logout</b-dropdown-item>
               </div>
-              
             </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -56,7 +38,7 @@
 import { messageService } from "../../messageService";
 
 export default {
-  name: "NavigationBar",
+  name: "NavDashboard",
   data() {
     return {
       loggedIn: false,
@@ -94,7 +76,7 @@ export default {
 </script>
 <style scoped>
 #nav {
-  font-family: Montserrat;
+  font-family: 'Montserrat';
   background: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
@@ -116,37 +98,39 @@ a.router-link-exact-active {
   border-bottom-style: solid;
   border-bottom-color: #fe6663;
 }
-
+button {
+  margin-left: 10px;
+}
 #logo {
   width: 190px;
 }
-.search{
+.profile{
   position: relative;
 }
-.search-content {
+.profile-content {
   display: none;
   position: absolute;
   min-width: 160px;
+  margin-top: 10px;
+  background: white;
   right: 0;
-  background: none;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 
 }
 
-.search-content input {
+.profile-content input {
   border: none;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  
   padding: 12px 16px;
-  margin-top: 20px;
   width: 250px;
   text-decoration: none;
   display:inline-block;
 }
-.search-content a:hover {
+.profile-content a:hover {
   background-color: #ddd;
   }
 
-.search:hover .search-content {display:block;}
-
+.profile:hover .profile-content {display:block;}
 
 
 </style>

@@ -25,10 +25,9 @@ import Dashboard from "@/components/Dashboard/Dashboard";
 import PublicationsHome from "@/components/Publications/PublicationsHome"
 import MatchesHome from "@/components/Matches/MatchesHome"
 import LibraryHome from "@/components/Library/LibraryHome"
-
+import Contact from "@/components/Contact.vue"
 
 Vue.use(VueRouter)
-
 
 function guardMyRoute(to, from, next) {
 
@@ -143,6 +142,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ './components/About.vue')
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: Contact,
   },
   {
     path: '/certificates/add',
