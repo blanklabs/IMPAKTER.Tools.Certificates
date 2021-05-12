@@ -112,7 +112,10 @@ export default {
   border-bottom-style: solid;
   border-bottom-color: #fe6663;
 }
-a.router-link-exact-active {
+
+
+ .router-link-exact-active {
+  padding-bottom: 10px;
   border-bottom-style: solid;
   border-bottom-color: #fe6663;
 }
