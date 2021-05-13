@@ -16,7 +16,7 @@
     <b-form @submit="onSubmit">
       <b-form-input
         id="identifier"
-        v-model="signupModel.user.firstName"
+        v-model="userModel.user.firstName"
         placeholder="First Name"
         required
       >
@@ -24,20 +24,20 @@
 
       <b-form-input
         id="identifier"
-        v-model="signupModel.user.lastName"
+        v-model="userModel.user.lastName"
         placeholder="Last Name"
       >
       </b-form-input>
 
       <b-form-input
         id="identifier"
-        v-model="signupModel.user.email"
+        v-model="userModel.user.email"
         placeholder="Email Address"
       >
       </b-form-input>
       <b-form-input
         id="identifier"
-        v-model="signupModel.user.password"
+        v-model="userModel.user.password"
         placeholder="New Password"
       >
       </b-form-input>
@@ -73,7 +73,7 @@ export default {
   methods: {
     async onSubmit(event) {
       event.preventDefault();
-      this.request.data = this.signupModel;
+      this.request.data = this.userModel;
       try {
         let webResponse = await account.signup(this.request);
         this.response = webResponse.data;

@@ -1,4 +1,4 @@
-import signupModel from "../../../SHARED.CODE/Objects/User/signupModel";
+import userModel from "../../../SHARED.CODE/Objects/User/userModel";
 import User from "../../../SHARED.CODE/Objects/User/user";
 import { messageService } from "../messageService";
 
@@ -6,14 +6,14 @@ const userStore = {
     namespaced: true,
     state: {
         user: new User(),
-        signupModel: new signupModel(),
+        userModel: new userModel(),
         isSignUpSuccess: false,
         isLoggedin: false
     },
     getters: {
         signupForm: state => {
-            state.signupModel.details.company = "Impakter"
-            return state.signupModel
+            state.userModel.details.company = "Impakter"
+            return state.userModel
         },
         signupStatus: state => {
             return state.isSignUpSuccess;
