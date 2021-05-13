@@ -2,7 +2,7 @@
   <div id=app>
     <Sidebar v-if="isInside" />
     <b-container class="page-wrap">
-      <b-row v-if="loggedIn">
+      <b-row v-if="isInside">
         <NavDashboard />
         <Sidebar />
         <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->

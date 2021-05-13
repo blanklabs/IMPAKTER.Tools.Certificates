@@ -20,8 +20,12 @@
         <b-nav-item class="profile">
             <b-icon icon="person-circle" style="color: #EA5456"></b-icon>
             <div class="profile-content">
-                <b-dropdown-item href="/profile/">View Profile</b-dropdown-item>
-                <b-dropdown-item href="/profile/edit">Edit Profile</b-dropdown-item>
+                <b-dropdown-item>
+                  <router-link to="/profile/">View Profile</router-link>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <router-link to="/profile/edit">Edit Profile</router-link>
+                </b-dropdown-item>
                 <b-dropdown-item href="https://index.impakter.com" target="_blank">Index</b-dropdown-item>
                 <b-dropdown-item href="https://eco.impakter.com/" target="_blank">Marketplace</b-dropdown-item>
                 <hr>
@@ -95,6 +99,7 @@ export default {
   border-bottom-color: #fe6663;
 }
 a.router-link-exact-active {
+   padding-bottom: 10px;
   border-bottom-style: solid;
   border-bottom-color: #fe6663;
 }
@@ -126,11 +131,11 @@ button {
   text-decoration: none;
   display:inline-block;
 }
-.profile-content a:hover {
-  background-color: #ddd;
-  }
 
-.profile:hover .profile-content {display:block;}
+
+.profile:hover .profile-content {
+  display:block;
+}
 
 
 </style>
