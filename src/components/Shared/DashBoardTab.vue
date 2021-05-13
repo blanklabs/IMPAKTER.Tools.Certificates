@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isSelected">
+  <div class="tab" v-if="isSelected">
       <slot></slot>
   </div>
 </template>

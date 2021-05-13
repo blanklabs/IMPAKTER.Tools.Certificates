@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="DashTab">
   <ul class="nav">
     <li v-for="tab in tabs" :key="tab" class="nav-item">
       <a class="nav-link" :class="{active: tab == selected}" @click="setTab(tab)">
@@ -33,7 +33,10 @@ export default {
 </script>
 <style scoped>
 *{
-  font-family: Montserrat;
+  font-family: "Montserrat";
+}
+.DashTab{
+  width: 1200px;
 }
 ul{
   margin-bottom: 0;
@@ -60,8 +63,5 @@ hr{
   border: none;
 
 }
-/* hr{
-  height: 3px;
-  background-color: #EA5456;
-} */
+
 </style>
