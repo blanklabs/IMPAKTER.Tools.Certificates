@@ -3,7 +3,14 @@
     <img src="@/assets/logo_index.png" id="impakterLogo" />
 
     <h1>Sign-up</h1>
-
+    <b-button id="GoogleButton" v-on:click="login('GOOGLE')">
+      <img src="@/assets/google_logo.png" id="googleLogo" /> Sign up with Google
+    </b-button>
+    <div class="separator">
+      <hr />
+      <h5>OR</h5>
+      <hr />
+    </div>
     <h4>Contact info</h4>
     <b-alert
       :show="isStatusMessage"
@@ -160,6 +167,23 @@ a:link {
   white-space: nowrap;
   font-weight: bold;
 }
+#googleLogo {
+  display: inline-block;
+  margin-right: 15px;
+  max-width: 25px;
+}
+
+#GoogleButton {
+  display: inline-block;
+  background: white;
+  color: #0f993e;
+  width: 100%;
+  border-radius: 5px;
+  border: thin solid #0f993e;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
 
 .separator {
   padding: 10px;
