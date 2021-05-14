@@ -22,6 +22,7 @@
                 :per-page="perPage"
                 :current-page="currentPage"
                 hover
+                
               >
                 <template #head(name)>
                   <div class="text-nowrap">Certificate Name</div>
@@ -54,6 +55,7 @@
                     name="data.index"
                     @change="updateStatus(row.item)"
                     switch
+                    class="activeCheckbox"
                   >
                     <!--<b>{{ row.item.activeStatus }}</b>-->
                   </b-form-checkbox>
@@ -402,6 +404,7 @@ table {
   margin-top: 0px;
 }
 
+
 .certificateName {
   cursor: pointer;
 }
@@ -433,4 +436,8 @@ table {
     font-weight: 600;
     margin: 1px;
   }
+
+ 
+
+
 </style>

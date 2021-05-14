@@ -11,7 +11,7 @@
           <NewsArticle class= "newsArticle"
             :articleImage="article.image"
             :articleTitle="article.title"
-            >{{ article.summary }}</NewsArticle
+            >{{ article.summary.substring(0,150) }}...</NewsArticle
           >
         </div>
         </b-row>
