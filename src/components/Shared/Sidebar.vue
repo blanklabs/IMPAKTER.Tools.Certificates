@@ -2,8 +2,8 @@
   <div class="sidenav">
     <b-nav vertical>
       <div class="p-4">
-        <img id="image" src="../../assets/dummy-profile-pic.png" />
-        <h5>Company Name</h5>
+        <img id="image" :src="org.logo" />
+        <h5>{{ org.name }}</h5>
       </div>
       <b-nav-item>
         <router-link to="/certificates"
@@ -22,6 +22,14 @@
 <script>
 export default {
   name: "Sidebar",
+  data() {
+    return {
+      org: {},
+    };
+  },
+  mounted() {
+    this.org = this.$store.getters["user/org"];
+  },
 };
 </script>
 
@@ -41,6 +49,7 @@ export default {
 }
 #image {
   margin: 0;
+  padding: 10px;
   max-height: 150px;
   max-height: 150px;
   border-radius: 50%;

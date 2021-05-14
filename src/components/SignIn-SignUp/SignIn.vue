@@ -108,6 +108,8 @@ export default {
           if (responseData.accessToken) {
             let payload = {
               accessToken: responseData.accessToken,
+              user: responseData.user,
+              org: responseData.org,
               case: "LOGIN",
             };
             this.$store.dispatch("user/login", payload);

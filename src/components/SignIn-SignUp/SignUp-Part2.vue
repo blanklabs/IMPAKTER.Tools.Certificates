@@ -12,7 +12,7 @@
     <b-form @submit="onSubmit">
       <b-form-input
         id="identifier"
-        v-model="userModel.details.company"
+        v-model="user.details.company"
         placeholder="Company Name"
         required
       >
@@ -20,7 +20,7 @@
 
       <b-form-input
         id="identifier"
-        v-model="userModel.details.role"
+        v-model="user.details.role"
         placeholder="Your Role"
       >
       </b-form-input>

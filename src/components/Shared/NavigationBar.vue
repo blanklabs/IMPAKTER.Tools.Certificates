@@ -36,16 +36,14 @@
           <b-nav-item href="https://eco.impakter.com/" target="_blank">
             MARKETPLACE
           </b-nav-item>
-           <b-nav-item class="search">
-              <b-icon icon="search" style="color: #EA5456"></b-icon>
-              <div class="search-content">
-                  <b-nav-form>
-                  <input type="text" placeholder="Search...">
-                  </b-nav-form>
-                  
-              </div>
-              
-            </b-nav-item>
+          <b-nav-item class="search">
+            <b-icon icon="search" style="color: #ea5456"></b-icon>
+            <div class="search-content">
+              <b-nav-form>
+                <input type="text" placeholder="Search..." />
+              </b-nav-form>
+            </div>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -53,8 +51,6 @@
 </template>
 
 <script>
-import { messageService } from "../../messageService";
-
 export default {
   name: "NavigationBar",
   data() {
@@ -63,9 +59,9 @@ export default {
     };
   },
   methods: {
-    logout() {
+    async logout() {
       this.loggedIn = false;
-      this.$store.dispatch("user/signOut");
+      await this.$store.dispatch("user/signOut");
       this.$router.push("/signin");
     },
     login() {
@@ -77,15 +73,17 @@ export default {
   },
   created() {
     document.title = "Impakter - Certificates";
-    this.subscription = messageService.getMessage().subscribe((message) => {
-      if (message) {
-        // add message to local state if not empty
-        this.loggedIn = !this.loggedIn;
-      } else {
-        // clear messages when empty message received
-        this.messages = [];
+    this.subscription = this.$store.getters["user/logInEvent"].subscribe(
+      (message) => {
+        if (message) {
+          // add message to local state if not empty
+          this.loggedIn = !this.loggedIn;
+        } else {
+          // clear messages when empty message received
+          this.messages = [];
+        }
       }
-    });
+    );
   },
   beforeDestroy() {
     this.subscription.unsubscribe();
@@ -113,8 +111,7 @@ export default {
   border-bottom-color: #fe6663;
 }
 
-
- .router-link-exact-active {
+.router-link-exact-active {
   padding-bottom: 10px;
   border-bottom-style: solid;
   border-bottom-color: #fe6663;
@@ -123,7 +120,7 @@ export default {
 #logo {
   width: 190px;
 }
-.search{
+.search {
   position: relative;
 }
 .search-content {
@@ -132,24 +129,22 @@ export default {
   min-width: 160px;
   right: 0;
   background: none;
-
 }
 
 .search-content input {
   border: none;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   margin-top: 20px;
   width: 250px;
   text-decoration: none;
-  display:inline-block;
+  display: inline-block;
 }
 .search-content a:hover {
   background-color: #ddd;
-  }
+}
 
-.search:hover .search-content {display:block;}
-
-
-
+.search:hover .search-content {
+  display: block;
+}
 </style>

@@ -1,4 +1,4 @@
-import userModel from "../../../SHARED.CODE/Objects/User/userModel";
+import User from "../../../SHARED.CODE/Objects/User/user";
 import {
     signupCases, loginCases
 } from "../../../SHARED.CODE/Objects/User/account";
@@ -6,13 +6,13 @@ import {
 export default {
     data() {
         return {
-            userModel: new userModel(),
+            user: new User(),
             signupCases: signupCases,
             loginCases: loginCases
         }
     },
     mounted() {
-        this.userModel = this.$store.getters["user/signupForm"];
+        this.user = this.$store.getters["user/signupForm"];
     }
 }
 

@@ -1,8 +1,8 @@
 <template>
-  <div id=app>
-    <Sidebar v-if="isInside" />
+  <div id="app">
+    <!--<Sidebar v-if="isInside" />-->
     <b-container class="page-wrap">
-      <b-row v-if="isInside">
+      <b-row v-if="isLoggedIn">
         <NavDashboard />
         <Sidebar />
         <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->
@@ -15,14 +15,11 @@
           <router-view />
         </b-container>
       </b-row>
-     
     </b-container>
-      <footer class="site-footer">
+    <footer class="site-footer">
       <p>2021 Copyright © ImpakterLimited</p>
     </footer>
- 
   </div>
-  
 </template>
 
 <script>
@@ -30,45 +27,33 @@ import NavigationBar from "./components/Shared/NavigationBar";
 //import DashBoardTabNav from "./components/Shared/DashBoardTabNav.vue";
 import Sidebar from "./components/Shared/Sidebar";
 import NavDashboard from "./components/Shared/NavDashboard";
-import { messageService } from "./messageService";
 
 export default {
   data() {
     return {
-      isInside: false,
+      isLoggedIn: false,
       messages: [],
       tabs: ["Home", "Hello"],
     };
   },
-  computed: {
-    loggedIn: function () {
-      return this.$store.state.IsloggedIn;
-    },
-  },
-  mounted() {
-    this.isInside = this.$store.getters["user/isLoggedin"];
-    this.$root.$on("myEvent", () => {
-      // here you need to use the arrow function
-      this.loggedIn = true;
-    });
-  },
   methods: {},
   components: {
-    NavigationBar, 
-    Sidebar, 
+    NavigationBar,
+    Sidebar,
     NavDashboard,
-    },
+  },
   created() {
     document.title = "Impakter - Certificates";
-    this.subscription = messageService.getMessage().subscribe((message) => {
-      if (message) {
-        // add message to local state if not empty
-        this.isInside = !this.isInside;
-      } else {
-        // clear messages when empty message received
-        this.messages = [];
+    this.subscription = this.$store.getters["user/logInEvent"].subscribe(
+      (message) => {
+        console.log("message from subscription on App.vue:", message);
+        if (message == "loggedIn") {
+          this.isLoggedIn = true;
+        } else {
+          this.isLoggedIn = false;
+        }
       }
-    });
+    );
   },
   beforeDestroy() {
     this.subscription.unsubscribe();
@@ -93,7 +78,7 @@ export default {
 }
 .page-wrap {
   /* equal to footer height */
-  margin-bottom: 100%; 
+  margin-bottom: 100%;
 }
 .page-wrap:after {
   content: "";
@@ -104,10 +89,10 @@ export default {
   padding-top: 15px;
   justify-content: center;
   text-align: center;
-  height: 50px; background: white;
+  height: 50px;
+  background: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-
 
 button {
   margin-left: 10px;

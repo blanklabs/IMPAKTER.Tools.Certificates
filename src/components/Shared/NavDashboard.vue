@@ -16,22 +16,26 @@
           <b-nav-item>
             <router-link to="/news">NEWS</router-link>
           </b-nav-item>
-        
-        <b-nav-item class="profile">
-            <b-icon icon="person-circle" style="color: #EA5456"></b-icon>
+
+          <b-nav-item class="profile">
+            <b-icon icon="person-circle" style="color: #ea5456"></b-icon>
             <div class="profile-content">
-                <b-dropdown-item>
-                  <router-link to="/profile/">View Profile</router-link>
-                </b-dropdown-item>
-                <b-dropdown-item>
-                  <router-link to="/profile/edit">Edit Profile</router-link>
-                </b-dropdown-item>
-                <b-dropdown-item href="https://index.impakter.com" target="_blank">Index</b-dropdown-item>
-                <b-dropdown-item href="https://eco.impakter.com/" target="_blank">Marketplace</b-dropdown-item>
-                <hr>
-                <b-dropdown-item href="#">Logout</b-dropdown-item>
-              </div>
-            </b-nav-item>
+              <b-dropdown-item>
+                <router-link to="/profile/">View Profile</router-link>
+              </b-dropdown-item>
+              <b-dropdown-item>
+                <router-link to="/profile/edit">Edit Profile</router-link>
+              </b-dropdown-item>
+              <b-dropdown-item href="https://index.impakter.com" target="_blank"
+                >Index</b-dropdown-item
+              >
+              <b-dropdown-item href="https://eco.impakter.com/" target="_blank"
+                >Marketplace</b-dropdown-item
+              >
+              <hr />
+              <b-dropdown-item @click="logout">Logout</b-dropdown-item>
+            </div>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -39,8 +43,6 @@
 </template>
 
 <script>
-import { messageService } from "../../messageService";
-
 export default {
   name: "NavDashboard",
   data() {
@@ -63,15 +65,17 @@ export default {
   },
   created() {
     document.title = "Impakter - Certificates";
-    this.subscription = messageService.getMessage().subscribe((message) => {
-      if (message) {
-        // add message to local state if not empty
-        this.loggedIn = !this.loggedIn;
-      } else {
-        // clear messages when empty message received
-        this.messages = [];
+    this.subscription = this.$store.getters["user/logInEvent"].subscribe(
+      (message) => {
+        if (message) {
+          // add message to local state if not empty
+          this.loggedIn = !this.loggedIn;
+        } else {
+          // clear messages when empty message received
+          this.messages = [];
+        }
       }
-    });
+    );
   },
   beforeDestroy() {
     this.subscription.unsubscribe();
@@ -80,7 +84,7 @@ export default {
 </script>
 <style scoped>
 #nav {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   background: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
@@ -99,7 +103,7 @@ export default {
   border-bottom-color: #fe6663;
 }
 a.router-link-exact-active {
-   padding-bottom: 10px;
+  padding-bottom: 10px;
   border-bottom-style: solid;
   border-bottom-color: #fe6663;
 }
@@ -109,7 +113,7 @@ button {
 #logo {
   width: 190px;
 }
-.profile{
+.profile {
   position: relative;
 }
 .profile-content {
@@ -119,23 +123,19 @@ button {
   margin-top: 10px;
   background: white;
   right: 0;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
 .profile-content input {
   border: none;
-  
+
   padding: 12px 16px;
   width: 250px;
   text-decoration: none;
-  display:inline-block;
+  display: inline-block;
 }
-
 
 .profile:hover .profile-content {
-  display:block;
+  display: block;
 }
-
-
 </style>
