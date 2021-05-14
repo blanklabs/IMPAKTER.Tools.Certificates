@@ -1,8 +1,143 @@
 <template>
-  <div>
+  <div className="cetificatesMain">
+    <h2>Welcome, {{ organization.organizationName }}</h2>
+    <b-button variant="outline-primary" @click="add">
+            Add New Certificate</b-button
+          >
     <DashBoardTabNav :tabs="['Active', 'Inactive', 'Editing']" :selected="selected" @selected="setSelected">
         <DashBoardTab :isSelected="selected === 'Active'" >
-           
+              <b-container>
+      <b-row>
+        <b-col
+          >
+        </b-col>
+        <b-col cols="3">
+        </b-col>
+      </b-row>
+      <b-row>
+        <p></p>
+      </b-row>
+
+      <b-row> </b-row>
+      <b-row>
+        <b-table
+          :fields="fields"
+          :items="certificates"
+          :head-variant="light"
+          :bordered="false"
+          id="main_table"
+          :per-page="perPage"
+          :current-page="currentPage"
+          hover
+        >
+          <template #head(name)>
+            <div class="text-nowrap">Certificate Name</div>
+          </template>
+          <template #cell(name)="data">
+            <p
+              @click="
+                view(data.item);
+                $refs.preview_modal.showModal();
+              "
+              class="certificateName"
+            >
+              {{ data.item.name }}
+            </p>
+          </template>
+          <template #head(activeStatus)>
+            <div
+              class="text-nowrap"
+              v-b-tooltip.hover
+              title="Whether the certificate is currently active or not"
+              variant="secondary"
+            >
+              Active
+            </div>
+          </template>
+          <template #cell(activeStatus)="row">
+            <span></span>
+            <b-form-checkbox
+              v-model="row.item.activeStatus"
+              name="data.index"
+              @change="updateStatus(row.item)"
+              switch
+            >
+              <!--<b>{{ row.item.activeStatus }}</b>-->
+            </b-form-checkbox>
+          </template>
+          <template #head(computedPriority)>
+            <div
+              class="text-nowrap"
+              v-b-tooltip.hover
+              title="How important is it to attain this certificate for a given company?"
+              variant="secondary"
+            >
+              Priority
+            </div>
+          </template>
+          <template #head(sdgs)>
+            <div
+              class="text-nowrap"
+              v-b-tooltip.hover
+              title=" United Nations - Sustainable Development Goals"
+              variant="secondary"
+            >
+              SDGs
+            </div>
+          </template>
+          <template #cell(sdgs)="data">
+            <div>
+              <span v-for="(sdg, index) in data.item.sdgs" :key="index"
+                >{{ sdg
+                }}<span v-if="index != data.item.sdgs.length - 1"
+                  >,
+                </span></span
+              >
+            </div>
+          </template>
+          <template #head(industries)>
+            <div
+              class="text-nowrap"
+              v-b-tooltip.hover
+              title="The ISIC Industry sectors where this ceritificate is valid in"
+              variant="secondary"
+            >
+              Industries
+            </div>
+          </template>
+
+          <template #cell(industries)="data">
+            <div>
+              <span
+                v-for="(industry, index) in data.item.industries"
+                :key="index"
+                >{{ industry
+                }}<span v-if="index != data.item.industries.length - 1"
+                  >,
+                </span></span
+              >
+            </div>
+          </template>
+          <template #cell(actions)="data">
+            <b-button @click="copy(data.item)" variant="success">Copy</b-button>
+            <b-button @click="edit(data.item)" variant="outline-danger"
+              >Edit</b-button
+            >
+            <!--<b-button>See Details</b-button>-->
+          </template>
+        </b-table>
+      </b-row>
+      <div id="paginate">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="rows"
+          :per-page="perPage"
+          aria-controls="main_table"
+          align="center"
+          pills
+        ></b-pagination>
+      </div>
+    </b-container>
     
         </DashBoardTab>
         <DashBoardTab :isSelected="selected === 'Inactive'" >
@@ -134,141 +269,7 @@
   </b-card>
     </div>-->
     <br />
-    <b-container>
-      <b-row>
-        <b-col
-          ><h2>Welcome, {{ organization.organizationName }}</h2>
-        </b-col>
-        <b-col cols="3">
-          <b-button variant="outline-primary" @click="add">
-            Add New Certificate</b-button
-          >
-        </b-col>
-      </b-row>
-      <b-row>
-        <p></p>
-      </b-row>
-
-      <b-row> </b-row>
-      <b-row>
-        <b-table
-          :fields="fields"
-          :items="certificates"
-          :head-variant="light"
-          :bordered="false"
-          id="main_table"
-          :per-page="perPage"
-          :current-page="currentPage"
-          hover
-        >
-          <template #head(name)>
-            <div class="text-nowrap">Certificate Name</div>
-          </template>
-          <template #cell(name)="data">
-            <p
-              @click="
-                view(data.item);
-                $refs.preview_modal.showModal();
-              "
-              class="certificateName"
-            >
-              {{ data.item.name }}
-            </p>
-          </template>
-          <template #head(activeStatus)>
-            <div
-              class="text-nowrap"
-              v-b-tooltip.hover
-              title="Whether the certificate is currently active or not"
-              variant="secondary"
-            >
-              Active
-            </div>
-          </template>
-          <template #cell(activeStatus)="row">
-            <span></span>
-            <b-form-checkbox
-              v-model="row.item.activeStatus"
-              name="data.index"
-              @change="updateStatus(row.item)"
-              switch
-            >
-              <!--<b>{{ row.item.activeStatus }}</b>-->
-            </b-form-checkbox>
-          </template>
-          <template #head(computedPriority)>
-            <div
-              class="text-nowrap"
-              v-b-tooltip.hover
-              title="How important is it to attain this certificate for a given company?"
-              variant="secondary"
-            >
-              Priority
-            </div>
-          </template>
-          <template #head(sdgs)>
-            <div
-              class="text-nowrap"
-              v-b-tooltip.hover
-              title=" United Nations - Sustainable Development Goals"
-              variant="secondary"
-            >
-              SDGs
-            </div>
-          </template>
-          <template #cell(sdgs)="data">
-            <div>
-              <span v-for="(sdg, index) in data.item.sdgs" :key="index"
-                >{{ sdg
-                }}<span v-if="index != data.item.sdgs.length - 1"
-                  >,
-                </span></span
-              >
-            </div>
-          </template>
-          <template #head(industries)>
-            <div
-              class="text-nowrap"
-              v-b-tooltip.hover
-              title="The ISIC Industry sectors where this ceritificate is valid in"
-              variant="secondary"
-            >
-              Industries
-            </div>
-          </template>
-
-          <template #cell(industries)="data">
-            <div>
-              <span
-                v-for="(industry, index) in data.item.industries"
-                :key="index"
-                >{{ industry
-                }}<span v-if="index != data.item.industries.length - 1"
-                  >,
-                </span></span
-              >
-            </div>
-          </template>
-          <template #cell(actions)="data">
-            <b-button @click="copy(data.item)" variant="success">Copy</b-button>
-            <b-button @click="edit(data.item)" variant="outline-danger"
-              >Edit</b-button
-            >
-            <!--<b-button>See Details</b-button>-->
-          </template>
-        </b-table>
-      </b-row>
-      <div id="paginate">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="rows"
-          :per-page="perPage"
-          aria-controls="main_table"
-          align="center"
-          pills
-        ></b-pagination>
-      </div>
-    </b-container>
+ 
     <certificate-profile
       ref="preview_modal"
       :isSavePreview="false"
@@ -390,6 +391,10 @@ export default {
 </script>
 
 <style scoped>
+*{
+  font-family: 'Montserrat';
+  text-align: left;
+}
 #main_head {
   display: flex;
   position: fixed;
