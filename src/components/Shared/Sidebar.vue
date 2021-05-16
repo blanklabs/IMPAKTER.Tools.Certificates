@@ -28,7 +28,7 @@ export default {
     };
   },
   mounted() {
-    this.org = this.$store.getters["user/org"];
+    this.org = this.$store.getters["org/organization"];
   },
 };
 </script>

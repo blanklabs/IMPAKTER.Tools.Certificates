@@ -1,7 +1,7 @@
 import User from "../../../SHARED.CODE/Objects/User/user";
-import Org from "../../../SHARED.CODE/Objects/Organization/organization";
 
 import { Subject } from 'rxjs';
+import VueJwtDecode from 'vue-jwt-decode'
 
 const getdefaultState = () => {
     return {
@@ -9,7 +9,6 @@ const getdefaultState = () => {
         isSignUpSuccess: false,
         isLoggedin: false,
         loginEvent: new Subject(),
-        org: new Org(),
         networkEvent: new Subject()
     }
 }
@@ -26,13 +25,10 @@ const userStore = {
             return state.isSignUpSuccess;
         },
         isLoggedIn: state => {
-            return state.isLoggedin;
+            return state.isLoggedIn;
         },
         logInEvent: state => {
             return state.loginEvent.asObservable();
-        },
-        org: state => {
-            return state.org;
         },
         networkEvent: state => {
             return state.networkEvent.asObservable();
@@ -49,27 +45,31 @@ const userStore = {
             console.log("after reset state.user:", JSON.stringify(state.user));
             window.localStorage.removeItem("accessToken");
         },
+        setUser(state, payload) {
+            state.user = payload.user;
+        },
+        setLoginStatus(state, payload) {
+            state.isLoggedIn = payload;
+        },
         login(state, payload) {
             state.loginEvent.next("loggedIn");
             state.user = payload.user;
-            state.org = payload.org;
-            window.localStorage.setItem(
-                "accessToken",
-                payload.accessToken
-            );
             if (payload.case == "LOGIN") {
                 state.isLoggedin = true;
             }
             else {
                 state.isSignUpSuccess = true;
             }
-        },
-        setMessagePopup(state, payload) {
-            state.networkEvent.next({ type: payload.type, message: payload.message })
         }
+
     },
     actions: {
         login(context, payload) {
+            context.commit('org/setOrg', payload.org, { root: true });
+            window.localStorage.setItem(
+                "accessToken",
+                payload.accessToken
+            );
             context.commit("login", payload);
         },
         signOut(context) {
@@ -77,6 +77,21 @@ const userStore = {
         },
         setMessagePopup(context, payload) {
             context.commit("setMessagePopup", payload)
+        },
+        checkLoginStatus(context) {
+            let accessToken = window.localStorage.getItem("accessToken");
+            if (!context.state.isLoggedIn) {
+                if (accessToken) {
+                    let decoded = VueJwtDecode.decode(accessToken)
+                    console.log("decoded JWT:", JSON.stringify(decoded))
+                    context.commit('org/setOrg', decoded.org, { root: true })
+                    context.commit('setLoginStatus', true)
+                }
+                else {
+                    context.commit('setLoginStatus', false)
+                }
+            }
+            return context.getters.isLoggedIn;
         }
     }
 }

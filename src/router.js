@@ -29,7 +29,7 @@ import Contact from "@/components/Contact.vue"
 
 Vue.use(VueRouter)
 
-function guardMyRoute(to, from, next) {
+function authGuard(to, from, next) {
 
   if (localStorage.getItem('accessToken') == null) {
     next('/signin');
@@ -119,19 +119,19 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    beforeEnter: guardMyRoute,
+    beforeEnter: authGuard,
     component: Home
   },
   {
     path: '/certificates',
     name: 'MyCertificates',
-    beforeEnter: guardMyRoute,
+    beforeEnter: authGuard,
     component: MyCertificates
   },
   {
     path: '/certificate',
     name: 'CertificateProfile',
-    beforeEnter: guardMyRoute,
+    beforeEnter: authGuard,
     component: CertificateProfile,
     alias: '/'
   },
@@ -151,31 +151,31 @@ const routes = [
   {
     path: '/certificates/add',
     name: 'formPage1',
-    beforeEnter: guardMyRoute,
+    beforeEnter: authGuard,
     component: BasicDetails
   },
   {
     path: '/certificates/add/sdgs',
     name: 'formPage2-1',
-    beforeEnter: guardMyRoute,
+    beforeEnter: authGuard,
     component: FormSDGs
   },
   {
     path: '/certificates/add/sdgtargets',
     name: 'formPage2-2',
-    beforeEnter: guardMyRoute,
+    beforeEnter: authGuard,
     component: FormSDGTargets
   },
   {
     path: '/certificates/add/industries',
     name: 'formPage3-1',
-    beforeEnter: guardMyRoute,
+    beforeEnter: authGuard,
     component: FormIndustries
   },
   {
     path: '/certificates/add/subindustries',
     name: 'formPage3-2',
-    beforeEnter: guardMyRoute,
+    beforeEnter: authGuard,
     component: FormSubIndustries
   },
   {

@@ -28,6 +28,7 @@
     "tiptap": "^1.32.1",
     "uicomponents": "git+https://github.com/Impakter/SHARED.UI.git",
     "vue": "^2.6.11",
+    "vue-jwt-decode": "^0.1.0",
     "vue-mc": "^0.6.0",
     "vue-router": "^3.4.9",
     "vue-scrollview": "^3.0.1",

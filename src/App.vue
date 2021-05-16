@@ -42,6 +42,9 @@ export default {
     Sidebar,
     NavDashboard,
   },
+  mounted() {
+    this.isLoggedIn = this.$store.dispatch("user/checkLoginStatus");
+  },
   created() {
     document.title = "Impakter - Certificates";
     this.logInEventSubscription = this.$store.getters[
@@ -55,7 +58,7 @@ export default {
       }
     });
     this.networkEventSubscription = this.$store.getters[
-      "user/networkEvent"
+      "global/networkEvent"
     ].subscribe((payload) => {
       console.log(
         "message from network subscription on App.vue:",

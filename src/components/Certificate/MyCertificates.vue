@@ -278,16 +278,10 @@
 
 
 <script>
-import compute from "@/models/compute";
 import CertificateProfile from "./CertificateProfile.vue";
 import DashBoardTabNav from "../Shared/DashBoardTabNav";
 import DashBoardTab from "../Shared/DashBoardTab";
 import { ActionButton } from "uicomponents";
-
-import certificateModel from "../../../../SHARED.CODE/Objects/Certificate/certificate";
-
-import { ServicesFactory } from "@/services/ServicesFactory";
-const certificateService = ServicesFactory.get("certificates");
 
 export default {
   name: "MyCertificates",
@@ -315,22 +309,13 @@ export default {
     };
   },
   async mounted() {
-    let org = this.$store.getters["user/org"];
-    try {
-      let webResponse = await certificateService.fetchCertificates(org.orgID);
-      this.response = webResponse.data;
-    } catch (err) {
-      this.$store.dispatch("user/setMessagePopup", { type: 0, message: err });
+    this.certificates = await this.$store.dispatch(
+      "certificate/fetchCertificates"
+    );
+    //this.certificates = this.$store.getters["certificate/certificates"];
+    if (this.certificates == []) {
+      this.certificates = await this.$store.dispatch("fetchCertificates");
     }
-
-    let certificatesResponse = this.response;
-
-    for (var i = 0; i < certificatesResponse.length; i++) {
-      let cert = new certificateModel();
-      cert.change(certificatesResponse[i]);
-      this.certificates.push(cert);
-    }
-    this.certificates = this.certificates.sort(compute.compareByName);
   },
   components: {
     CertificateProfile,

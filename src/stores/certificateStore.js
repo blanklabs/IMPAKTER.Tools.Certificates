@@ -8,7 +8,11 @@ import certificateModel from "../../../SHARED.CODE/Objects/Certificate/certifica
 //import {certificateModel} from "shared.code";
 import organizationModel from ".././models/organization";
 import { awsConfig } from "@/models/constants"
-
+import {
+    Transport,
+    transportCodes,
+} from "../../../SHARED.CODE/Objects/Transport";
+import compute from "@/models/compute";
 
 
 
@@ -41,7 +45,7 @@ const certificateStore = {
         certificate: new certificateModel(),
         organization: new organizationModel(),
         organizationName: null,
-        certificates: null,
+        certificates: [],
         organizationID: null,
         mode: "new",
         IsloggedIn: false,
@@ -93,18 +97,10 @@ const certificateStore = {
         mode: state => {
             return state.mode
         },
-        organizationIdentifier: state => {
-            return state.organizationID
-        },
         isNetworkConnected: state => {
             return state.isNetworkConnected
         },
-        organization: state => {
-            return {
-                organizationID: state.organizationID,
-                organizationName: state.organizationName
-            }
-        },
+
         uploadPolicy: state => {
             return state.uploadPolicy
         }
@@ -181,7 +177,18 @@ const certificateStore = {
             let { data } = await axios.post(awsConfig.s3bucketUrl, payload)
             console.log(data)
         },
-
+        setCertificates(state, payload) {
+            return new Promise((resolve) => {
+                let certificatesResponse = payload;
+                for (var i = 0; i < certificatesResponse.length; i++) {
+                    let cert = new certificateModel();
+                    cert.change(certificatesResponse[i]);
+                    state.certificates.push(cert);
+                }
+                state.certificates = state.certificates.sort(compute.compareByName);
+                resolve();
+            })
+        }
 
 
     },
@@ -212,9 +219,6 @@ const certificateStore = {
         changeMode(context, payload) {
             context.commit("changeMode", payload)
         },
-        changeLoginStatus(context) {
-            context.commit("changeLoginStatus")
-        },
         resetComputed(context) {
             context.commit("resetComputedSdgs")
         },
@@ -228,7 +232,23 @@ const certificateStore = {
         deleteCertificate(context) {
             context.commit("deleteCertificate")
         },
-
+        async fetchCertificates(context) {
+            let org = context.rootGetters["org/organization"];
+            console.log("Executing fetch Certificates")
+            let response = new Transport();
+            try {
+                let webResponse = await certificateService.fetchCertificates(org.orgID);
+                response = webResponse.data;
+                if (response.status.code == transportCodes.SUCCESS) {
+                    await context.commit('setCertificates', response.data)
+                    return new Promise((resolve) => {
+                        resolve(context.getters.certificates)
+                    })
+                }
+            } catch (err) {
+                context.commit("global/setMessagePopup", { type: 0, message: err }, { root: true });
+            }
+        }
     }
 }
 

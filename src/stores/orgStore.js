@@ -1,22 +1,21 @@
 import Org from "../../../SHARED.CODE/Objects/Organization/organization";
 
 import { ServicesFactory } from "@/services/ServicesFactory";
-
 const organizationService = ServicesFactory.get("organizations");
-
+import VueJwtDecode from 'vue-jwt-decode'
 
 const getdefaultState = () => {
     return {
-        org: new Org(),
+        organization: new Org(),
     }
 }
 
-const userStore = {
+const orgStore = {
     namespaced: true,
     state: getdefaultState(),
     getters: {
-        org: state => {
-            return state.org;
+        organization: (state) => {
+            return state.organization;
         },
         organizationForm: state => {
             if (state.organization.name == "") {
@@ -40,8 +39,11 @@ const userStore = {
         },
 
         resetOrganization(state) {
-            state.organization = new organizationModel()
+            state.organization = new Org()
         },
+        setOrg(state, payload) {
+            state.organization = payload;
+        }
     },
     actions: {
         resetOrganization(context) {
@@ -50,7 +52,17 @@ const userStore = {
         updateOrganization(context, payload) {
             context.commit("updateOrganization", payload)
         },
+        fetchOrg(context) {
+            if (!context.getters.organization) {
+                let accessToken = window.localStorage.getItem("accessToken");
+                if (accessToken) {
+                    let decoded = VueJwtDecode.decode(accessToken)
+                    context.commit('setOrg', decoded.org);
+                }
+            }
+            return context.getters.organization;
+        }
     }
 }
 
-export { userStore };
+export { orgStore };

@@ -67,8 +67,6 @@
 </template>
 
 <script>
-import { ServicesFactory } from "@/services/ServicesFactory";
-const news = ServicesFactory.get("news");
 import CommonMixin from "@/mixins/CommonMixin";
 
 import { NewsArticle } from "uicomponents";
@@ -96,24 +94,14 @@ export default {
   },
   methods: {
     async fetch() {
-      let org = this.$store.getters["user/org"];
-      try {
-        let webResponse = await news.fetchNews(org.orgID);
-        this.response = webResponse.data;
-      } catch (err) {
-        this.$store.dispatch("user/setMessagePopup", { type: 0, message: err });
-      }
-      let responseStatus = this.response.status;
-      if (responseStatus.code == 1) {
-        this.isFetchSuccess = true;
-        this.articles = this.response.data;
-        if (this.articles) {
-          this.isShowMessage = true;
-          this.message = "Fetched news articles successfully";
-        } else {
-          this.isShowMessage = true;
-          this.message = "No news found";
-        }
+      let response = await this.$store.dispatch("news/fetchNews");
+      //console.log("response:", JSON.stringify(response));
+      if (response.status) {
+        this.articles = response.articles;
+        this.isShowMessage = false;
+      } else {
+        this.message = "Failed to fetch news";
+        this.isShowMessage = true;
       }
     },
     setSelected(tab) {
