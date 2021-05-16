@@ -44,19 +44,33 @@ export default {
   },
   created() {
     document.title = "Impakter - Certificates";
-    this.subscription = this.$store.getters["user/logInEvent"].subscribe(
-      (message) => {
-        console.log("message from subscription on App.vue:", message);
-        if (message == "loggedIn") {
-          this.isLoggedIn = true;
-        } else {
-          this.isLoggedIn = false;
-        }
+    this.logInEventSubscription = this.$store.getters[
+      "user/logInEvent"
+    ].subscribe((message) => {
+      console.log("message from subscription on App.vue:", message);
+      if (message == "loggedIn") {
+        this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
       }
-    );
+    });
+    this.networkEventSubscription = this.$store.getters[
+      "user/networkEvent"
+    ].subscribe((payload) => {
+      console.log(
+        "message from network subscription on App.vue:",
+        payload.message
+      );
+      if (payload.type == 0) {
+        this.$alert("Network failure: Please contact Administrator");
+      } else {
+        this.$alert(payload.message);
+      }
+    });
   },
   beforeDestroy() {
-    this.subscription.unsubscribe();
+    this.logInEventSubscription.unsubscribe();
+    this.networkEventSubscription.unsubscribe();
   },
 };
 </script>

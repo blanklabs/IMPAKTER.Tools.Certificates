@@ -12,17 +12,13 @@
     <b-form @submit="onSubmit">
       <b-form-input
         id="identifier"
-        v-model="user.details.company"
+        v-model="user.company"
         placeholder="Company Name"
         required
       >
       </b-form-input>
 
-      <b-form-input
-        id="identifier"
-        v-model="user.details.role"
-        placeholder="Your Role"
-      >
+      <b-form-input id="identifier" v-model="user.role" placeholder="Your Role">
       </b-form-input>
       <b-button id="action_btt" type="submit" variant="primary"
         >Sign Up</b-button

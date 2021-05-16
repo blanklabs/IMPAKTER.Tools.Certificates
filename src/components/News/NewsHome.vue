@@ -1,5 +1,13 @@
 <template>
   <div class="newsDash">
+    <b-alert
+      v-if="isShowMessage"
+      :variant="isFetchSuccess ? 'success' : 'danger'"
+      show
+      dismissible
+      fade
+      >{{ message }}</b-alert
+    >
     <DashBoardTabNav
       :tabs="['All', 'Tailored', 'Social Media']"
       :selected="selected"
@@ -8,48 +16,50 @@
       <DashBoardTab :isSelected="selected === 'All'">
         <b-row>
           <div v-for="article in articles" :key="article.articleID">
-          <NewsArticle class= "newsArticle"
-            :articleImage="article.image"
-            :articleTitle="article.title"
-            >{{ article.summary.substring(0,150) }}...</NewsArticle
-          >
-        </div>
+            <NewsArticle
+              class="newsArticle"
+              :articleImage="article.image"
+              :articleTitle="article.title"
+              >{{ article.summary.substring(0, 150) }}...</NewsArticle
+            >
+          </div>
         </b-row>
-        
       </DashBoardTab>
       <DashBoardTab :isSelected="selected === 'Tailored'">
-        <FilterBar/>
+        <FilterBar />
         <b-row>
-          <NewsArticle class= "newsArticle"
-          :articleImage="'https://placekitten.com/380/200'"
-          articleTitle="Can the New US and EU Climate Goals Save the World?"
-          >The last week in April was marked by the announcement of new, more
-          ambitious climate goals from two of the world’s largest polluters, the
-          United States and Europe. Could they be a turning point in the fight
-          against climate change?</NewsArticle
-        >
-        
-        <NewsArticle class= "newsArticle"
-          :articleImage="'https://placekitten.com/380/200'"
-          articleTitle="Can the New US and EU Climate Goals Save the World?"
-          >The last week in April was marked by the announcement of new, more
-          ambitious climate goals from two of the world’s largest polluters, the
-          United States and Europe. Could they be a turning point in the fight
-          against climate change?</NewsArticle
-        >
+          <NewsArticle
+            class="newsArticle"
+            :articleImage="'https://placekitten.com/380/200'"
+            articleTitle="Can the New US and EU Climate Goals Save the World?"
+            >The last week in April was marked by the announcement of new, more
+            ambitious climate goals from two of the world’s largest polluters,
+            the United States and Europe. Could they be a turning point in the
+            fight against climate change?</NewsArticle
+          >
+
+          <NewsArticle
+            class="newsArticle"
+            :articleImage="'https://placekitten.com/380/200'"
+            articleTitle="Can the New US and EU Climate Goals Save the World?"
+            >The last week in April was marked by the announcement of new, more
+            ambitious climate goals from two of the world’s largest polluters,
+            the United States and Europe. Could they be a turning point in the
+            fight against climate change?</NewsArticle
+          >
         </b-row>
-        
       </DashBoardTab>
       <DashBoardTab :isSelected="selected === 'Social Media'">
         <b-row>
-        <NewsArticle class= "newsArticle"
-          :articleImage="'https://placekitten.com/380/200'"
-          articleTitle="Just Another title"
-          >The last week in April was marked by the announcement of new, more
-          ambitious climate goals from two of the world’s largest polluters, the
-          United States and Europe. Could they be a turning point in the fight
-          against climate change?</NewsArticle
-        >
+          <NewsArticle
+            class="newsArticle"
+            :articleImage="'https://placekitten.com/380/200'"
+            articleTitle="Just Another title"
+            >The last week in April was marked by the announcement of new, more
+            ambitious climate goals from two of the world’s largest polluters,
+            the United States and Europe. Could they be a turning point in the
+            fight against climate change?</NewsArticle
+          >
         </b-row>
       </DashBoardTab>
     </DashBoardTabNav>
@@ -64,7 +74,7 @@ import CommonMixin from "@/mixins/CommonMixin";
 import { NewsArticle } from "uicomponents";
 import DashBoardTabNav from "../Shared/DashBoardTabNav";
 import DashBoardTab from "../Shared/DashBoardTab";
-import FilterBar from "./FilterBar"
+import FilterBar from "./FilterBar";
 
 export default {
   name: "NewsHome",
@@ -72,6 +82,9 @@ export default {
     return {
       selected: "All",
       articles: [],
+      isShowMessage: false,
+      isFetchSuccess: false,
+      message: "",
     };
   },
   mixins: [CommonMixin],
@@ -82,25 +95,46 @@ export default {
     FilterBar,
   },
   methods: {
+    async fetch() {
+      let org = this.$store.getters["user/org"];
+      try {
+        let webResponse = await news.fetchNews(org.orgID);
+        this.response = webResponse.data;
+      } catch (err) {
+        this.$store.dispatch("user/setMessagePopup", { type: 0, message: err });
+      }
+      let responseStatus = this.response.status;
+      if (responseStatus.code == 1) {
+        this.isFetchSuccess = true;
+        this.articles = this.response.data;
+        if (this.articles) {
+          this.isShowMessage = true;
+          this.message = "Fetched news articles successfully";
+        } else {
+          this.isShowMessage = true;
+          this.message = "No news found";
+        }
+      }
+    },
     setSelected(tab) {
       this.selected = tab;
     },
+    refresh() {
+      this.message = "Refreshing articles...";
+      this.isShowMessage = true;
+      this.fetch();
+    },
   },
-  async mounted() {
-    let webResponse = await news.fetchNews(1);
-    this.response = webResponse.data;
-    let responseStatus = this.response.status;
-    if (responseStatus.code == 1) {
-      this.articles = this.response.data;
-    }
+  mounted() {
+    this.fetch();
   },
 };
 </script>
 <style scoped>
-.newsArticle{
+.newsArticle {
   margin: 10px;
 }
-.newsDash{
+.newsDash {
   width: 100%;
 }
 </style>

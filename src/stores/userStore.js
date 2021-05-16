@@ -10,6 +10,7 @@ const getdefaultState = () => {
         isLoggedin: false,
         loginEvent: new Subject(),
         org: new Org(),
+        networkEvent: new Subject()
     }
 }
 
@@ -32,7 +33,10 @@ const userStore = {
         },
         org: state => {
             return state.org;
-        }
+        },
+        networkEvent: state => {
+            return state.networkEvent.asObservable();
+        },
 
     },
     mutations: {
@@ -59,7 +63,9 @@ const userStore = {
             else {
                 state.isSignUpSuccess = true;
             }
-
+        },
+        setMessagePopup(state, payload) {
+            state.networkEvent.next({ type: payload.type, message: payload.message })
         }
     },
     actions: {
@@ -68,6 +74,9 @@ const userStore = {
         },
         signOut(context) {
             context.commit("signOut");
+        },
+        setMessagePopup(context, payload) {
+            context.commit("setMessagePopup", payload)
         }
     }
 }

@@ -1,146 +1,149 @@
 <template>
   <div className="cetificatesMain">
     <div class="header">
-      <h2 class="titleHeader">Welcome, {{ organization.organizationName }}</h2>
-      <ActionButton  class="addBtn" btnIcon="plus" btnDescription="   Add New Certificate" @click="add"></ActionButton>
+      <ActionButton
+        class="addBtn"
+        btnIcon="plus"
+        btnDescription="   Add New Certificate"
+        @click="add"
+      ></ActionButton>
       <!-- <b-button variant="outline-primary" @click="add">
             Add New Certificate</b-button
           > -->
-   
     </div>
-     <DashBoardTabNav :tabs="['Active', 'Inactive', 'Editing']" :selected="selected" @selected="setSelected">
-        <DashBoardTab :isSelected="selected === 'Active'" >
-          <b-container>
-            <b-row>
-              <b-table
-                :fields="fields"
-                :items="certificates"
-                :head-variant="light"
-                :bordered="false"
-                :responsive="md"
-                id="main_table"
-                :per-page="perPage"
-                :current-page="currentPage"
-                hover
-                
-              >
-                <template #head(name)>
-                  <div class="text-nowrap">Certificate Name</div>
-                </template>
-                <template #cell(name)="data">
-                  <p
-                    @click="
-                      view(data.item);
-                      $refs.preview_modal.showModal();
-                    "
-                    class="certificateName"
+    <DashBoardTabNav
+      :tabs="['Active', 'Inactive', 'Editing']"
+      :selected="selected"
+      @selected="setSelected"
+    >
+      <DashBoardTab :isSelected="selected === 'Active'">
+        <b-container>
+          <b-row>
+            <b-table
+              :fields="fields"
+              :items="certificates"
+              :head-variant="light"
+              :bordered="false"
+              :responsive="md"
+              id="main_table"
+              :per-page="perPage"
+              :current-page="currentPage"
+              hover
+            >
+              <template #head(name)>
+                <div class="text-nowrap">Certificate Name</div>
+              </template>
+              <template #cell(name)="data">
+                <p
+                  @click="
+                    view(data.item);
+                    $refs.preview_modal.showModal();
+                  "
+                  class="certificateName"
+                >
+                  {{ data.item.name }}
+                </p>
+              </template>
+              <template #head(activeStatus)>
+                <div
+                  class="text-nowrap"
+                  v-b-tooltip.hover
+                  title="Whether the certificate is currently active or not"
+                  variant="secondary"
+                >
+                  Active
+                </div>
+              </template>
+              <template #cell(activeStatus)="row">
+                <span></span>
+                <b-form-checkbox
+                  v-model="row.item.activeStatus"
+                  name="data.index"
+                  @change="updateStatus(row.item)"
+                  switch
+                  class="activeCheckbox"
+                >
+                  <!--<b>{{ row.item.activeStatus }}</b>-->
+                </b-form-checkbox>
+              </template>
+              <template #head(computedPriority)>
+                <div
+                  class="text-nowrap"
+                  v-b-tooltip.hover
+                  title="How important is it to attain this certificate for a given company?"
+                  variant="secondary"
+                >
+                  Priority
+                </div>
+              </template>
+              <template #head(sdgs)>
+                <div
+                  class="text-nowrap"
+                  v-b-tooltip.hover
+                  title=" United Nations - Sustainable Development Goals"
+                  variant="secondary"
+                >
+                  SDGs
+                </div>
+              </template>
+              <template #cell(sdgs)="data">
+                <div>
+                  <span v-for="(sdg, index) in data.item.sdgs" :key="index"
+                    >{{ sdg
+                    }}<span v-if="index != data.item.sdgs.length - 1"
+                      >,
+                    </span></span
                   >
-                    {{ data.item.name }}
-                  </p>
-                </template>
-                <template #head(activeStatus)>
-                  <div
-                    class="text-nowrap"
-                    v-b-tooltip.hover
-                    title="Whether the certificate is currently active or not"
-                    variant="secondary"
-                  >
-                    Active
-                  </div>
-                </template>
-                <template #cell(activeStatus)="row">
-                  <span></span>
-                  <b-form-checkbox
-                    v-model="row.item.activeStatus"
-                    name="data.index"
-                    @change="updateStatus(row.item)"
-                    switch
-                    class="activeCheckbox"
-                  >
-                    <!--<b>{{ row.item.activeStatus }}</b>-->
-                  </b-form-checkbox>
-                </template>
-                <template #head(computedPriority)>
-                  <div
-                    class="text-nowrap"
-                    v-b-tooltip.hover
-                    title="How important is it to attain this certificate for a given company?"
-                    variant="secondary"
-                  >
-                    Priority
-                  </div>
-                </template>
-                <template #head(sdgs)>
-                  <div
-                    class="text-nowrap"
-                    v-b-tooltip.hover
-                    title=" United Nations - Sustainable Development Goals"
-                    variant="secondary"
-                  >
-                    SDGs
-                  </div>
-                </template>
-                <template #cell(sdgs)="data">
-                  <div>
-                    <span v-for="(sdg, index) in data.item.sdgs" :key="index"
-                      >{{ sdg
-                      }}<span v-if="index != data.item.sdgs.length - 1"
-                        >,
-                      </span></span
-                    >
-                  </div>
-                </template>
-                <template #head(industries)>
-                  <div
-                    class="text-nowrap"
-                    v-b-tooltip.hover
-                    title="The ISIC Industry sectors where this ceritificate is valid in"
-                    variant="secondary"
-                  >
-                    Industries
-                  </div>
-                </template>
+                </div>
+              </template>
+              <template #head(industries)>
+                <div
+                  class="text-nowrap"
+                  v-b-tooltip.hover
+                  title="The ISIC Industry sectors where this ceritificate is valid in"
+                  variant="secondary"
+                >
+                  Industries
+                </div>
+              </template>
 
-                <template #cell(industries)="data">
-                  <div>
-                    <span
-                      v-for="(industry, index) in data.item.industries"
-                      :key="index"
-                      >{{ industry
-                      }}<span v-if="index != data.item.industries.length - 1"
-                        >,
-                      </span></span
-                    >
-                  </div>
-                </template>
-                <template #cell(actions)="data">
-                  <b-button id="customButton" @click="copy(data.item)">Copy</b-button>
-                  <b-button id="customButton" @click="edit(data.item)">Edit</b-button
+              <template #cell(industries)="data">
+                <div>
+                  <span
+                    v-for="(industry, index) in data.item.industries"
+                    :key="index"
+                    >{{ industry
+                    }}<span v-if="index != data.item.industries.length - 1"
+                      >,
+                    </span></span
                   >
-                  <!--<b-button>See Details</b-button>-->
-                </template>
-              </b-table>
-            </b-row>
-      <div id="paginate">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="rows"
-          :per-page="perPage"
-          aria-controls="main_table"
-          align="center"
-          pills
-        ></b-pagination>
-      </div>
-    </b-container>
-    
-        </DashBoardTab>
-        <DashBoardTab :isSelected="selected === 'Inactive'" >
-        
+                </div>
+              </template>
+              <template #cell(actions)="data">
+                <b-button id="customButton" @click="copy(data.item)"
+                  >Copy</b-button
+                >
+                <b-button id="customButton" @click="edit(data.item)"
+                  >Edit</b-button
+                >
+                <!--<b-button>See Details</b-button>-->
+              </template>
+            </b-table>
+          </b-row>
+          <div id="paginate">
+            <b-pagination
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="perPage"
+              aria-controls="main_table"
+              align="center"
+              pills
+            ></b-pagination>
+          </div>
+        </b-container>
       </DashBoardTab>
-      <DashBoardTab :isSelected="selected === 'Editing'" >
-        
-      </DashBoardTab>
-      
+      <DashBoardTab :isSelected="selected === 'Inactive'"> </DashBoardTab>
+      <DashBoardTab :isSelected="selected === 'Editing'"> </DashBoardTab>
     </DashBoardTabNav>
     <!--<div >
         <b-card no-body>
@@ -263,7 +266,7 @@
   </b-card>
     </div>-->
     <br />
- 
+
     <certificate-profile
       ref="preview_modal"
       :isSavePreview="false"
@@ -277,9 +280,14 @@
 <script>
 import compute from "@/models/compute";
 import CertificateProfile from "./CertificateProfile.vue";
-import DashBoardTabNav from "../Shared/DashBoardTabNav"
-import DashBoardTab from "../Shared/DashBoardTab"
-import { ActionButton } from "uicomponents"
+import DashBoardTabNav from "../Shared/DashBoardTabNav";
+import DashBoardTab from "../Shared/DashBoardTab";
+import { ActionButton } from "uicomponents";
+
+import certificateModel from "../../../../SHARED.CODE/Objects/Certificate/certificate";
+
+import { ServicesFactory } from "@/services/ServicesFactory";
+const certificateService = ServicesFactory.get("certificates");
 
 export default {
   name: "MyCertificates",
@@ -303,33 +311,36 @@ export default {
         "activeStatus",
         "actions",
       ],
-      selected: 'Active',
+      selected: "Active",
     };
   },
   async mounted() {
-    await this.$store.dispatch("certificate/fetchCertificates");
-    this.certificates = this.$store.getters["certificate/certificates"].sort(
-      compute.compareByName
-    );
-    this.organization = this.$store.getters["certificate/organization"];
-    this.networkConnected = this.$store.getters[
-      "certificate/isNetworkConnected"
-    ];
-    if (this.networkConnected == false) {
-      setTimeout(() => {
-        this.$alert("Network failure: Please contact Administrator");
-      }, 500);
+    let org = this.$store.getters["user/org"];
+    try {
+      let webResponse = await certificateService.fetchCertificates(org.orgID);
+      this.response = webResponse.data;
+    } catch (err) {
+      this.$store.dispatch("user/setMessagePopup", { type: 0, message: err });
     }
+
+    let certificatesResponse = this.response;
+
+    for (var i = 0; i < certificatesResponse.length; i++) {
+      let cert = new certificateModel();
+      cert.change(certificatesResponse[i]);
+      this.certificates.push(cert);
+    }
+    this.certificates = this.certificates.sort(compute.compareByName);
   },
-  components: { 
-    CertificateProfile,   
+  components: {
+    CertificateProfile,
     DashBoardTab,
     DashBoardTabNav,
-    ActionButton, 
+    ActionButton,
   },
   methods: {
     setSelected(tab) {
-        this.selected = tab;
+      this.selected = tab;
     },
     add() {
       this.$store.dispatch("certificate/changeMode", "new");
@@ -387,8 +398,8 @@ export default {
 </script>
 
 <style scoped>
-*{
-  font-family: 'Montserrat';
+* {
+  font-family: "Montserrat";
   text-align: left;
 }
 #main_head {
@@ -404,7 +415,6 @@ table {
   margin-top: 0px;
 }
 
-
 .certificateName {
   cursor: pointer;
 }
@@ -412,32 +422,27 @@ table {
 #main_heading {
   justify-content: flex-start;
 }
-.header{
+.header {
   margin-bottom: 50px;
   display: block;
   padding: 10px;
-  
 }
-.addBtn{
-  margin-top:50px;
+.addBtn {
+  margin-top: 50px;
   float: right;
 }
-.titleHeader{
+.titleHeader {
   float: left;
 }
 
-#customButton{
-   font-family: 'Montserrat';
-    background: white;
-    padding: 5px;
-    color: #1D2029;
-    border-radius: 5px;
-    border: 2px solid #989898;
-    font-weight: 600;
-    margin: 1px;
-  }
-
- 
-
-
+#customButton {
+  font-family: "Montserrat";
+  background: white;
+  padding: 5px;
+  color: #1d2029;
+  border-radius: 5px;
+  border: 2px solid #989898;
+  font-weight: 600;
+  margin: 1px;
+}
 </style>

@@ -2,7 +2,7 @@ import { ServicesFactory } from "@/services/ServicesFactory";
 import axios from 'axios'
 
 const certificateService = ServicesFactory.get("certificates");
-const organizationService = ServicesFactory.get("organizations");
+
 //import certificateModel from "./models/certificate";
 import certificateModel from "../../../SHARED.CODE/Objects/Certificate/certificate";
 //import {certificateModel} from "shared.code";
@@ -55,13 +55,6 @@ const certificateStore = {
             state.certificate.setOrganizationID(state.organizationID)
             console.log(state.organizationID)
             return state.certificate
-        },
-        organizationForm: state => {
-            if (state.organization.name == "") {
-                var org = localStorage.getItem("Organization")
-                state.organization.map(org)
-            }
-            return state.organization
         },
         payloadArchived: state => {
             return {
@@ -144,87 +137,13 @@ const certificateStore = {
 
         },
 
-        async fetchCertificates(state) {
-            if (state.organizationID == null && localStorage.getItem("OrganizationID") != null) {
-                state.organizationID = localStorage.getItem("OrganizationID")
-            }
-            state.organizationID = "EOIRWINSDFSDFDSPEW";
-            state.certificates = [];
-            var certificatesResponse = null;
-            await certificateService.fetchCertificates(state.organizationID).then(response => (certificatesResponse = response.data)).catch((e) =>
-                console.log("Error printed:" + e));
-            console.log(certificatesResponse)
-            if (certificatesResponse == null) {
-                state.isNetworkConnected = false
-            }
-            else {
-                state.isNetworkConnected = true
-                for (var i = 0; i < certificatesResponse.length; i++) {
-                    var cert = new certificateModel()
-                    cert.change(certificatesResponse[i])
-                    state.certificates.push(cert)
-                }
-
-            }
-
-
-        },
-
-        async fetchOrganization(state) {
-            if (state.organizationID == null && localStorage.getItem("OrganizationID") != null) {
-                state.organizationID = localStorage.getItem("OrganizationID")
-                state.organizationName = localStorage.getItem("OrganizationName")
-            }
-            else {
-                var organizationResponse
-                await organizationService.fetchOrganization(state.organizationID).then(response => (organizationResponse = response.data.organizationDetails[0]));
-                if (organizationResponse == undefined) {
-                    state.orgLoginFailed = true
-
-                }
-                else {
-                    state.orgLoginFailed = false
-                    window.localStorage.setItem('OrganizationID', organizationResponse.organizationID)
-                    window.localStorage.setItem('OrganizationName', organizationResponse.name)
-                    window.localStorage.setItem('Organization', organizationResponse)
-                    state.organization.map(organizationResponse)
-                    state.organizationID = localStorage.getItem("OrganizationID")
-                    state.organizationName = localStorage.getItem("OrganizationName")
-                }
-
-            }
-
-        },
-
-
-        async updateOrganization(state, payload) {
-            await organizationService.updateOrganization(payload).then((response) => {
-                this.responseMessage = response.data.msg;
-                this.responseStatus = response.data.status;
-            });
-            window.localStorage.removeItem('Organization')
-            var organizationResponse
-            await organizationService.fetchOrganization(state.organizationID).then(response => (organizationResponse = response.data.organizationDetails[0]));
-            window.localStorage.setItem('Organization', organizationResponse)
-            state.organization.map(organizationResponse)
-        },
-
-        setOrganizationID(state, payload) {
-            state.organizationID = payload
-        },
-
         addCertificate(state, payload) {
             state.certificates.Add(payload)
         },
         changeMode(state, payload) {
             state.mode = payload
         },
-        changeLoginStatus(state) {
-            if (localStorage.getItem("OrganizationID") == null) {
-                state.IsloggedIn = false
-            }
-            else state.IsloggedIn = true
-        },
+
         resetComputedSdgs(state) {
             state.certificate.computedSdgs = []
         },
@@ -262,13 +181,8 @@ const certificateStore = {
             let { data } = await axios.post(awsConfig.s3bucketUrl, payload)
             console.log(data)
         },
-        resetState(state) {
-            state.organizationID = null;
-            state.organizationName = null;
-        },
-        resetOrganization(state) {
-            state.organization = new organizationModel()
-        },
+
+
 
     },
     actions: {
@@ -292,16 +206,6 @@ const certificateStore = {
             context.commit("resetCertificate")
         },
 
-        setOrganizationID(context, payload) {
-            context.commit("setOrganizationID", payload)
-        },
-        async fetchCertificates(context, payload) {
-            context.commit("fetchCertificates", payload)
-        },
-        async fetchOrganization(context, payload) {
-            context.commit("fetchOrganization", payload)
-        },
-
         addCertificate(context, payload) {
             context.commit("addCertificate", payload)
         },
@@ -317,20 +221,12 @@ const certificateStore = {
         updateCertificateStatus(context, payload) {
             context.commit("updateCertificateStatus", payload)
         },
-        resetState(context) {
-            context.commit("resetState")
-        },
+
         performComputations(context) {
             context.commit("performComputations")
         },
         deleteCertificate(context) {
             context.commit("deleteCertificate")
-        },
-        resetOrganization(context) {
-            context.commit("resetOrganization")
-        },
-        updateOrganization(context, payload) {
-            context.commit("updateOrganization", payload)
         },
 
     }
