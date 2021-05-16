@@ -103,6 +103,9 @@ const certificateStore = {
 
         uploadPolicy: state => {
             return state.uploadPolicy
+        },
+        getCertificatesCount: state => {
+            return state.certificates.length;
         }
     },
     mutations: {
@@ -180,6 +183,7 @@ const certificateStore = {
         setCertificates(state, payload) {
             return new Promise((resolve) => {
                 let certificatesResponse = payload;
+                state.certificates = [];
                 for (var i = 0; i < certificatesResponse.length; i++) {
                     let cert = new certificateModel();
                     cert.change(certificatesResponse[i]);
@@ -240,8 +244,9 @@ const certificateStore = {
                 let webResponse = await certificateService.fetchCertificates(org.orgID);
                 response = webResponse.data;
                 if (response.status.code == transportCodes.SUCCESS) {
-                    await context.commit('setCertificates', response.data)
+                    await context.commit('setCertificates', response.data);
                     return new Promise((resolve) => {
+                        context.commit("global/toggleLoading", "off", { root: true });
                         resolve(context.getters.certificates)
                     })
                 }

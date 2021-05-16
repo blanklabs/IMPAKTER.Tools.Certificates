@@ -96,7 +96,8 @@ export default {
         }
       }
     },
-    afterLogin() {
+    async afterLogin() {
+      this.$store.commit("global/toggleLoading", "on");
       let responseStatus = this.response.status;
 
       //console.log("this.response.status:", this.response.status);
@@ -112,7 +113,8 @@ export default {
               org: responseData.org,
               case: "LOGIN",
             };
-            this.$store.dispatch("user/login", payload);
+            await this.$store.dispatch("user/login", payload);
+            this.$store.commit("global/toggleLoading", "off");
             this.$router.push("/dashboard");
           } else {
             this.statusMessage = "Something went wrong. Please retry";

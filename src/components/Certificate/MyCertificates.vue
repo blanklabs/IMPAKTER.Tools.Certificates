@@ -309,6 +309,7 @@ export default {
     };
   },
   async mounted() {
+    this.$store.commit("global/toggleLoading", "on");
     this.certificates = await this.$store.dispatch(
       "certificate/fetchCertificates"
     );

@@ -64,13 +64,18 @@ const userStore = {
 
     },
     actions: {
-        login(context, payload) {
+        async login(context, payload) {
             context.commit('org/setOrg', payload.org, { root: true });
             window.localStorage.setItem(
                 "accessToken",
                 payload.accessToken
             );
+            await context.dispatch("certificate/fetchCertificates", null, { root: true });
+            await context.dispatch("news/fetchNews", null, { root: true });
             context.commit("login", payload);
+            return new Promise((resolve) => {
+                resolve()
+            })
         },
         signOut(context) {
             context.commit("signOut");

@@ -94,6 +94,7 @@ export default {
   },
   methods: {
     async fetch() {
+      this.$store.commit("global/toggleLoading", "on");
       let response = await this.$store.dispatch("news/fetchNews");
       //console.log("response:", JSON.stringify(response));
       if (response.status) {

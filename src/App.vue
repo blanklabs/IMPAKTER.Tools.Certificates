@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <!--<Sidebar v-if="isInside" />-->
+    <rise-loader :loading="loading" :color="color" :size="size"></rise-loader>
     <b-container class="page-wrap">
       <b-row v-if="isLoggedIn">
         <NavDashboard />
@@ -28,12 +29,16 @@ import NavigationBar from "./components/Shared/NavigationBar";
 import Sidebar from "./components/Shared/Sidebar";
 import NavDashboard from "./components/Shared/NavDashboard";
 
+//import PulseLoader from "vue-spinner/src/PulseLoader.vue";
+import RiseLoader from "vue-spinner/src/RiseLoader.vue";
+
 export default {
   data() {
     return {
       isLoggedIn: false,
       messages: [],
       tabs: ["Home", "Hello"],
+      loading: false,
     };
   },
   methods: {},
@@ -41,6 +46,7 @@ export default {
     NavigationBar,
     Sidebar,
     NavDashboard,
+    RiseLoader,
   },
   mounted() {
     this.isLoggedIn = this.$store.dispatch("user/checkLoginStatus");
@@ -57,6 +63,7 @@ export default {
         this.isLoggedIn = false;
       }
     });
+
     this.networkEventSubscription = this.$store.getters[
       "global/networkEvent"
     ].subscribe((payload) => {
@@ -70,10 +77,21 @@ export default {
         this.$alert(payload.message);
       }
     });
+
+    this.loadingEventSubscription = this.$store.getters[
+      "global/loadingEvent"
+    ].subscribe((payload) => {
+      if (payload == "on") {
+        this.loading = true;
+      } else {
+        this.loading = false;
+      }
+    });
   },
   beforeDestroy() {
     this.logInEventSubscription.unsubscribe();
     this.networkEventSubscription.unsubscribe();
+    this.loadingEventSubscription.unsubscribe();
   },
 };
 </script>

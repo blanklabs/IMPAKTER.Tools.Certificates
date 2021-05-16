@@ -24,6 +24,9 @@ const newsStore = {
         },
         fetchStatus: state => {
             return state.fetchStatus
+        },
+        getNewsCount: state => {
+            return state.articles.length;
         }
     },
     mutations: {
@@ -57,6 +60,7 @@ const newsStore = {
                     console.log(response.status.message);
                     context.commit('setFetchStatus', false)
                 }
+                context.commit("global/toggleLoading", "off", { root: true });
                 resolve({ articles: context.getters.articles, status: context.getters.fetchStatus });
             })
         },

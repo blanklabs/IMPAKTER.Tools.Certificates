@@ -34,8 +34,7 @@
               iconColor="#8EC184"
               buttonIcon="arrow-right"
               btnLink="/certificates"
-
-              ><h1>4</h1></CardItem
+              ><h1>{{ certificatesCount }}</h1></CardItem
             ></b-col
           >
           <b-col
@@ -61,13 +60,13 @@
         </b-row>
         <b-row id="smallCards">
           <b-col
-            ><CardItem 
+            ><CardItem
               cardIcon="newspaper"
-              cardTitle="News" 
-              iconColor="#2880C3" 
+              cardTitle="News"
+              iconColor="#2880C3"
               buttonIcon="arrow-right"
               btnLink="/news"
-              ><h1>4</h1></CardItem
+              ><h1>{{ newsCount }}</h1></CardItem
             ></b-col
           >
           <b-col
@@ -102,6 +101,8 @@ export default {
     return {
       isSignupSuccess: false,
       noCertificates: false,
+      newsCount: 0,
+      certificatesCount: 0,
     };
   },
   components: {
@@ -110,6 +111,10 @@ export default {
   },
   mounted() {
     this.isSignupSuccess = this.$store.getters["user/signupStatus"];
+    this.certificatesCount = this.$store.getters[
+      "certificate/getCertificatesCount"
+    ];
+    this.newsCount = this.$store.getters["news/getNewsCount"];
   },
 };
 </script>
