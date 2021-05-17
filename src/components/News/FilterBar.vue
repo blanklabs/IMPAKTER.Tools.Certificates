@@ -50,14 +50,6 @@ export default {
     },
     methods: {
       toggle : function() {
-            // console.log('toggle button click')
-            // var state = document.getElementById('toggle').style
-           
-            // if(state.display == 'none') {
-            //     state.display = 'inline'
-            // } else {
-            //     state.display = 'none'
-            // }
           this.showSection = !this.showSection
 
         }

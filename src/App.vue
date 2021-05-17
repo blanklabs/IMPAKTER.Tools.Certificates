@@ -101,11 +101,11 @@ export default {
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootstrap-vue/src/index.scss";
 
-// html, body {
-//   height: 100%;
-// }
+*{
+  font-family: 'Montserrat';
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+ 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

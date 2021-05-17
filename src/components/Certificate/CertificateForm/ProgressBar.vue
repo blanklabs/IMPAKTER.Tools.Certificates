@@ -29,19 +29,19 @@ export default {
 
 (html comment removed:  Add "scoped" attribute to limit CSS to this component only )
 <style scoped>
+
 span {
   margin-right: 70px;
 }
 .active{
-  color:#fe6663;
+  padding: 5px;
+  border-bottom: solid 3px #fe6663;
   font-weight: bold;
 }
 .container{
   position: fixed;
-  background-color: white;
   z-index: 100;
-  border-radius: 25px;
-  border: 1px solid #ffbab9;
+  
 }
 .progressbar {
   display: inline-flex;
