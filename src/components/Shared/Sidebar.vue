@@ -80,9 +80,8 @@ h5 {
   border-left: 5px solid #fe6663;
 }
 
-  .active {
- 
+.active {
     border-left: 5px solid #fe6663;
-  }
+}
 
 </style>

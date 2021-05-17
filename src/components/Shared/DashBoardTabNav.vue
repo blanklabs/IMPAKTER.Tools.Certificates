@@ -51,8 +51,10 @@ a:hover{
   font-weight: bolder;
 }
 .nav-item:hover {
-  border-bottom-style: solid;
-  border-bottom-color: #fe6663;
+  border-bottom: 3px solid #fe6663;
+}
+.active {
+    border-bottom: 3px solid #fe6663;
 }
 
 hr{
