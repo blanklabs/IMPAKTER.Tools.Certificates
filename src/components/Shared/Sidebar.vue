@@ -5,17 +5,23 @@
         <img id="image" :src="org.logo" />
         <h5>{{ org.name }}</h5>
       </div>
-      <b-nav-item>
+      <b-nav-item @click="tab = 'certificates'" :class="{active : tab === 'certificates'}">
         <router-link to="/certificates"
           >My Certificates</router-link
         ></b-nav-item
       >
-      <b-nav-item> <router-link to="/news">News</router-link></b-nav-item>
-      <b-nav-item
-        ><router-link to="/publications">Publications</router-link></b-nav-item
-      >
-      <b-nav-item><router-link to="/matches">Matches</router-link></b-nav-item>
-      <b-nav-item><router-link to="/library">Library</router-link></b-nav-item>
+      <b-nav-item @click="tab = 'news'" :class="{active : tab === 'news'}"> 
+        <router-link to="/news">News</router-link>
+      </b-nav-item>
+      <b-nav-item @click="tab = 'publications'" :class="{active : tab === 'publications'}">
+        <router-link to="/publications">Publications</router-link>
+      </b-nav-item>
+      <b-nav-item @click="tab = 'matches'" :class="{active : tab === 'matches'}">
+        <router-link to="/matches">Matches</router-link>
+      </b-nav-item>
+      <b-nav-item @click="tab = 'library'" :class="{active : tab === 'library'}">
+        <router-link to="/library">Library</router-link>
+      </b-nav-item>
     </b-nav>
   </div>
 </template>
@@ -24,6 +30,7 @@ export default {
   name: "Sidebar",
   data() {
     return {
+       tab: "",
       org: {},
     };
   },
@@ -31,6 +38,7 @@ export default {
     this.org = this.$store.getters["org/organization"];
   },
 };
+
 </script>
 
 <style scoped>
@@ -68,10 +76,13 @@ h5 {
 .nav-item {
   padding: 10px;
 }
-.nav-item:hover {
+.nav-item:hover{
   border-left: 5px solid #fe6663;
 }
-.nav-item:active {
-  border-left: 5px solid #fe6663;
-}
+
+  .active {
+ 
+    border-left: 5px solid #fe6663;
+  }
+
 </style>

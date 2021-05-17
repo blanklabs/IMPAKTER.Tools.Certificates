@@ -63,7 +63,7 @@
             ><CardItem
               cardIcon="newspaper"
               cardTitle="News"
-              iconColor="#2880C3"
+              iconColor="#9966FF"
               buttonIcon="arrow-right"
               btnLink="/news"
               ><h1>{{ newsCount }}</h1></CardItem
@@ -83,8 +83,8 @@
             ><CardItem
               cardIcon="check2-all"
               cardTitle="Matches"
-              iconColor="#2880C3"
-              ><h2>Comming Soon</h2></CardItem
+              iconColor="#CC0000"
+              ><h3>Comming Soon</h3></CardItem
             ></b-col
           >
         </b-row>
@@ -133,6 +133,15 @@ export default {
   padding: 20px;
 }
 #smallCards {
-  padding: 30px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+.col{
+  margin: 10px;
+}
+h1{
+  font-size: 60px;
+  font-weight: bolder;
+  text-align: center;
 }
 </style>
