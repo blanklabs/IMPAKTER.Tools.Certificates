@@ -1,6 +1,7 @@
 <template>
-
-    <b-form class="newsFilter" inline>
+<div>
+    <b-icon class="searchBtn" icon="search"  v-on:click="toggle"></b-icon>
+    <b-form class="newsFilter"  v-show="showSection" inline>
        
         <b-form-input
           class="newsInput keywords"
@@ -29,7 +30,7 @@
         </b-button>
    
       </b-form>
-
+</div>
 </template>
 
 <script>
@@ -42,10 +43,24 @@ export default {
           date: null,
           priority: null,
         },
-        dates: [{ text: 'Date', value: null }, 'Test', 'Test1', 'Test 2'],
-        priorities: [{ text: 'Publication Priority', value: null }, 'Tier 1', 'Tier 2', 'Tier 3'],
+        priorities: [{ text: 'Publication Priority', value: null }, 'Tier 1', 'Tier 2', 'Tier 3', 'Tier 4'],
+        showSection: false,
     
       }
+    },
+    methods: {
+      toggle : function() {
+            // console.log('toggle button click')
+            // var state = document.getElementById('toggle').style
+           
+            // if(state.display == 'none') {
+            //     state.display = 'inline'
+            // } else {
+            //     state.display = 'none'
+            // }
+          this.showSection = !this.showSection
+
+        }
     }
 }
 </script>
@@ -68,4 +83,12 @@ export default {
   border-radius: 5px;
 
 }
+.searchBtn{
+  float: right;
+  margin-top: -55px;
+  background: none;
+  border: none;
+  color:#fe6663;
+}
+
 </style>

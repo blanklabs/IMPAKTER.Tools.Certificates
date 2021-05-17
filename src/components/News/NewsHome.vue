@@ -8,11 +8,13 @@
       fade
       >{{ message }}</b-alert
     >
+   
     <DashBoardTabNav
       :tabs="['All', 'Tailored', 'Social Media']"
       :selected="selected"
       @selected="setSelected"
     >
+     <FilterBar />
       <DashBoardTab :isSelected="selected === 'All'">
         <b-row>
           <div v-for="article in articles" :key="article.articleID">
@@ -26,7 +28,7 @@
         </b-row>
       </DashBoardTab>
       <DashBoardTab :isSelected="selected === 'Tailored'">
-        <FilterBar />
+      
         <b-row>
           <NewsArticle
             class="newsArticle"
@@ -126,4 +128,5 @@ export default {
 .newsDash {
   width: 100%;
 }
+
 </style>
