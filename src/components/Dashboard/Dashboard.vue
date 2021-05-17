@@ -54,7 +54,7 @@
               iconColor="#F79755"
               buttonIcon="arrow-right"
               btnLink="/publications"
-              ><h1>4</h1></CardItem
+              ><h1>2</h1></CardItem
             ></b-col
           >
         </b-row>
@@ -76,7 +76,7 @@
               iconColor="#2880C3"
               buttonIcon="arrow-right"
               btnLink="/library"
-              ><h1>4</h1></CardItem
+              ><h1>5</h1></CardItem
             ></b-col
           >
           <b-col

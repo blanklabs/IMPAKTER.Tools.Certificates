@@ -33,7 +33,8 @@
           <NewsArticle
             class="newsArticle"
             :articleImage="'https://placekitten.com/380/200'"
-            articleTitle="Can the New US and EU Climate Goals Save the World?"
+            :articleTitle="'Can the New US and EU Climate Goals Save the World?'"
+            :newsLink="'https://impakter.com/ashden-meet-the-pioneers-boosting-rights-and-resilience-in-earths-threatened-forests/'"
             >The last week in April was marked by the announcement of new, more
             ambitious climate goals from two of the world’s largest polluters,
             the United States and Europe. Could they be a turning point in the
@@ -43,7 +44,9 @@
           <NewsArticle
             class="newsArticle"
             :articleImage="'https://placekitten.com/380/200'"
-            articleTitle="Can the New US and EU Climate Goals Save the World?"
+            articleTitle="'Can the New US and EU Climate Goals Save the World?'"
+
+            :newsLink="'https://impakter.com/ashden-meet-the-pioneers-boosting-rights-and-resilience-in-earths-threatened-forests/'"
             >The last week in April was marked by the announcement of new, more
             ambitious climate goals from two of the world’s largest polluters,
             the United States and Europe. Could they be a turning point in the
@@ -56,7 +59,8 @@
           <NewsArticle
             class="newsArticle"
             :articleImage="'https://placekitten.com/380/200'"
-            articleTitle="Just Another title"
+            :articleTitle="'Just Another title'"
+            :newsLink="'https://impakter.com/ashden-meet-the-pioneers-boosting-rights-and-resilience-in-earths-threatened-forests/'"
             >The last week in April was marked by the announcement of new, more
             ambitious climate goals from two of the world’s largest polluters,
             the United States and Europe. Could they be a turning point in the
