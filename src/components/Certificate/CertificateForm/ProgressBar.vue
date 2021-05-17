@@ -39,8 +39,9 @@ span {
   font-weight: bold;
 }
 .container{
-  position: fixed;
-  z-index: 100;
+  
+  position: absolute;
+  background-color: white;
   
 }
 .progressbar {
