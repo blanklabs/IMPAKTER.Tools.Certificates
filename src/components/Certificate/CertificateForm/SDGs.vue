@@ -33,8 +33,8 @@
         <b-col> </b-col>
       </b-row>
       <b-row class="buttons_row">
-        <b-button @click="back" class="button_group">Back</b-button>
-        <b-button variant="primary" @click="next">Next</b-button>
+        <b-button class="actButton" @click="back" > Back</b-button>
+        <b-button class="actButton" @click="next"> Next</b-button>
       </b-row>
     </b-container>
     <!--<b-card class="mt-3" header="Form result so far">
@@ -83,4 +83,9 @@ export default {
 </script>
 
 <style scoped>
+.actButton{
+  color:black;
+  border: 2px solid #989898;
+  background: white;
+}
 </style>

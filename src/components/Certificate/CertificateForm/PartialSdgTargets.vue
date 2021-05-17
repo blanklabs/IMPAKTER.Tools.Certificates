@@ -35,13 +35,13 @@
           </b-form-checkbox-group>
         </b-form-group>
       </b-row>
-
+      <hr>
       <b-row class="buttons_row">
-        <b-button @click="back">Previous</b-button>
-        <b-button variant="primary" @click="next">Next</b-button>
+        <b-button className="btn" @click="back">Previous</b-button>
+        <b-button className="btn" @click="next">Next</b-button>
       </b-row>
       <b-row class="buttons_row">
-        <b-button @click="skip" variant="outline-primary"
+        <b-button @click="skip" 
           >Skip Targets</b-button
         >
       </b-row>
@@ -124,5 +124,21 @@ export default {
 
 #scroll {
   margin-top: 0px;
+}
+
+.btn{
+  color:black;
+  border: 2px solid #989898;
+  background: white;
+}
+hr{
+  position: absolute;
+  margin-top: 0;
+  padding-top: 0;
+  height: 3px;
+  width: 100%;
+  background-color: #EBEBEB;
+  border: none;
+
 }
 </style>

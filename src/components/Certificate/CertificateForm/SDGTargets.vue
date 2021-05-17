@@ -5,7 +5,7 @@
     </b-row>
     <b-row class="main_row">
       <b-col cols="6">
-        <div class="position-fixed">
+        <div class="">
           <h3>UN Sustainable Development Goals</h3>
           <p>You selected the following SDGs</p>
 
@@ -19,7 +19,7 @@
             </h5>
           </div>
           <br />
-          <b-button @click="reselect" variant="outline-primary"
+          <b-button className="btn" @click="reselect" variant="outline-primary"
             >Reselect SDGs</b-button
           >
         </div>
@@ -37,7 +37,7 @@
     </b-card>-->
     <b-modal ref="proceed-modal" hide-footer>
       <h4>The Certificate: "{{ form.name }}" - {{ this.responseMessage }}</h4>
-      <b-button @click="addMore" variant="primary"> Add more details</b-button>
+      <b-button @click="addMore" > Add more details</b-button>
       <br />
       <b-button @click="addNew"> Add another Certificate</b-button>
       <br />
@@ -102,10 +102,17 @@ export default {
 </script>
 
 <style scoped>
+h3{
+  text-align: left;
+}
 .bold {
-  color: #41b883;
+  color: #F6A8A8;
 }
-button {
-  margin-bottom: 5px;
+
+.btn{
+  color:black;
+  border: 2px solid #989898;
+  background: white;
 }
+
 </style>

@@ -163,7 +163,7 @@
             <b-row class="buttons_row">
     
               <b-button class="actButton" type="reset" >Reset</b-button>
-              <b-button class="actButton" type="submit" >Next</b-button>
+              <b-button class="actButton" type="submit">Next</b-button>
             </b-row>
           </b-form>
         </b-col>
