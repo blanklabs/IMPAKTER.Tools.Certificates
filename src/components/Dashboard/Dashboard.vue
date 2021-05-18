@@ -5,11 +5,75 @@
         >Profile updated successfully. Please verify your email address by
         checking your inbox.</b-alert
       >
-      <!-- <p>Main</p> -->
     </div>
     <!-- When User has 0 certificates -->
-    <b- v-if="noCertificates">
-      <div>
+      <div v-if="certificatesCount > 0">
+        <b-row id="smallCards">
+          <b-col
+            ><CardItem
+              cardIcon="files"
+              cardTitle="Certificates"
+              iconColor="#8EC184"
+              buttonIcon="arrow-right"
+              btnLink="/certificates"
+              ><h1>{{ certificatesCount }}</h1>
+            </CardItem>
+          </b-col>
+          
+          <b-col
+            ><CardItem
+              cardIcon="file-text"
+              cardTitle="Drafts"
+              iconColor="#E2CB2C"
+              buttonIcon="arrow-right"
+              btnLink="#"
+              ><h1>4</h1>
+            </CardItem>
+          </b-col>
+          <b-col
+            ><CardItem
+              cardIcon="file-earmark"
+              cardTitle="Articles"
+              iconColor="#F79755"
+              buttonIcon="arrow-right"
+              btnLink="/publications"
+              ><h1>2</h1>
+            </CardItem>
+            </b-col>
+        </b-row>
+        <b-row id="smallCards">
+          <b-col
+            ><CardItem
+              cardIcon="newspaper"
+              cardTitle="News"
+              iconColor="#9966FF"
+              buttonIcon="arrow-right"
+              btnLink="/news"
+              ><h1>{{ newsCount }}</h1>
+            </CardItem>
+          </b-col>
+          <b-col
+            ><CardItem
+              cardIcon="folder2-open"
+              cardTitle="Documents"
+              iconColor="#2880C3"
+              buttonIcon="arrow-right"
+              btnLink="/library"
+              ><h1>5</h1>
+            </CardItem>
+            </b-col>
+          <b-col>
+            <CardItem
+              cardIcon="check2-all"
+              cardTitle="Matches"
+              iconColor="#CC0000"
+              ><h3>Comming Soon</h3>
+            </CardItem>
+          </b-col>
+        </b-row>
+      </div>
+
+      <div v-else>
         <img id="headerImg" src="../../assets/LandingPage/dummyHeader.png" />
         <div id="headerSection">
           <h1>Welcome Message</h1>
@@ -23,84 +87,16 @@
           />
         </div>
       </div>
-    </b->
-    <b- v-else>
-      <div>
-        <b-row id="smallCards">
-          <b-col
-            ><CardItem
-              cardIcon="files"
-              cardTitle="Certificates"
-              iconColor="#8EC184"
-              buttonIcon="arrow-right"
-              btnLink="/certificates"
-              ><h1>{{ certificatesCount }}</h1></CardItem
-            ></b-col
-          >
-          <b-col
-            ><CardItem
-              cardIcon="file-text"
-              cardTitle="Drafts"
-              iconColor="#E2CB2C"
-              buttonIcon="arrow-right"
-              btnLink="#"
-              ><h1>4</h1></CardItem
-            ></b-col
-          >
-          <b-col
-            ><CardItem
-              cardIcon="file-earmark"
-              cardTitle="Articles"
-              iconColor="#F79755"
-              buttonIcon="arrow-right"
-              btnLink="/publications"
-              ><h1>2</h1></CardItem
-            ></b-col
-          >
-        </b-row>
-        <b-row id="smallCards">
-          <b-col
-            ><CardItem
-              cardIcon="newspaper"
-              cardTitle="News"
-              iconColor="#9966FF"
-              buttonIcon="arrow-right"
-              btnLink="/news"
-              ><h1>{{ newsCount }}</h1></CardItem
-            ></b-col
-          >
-          <b-col
-            ><CardItem
-              cardIcon="folder2-open"
-              cardTitle="Documents"
-              iconColor="#2880C3"
-              buttonIcon="arrow-right"
-              btnLink="/library"
-              ><h1>5</h1></CardItem
-            ></b-col
-          >
-          <b-col
-            ><CardItem
-              cardIcon="check2-all"
-              cardTitle="Matches"
-              iconColor="#CC0000"
-              ><h3>Comming Soon</h3></CardItem
-            ></b-col
-          >
-        </b-row>
-      </div>
-    </b->
   </div>
+  
 </template>
 <script>
 import { ActionButton, CardItem } from "uicomponents";
-//import Sidebar from "../Shared/Sidebar";
 export default {
   name: "Dashboard",
   data() {
     return {
       isSignupSuccess: false,
-      noCertificates: false,
       newsCount: 0,
       certificatesCount: 0,
     };
@@ -109,6 +105,7 @@ export default {
     ActionButton,
     CardItem,
   },
+  
   mounted() {
     this.isSignupSuccess = this.$store.getters["user/signupStatus"];
     this.certificatesCount = this.$store.getters[
