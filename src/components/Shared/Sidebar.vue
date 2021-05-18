@@ -2,7 +2,7 @@
   <div class="sidenav">
     <b-nav vertical>
       <div class="p-4">
-        <img id="image" :src="org.logo" />
+        <img class="image" :src="org.logo" />
         <h5>{{ org.name }}</h5>
       </div>
       <b-nav-item @click="tab = 'certificates'" :class="{active : tab === 'certificates'}">
@@ -55,7 +55,7 @@ export default {
   padding-top: 60px;
   text-align: left;
 }
-#image {
+.image {
   margin: 0;
   padding: 10px;
   max-height: 150px;

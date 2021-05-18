@@ -1,10 +1,10 @@
 <template>
-  <b-container fluid="md" id="signup_main">
-    <img src="@/assets/logo_index.png" id="impakterLogo" />
+  <b-container class="signup_main" fluid="md" >
+    <img class="impakterLogo" src="@/assets/logo_index.png" />
 
     <h1>Sign-up</h1>
-    <b-button id="GoogleButton" v-on:click="login('GOOGLE')">
-      <img src="@/assets/google_logo.png" id="googleLogo" /> Sign up with Google
+    <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
+      <img class="googleLogo" src="@/assets/google_logo.png"  /> Sign up with Google
     </b-button>
     <div class="separator">
       <hr />
@@ -22,7 +22,8 @@
     >
     <b-form @submit="onSubmit">
       <b-form-input
-        id="identifier"
+        class="identifier"
+        id="name"
         v-model="user.firstName"
         placeholder="First Name"
         required
@@ -30,32 +31,36 @@
       </b-form-input>
 
       <b-form-input
-        id="identifier"
+        class="identifier"
+        id="lastName"
         v-model="user.lastName"
         placeholder="Last Name"
       >
       </b-form-input>
 
       <b-form-input
-        id="identifier"
+        class="identifier"
+        id="email"
         v-model="user.email"
         placeholder="Email Address"
       >
       </b-form-input>
       <b-form-input
-        id="identifier"
+        class="identifier"
+        id="password"
         v-model="user.password"
         placeholder="New Password"
       >
       </b-form-input>
 
       <b-form-input
-        id="identifier"
+        class="identifier"
+        id="confirmationPassword"
         v-model="passwordConfirmation"
         placeholder="Confirm Password"
       >
       </b-form-input>
-      <b-button id="action_btt" type="submit" variant="primary"
+      <b-button class="action_btt" type="submit" variant="primary"
         >Sign up</b-button
       >
     </b-form>
@@ -141,23 +146,24 @@ a:link {
   color: black;
   text-decoration: none;
 }
-#identifier {
+.signup_main {
+  margin-top: 10px;
+  max-width: 500px;
+}
+.identifier {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-#signup_main {
-  margin-top: 10px;
-  max-width: 500px;
-}
 
-#impakterLogo {
+
+.impakterLogo {
   margin-left: 60px;
   padding: 10px;
   max-width: 300px;
 }
 
-#action_btt {
+.action_btt {
   display: inline-block;
   background: white;
   color: #1d2029;
@@ -167,13 +173,13 @@ a:link {
   white-space: nowrap;
   font-weight: bold;
 }
-#googleLogo {
+.googleLogo {
   display: inline-block;
   margin-right: 15px;
   max-width: 25px;
 }
 
-#GoogleButton {
+.GoogleButton {
   display: inline-block;
   background: white;
   color: #0f993e;
@@ -192,10 +198,7 @@ a:link {
 }
 
 .separator h5 {
-  padding: 0 2rem; /* creates the space */
+  padding: 0 2rem; 
 }
 
-#emailForm {
-  padding: 10px;
-}
 </style>

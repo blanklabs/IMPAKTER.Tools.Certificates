@@ -1,24 +1,26 @@
 <template>
-  <b-container fluid="md" id="signup_main">
-      <img src="@/assets/logo_index.png" id="impakterLogo"/>
+  <b-container class="signup_main" fluid="md" >
+      <img class="impakterLogo" src="@/assets/logo_index.png"/>
 
       <h1>Set Password</h1>
         
       <b-form-input
-          id="identifier"
+          class="identifier"
+          id="newPassword"
           v-model="identifier"
           placeholder="New Password"
           required>
       </b-form-input>
        
       <b-form-input
-          id="identifier"
+          class="identifier"
+          id="confirmPassword"
           v-model="identifier"
           placeholder="Confirm Password"
           required>
       </b-form-input>
         
-      <b-button @click="login" id="action_btt">Set Password</b-button>
+      <b-button class="action_btt" @click="login" >Set Password</b-button>
       
   </b-container>
   
@@ -48,24 +50,24 @@ a:link {
   color: black;
   text-decoration: none;
 }
-#identifier{
+.identifier{
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-#signup_main{
+.signup_main{
   margin-top: 10px;
   max-width: 500px;
 }
 
-#impakterLogo{
+.impakterLogo{
   margin-left:60px;
   padding: 10px;
   max-width: 300px;
 }
 
 
-  #action_btt{
+  .action_btt{
     display: inline-block;
     background: white;
     color: #1D2029;
@@ -75,19 +77,6 @@ a:link {
     white-space: nowrap;
     font-weight: bold;
   }
-
-  .separator{
-    padding: 10px;
-    display: flex;
-    align-items: center;
-  }
-
-  .separator h5{
-    padding: 0 2rem; /* creates the space */
-  }
-
-  #emailForm{
-    padding: 10px;
-  }
+  
 
 </style>

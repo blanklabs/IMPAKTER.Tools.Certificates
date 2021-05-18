@@ -1,6 +1,6 @@
 <template>
-  <b-container fluid="md" id="signup_main">
-    <img src="@/assets/logo_index.png" id="impakterLogo" />
+  <b-container  class="signup_main" fluid="md">
+    <img class="impakterLogo" src="@/assets/logo_index.png"  />
 
     <h1>Sign-up</h1>
 
@@ -11,16 +11,17 @@
 
     <b-form @submit="onSubmit">
       <b-form-input
-        id="identifier"
+        class="identifier"
+        id="company"
         v-model="user.company"
         placeholder="Company Name"
         required
       >
       </b-form-input>
 
-      <b-form-input id="identifier" v-model="user.role" placeholder="Your Role">
+      <b-form-input class="identifier" v-model="user.role" placeholder="Your Role">
       </b-form-input>
-      <b-button id="action_btt" type="submit" variant="primary"
+      <b-button class="action_btt" type="submit" variant="primary"
         >Sign Up</b-button
       >
     </b-form>
@@ -69,23 +70,23 @@ a:link {
   color: black;
   text-decoration: none;
 }
-#identifier {
+.identifier {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-#signup_main {
+.signup_main {
   margin-top: 10px;
   max-width: 500px;
 }
 
-#impakterLogo {
+.impakterLogo {
   margin-left: 60px;
   padding: 10px;
   max-width: 300px;
 }
 
-#action_btt {
+.action_btt {
   display: inline-block;
   background: white;
   color: #1d2029;
@@ -96,17 +97,4 @@ a:link {
   font-weight: bold;
 }
 
-.separator {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.separator h5 {
-  padding: 0 2rem; /* creates the space */
-}
-
-#emailForm {
-  padding: 10px;
-}
 </style>

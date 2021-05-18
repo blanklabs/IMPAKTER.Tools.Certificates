@@ -1,13 +1,13 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="light" fixed="top" id="nav">
+    <b-navbar class="nav" toggleable="lg" type="light" fixed="top" >
       <b-navbar-brand href="https://index.impakter.com">
-        <img id="logo" src="@/assets/logo_index.png" />
+        <img class="logo" src="@/assets/logo_index.png" />
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-      <b-collapse id="nav-collapse" is-nav>
+      <b-collapse class="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item
@@ -83,12 +83,12 @@ export default {
 };
 </script>
 <style scoped>
-#nav {
+.nav {
   font-family: "Montserrat";
   background: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-#nav a {
+.nav a {
   font-weight: bold;
   font-size: 14px;
   color: #222222;
@@ -110,7 +110,7 @@ a.router-link-exact-active {
 button {
   margin-left: 10px;
 }
-#logo {
+.logo {
   width: 190px;
 }
 .profile {

@@ -1,6 +1,6 @@
 <template>
-  <b-container fluid="md" id="signin_main">
-    <img id="impakterLogo" src="@/assets/logo_index.png" />
+  <b-container class="signin_main" fluid="md">
+    <img class="impakterLogo" src="@/assets/logo_index.png" />
     <h1>Sign In to Index Certificate Tool</h1>
     <p>We suggest you to sign in with the email address you use at work.</p>
     <b-alert
@@ -11,8 +11,8 @@
       fade
       >{{ statusMessage }}</b-alert
     >
-    <b-button id="GoogleButton" v-on:click="login('GOOGLE')">
-      <img src="@/assets/google_logo.png" id="googleLogo" /> Sign in with Google
+    <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
+      <img class="googleLogo" src="@/assets/google_logo.png"  /> Sign in with Google
     </b-button>
     <div class="separator">
       <hr />
@@ -20,24 +20,26 @@
       <hr />
     </div>
     <b-form-input
-      id="identifier"
+      class="identifier"
       v-model="user.email"
+      id="email"
       placeholder="name@work-email.com"
       required
     >
     </b-form-input>
 
     <b-form-input
-      id="identifier"
+      class="identifier"
+      id="password"
       v-model="user.password"
       placeholder="password"
       required
     >
     </b-form-input>
 
-    <b-button v-on:click="login('DIRECT')" id="signInButton"
-      >Sign in with Email</b-button
-    >
+    <b-button class="signInButton" v-on:click="login('DIRECT')">
+      Sign in with Email
+    </b-button>
     <hr />
     <p>
       Don’t have an account? <router-link to="/signup">Sign Up</router-link>
@@ -158,24 +160,24 @@ a:link {
   text-decoration: none;
 }
 
-#signin_main {
+.signin_main {
   margin-top: 10px;
   max-width: 500px;
 }
 
-#impakterLogo {
+.impakterLogo {
   margin-left: 60px;
   padding: 10px;
   max-width: 300px;
 }
 
-#googleLogo {
+.googleLogo {
   display: inline-block;
   margin-right: 15px;
   max-width: 25px;
 }
 
-#GoogleButton {
+.GoogleButton {
   display: inline-block;
   background: white;
   color: #0f993e;
@@ -186,7 +188,7 @@ a:link {
   font-weight: bold;
 }
 
-#signInButton {
+.signInButton {
   display: inline-block;
   background: white;
   color: #1d2029;
@@ -205,7 +207,7 @@ a:link {
 }
 
 .separator h5 {
-  padding: 0 2rem; /* creates the space */
+  padding: 0 2rem; 
 }
 #identifier {
   margin-top: 10px;
