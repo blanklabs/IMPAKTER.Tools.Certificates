@@ -192,8 +192,8 @@ button {
 }
 
 #router_view_container {
-  margin-top: 100px;
-  margin-left: 100px;
+  margin-top: 60px;
+  margin-left: 20px;
 }
 
 .pagination {

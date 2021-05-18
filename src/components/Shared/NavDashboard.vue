@@ -106,6 +106,8 @@ a.router-link-exact-active {
   padding-bottom: 10px;
   border-bottom: solid #fe6663;
 }
+
+
 button {
   margin-left: 10px;
 }
@@ -127,14 +129,17 @@ button {
 
 .profile-content input {
   border: none;
-
   padding: 12px 16px;
   width: 250px;
   text-decoration: none;
   display: inline-block;
 }
 
-.profile:hover .profile-content {
+.dropdown-item{
+  background: green;
+}
+
+.profile:hover .profile-content{
   display: block;
 }
 </style>
