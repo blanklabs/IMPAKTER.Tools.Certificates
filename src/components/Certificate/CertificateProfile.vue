@@ -56,10 +56,13 @@
             </p>
           </b-card-text>
         </b-tab>
-                        <b-tab title="Documents">
+        <b-tab title="Documents">
           <b-card-text>
             <p v-for="(document, index) in form.documents" :key="index">
-              {{ document.documentName }} : <a target="_blank" :href="document.documentUrl">{{document.documentUrl}}</a>
+              {{ document.documentName }} :
+              <a target="_blank" :href="document.documentUrl">{{
+                document.documentUrl
+              }}</a>
             </p>
           </b-card-text>
         </b-tab>
@@ -82,15 +85,14 @@
           <!--<span v-for="(target,index) in form.sdgTargets.filter()" :key="index">{{target}}</span>-->
         </p>
       </b-card>
-       <br />
+      <br />
       <b-card title="Industries">
         <p v-for="(industry, index) in form.computedIndustries" :key="index">
           {{ industry.text }}
         </p>
       </b-card>
-      
     </div>
- <br />
+    <br />
     <b-row class="buttons_row" v-if="isSavePreview">
       <b-button @click="submit" variant="primary">Submit</b-button>
     </b-row>
@@ -117,17 +119,17 @@ export default {
   methods: {
     showModal() {
       this.$store.dispatch("performComputations");
-      this.form = this.$store.getters.certificateForm;
+      this.form = this.$store.getters["certificate/certificateForm"];
       this.$refs["preview-modal"].show();
     },
     add() {},
     submit() {
       this.$emit("submit");
     },
-        edit() {
+    edit() {
       this.$emit("edit");
     },
-        deleteCert() {
+    deleteCert() {
       this.$emit("delete");
     },
     close() {
@@ -136,16 +138,15 @@ export default {
   },
   mixins: [CertificateFormMixin],
   mounted() {},
-  computed:{
-    formattedText(){
-      var input = this.form.description
-      input = input.replace(/[\n]{2}/, '</p><p>');
-      input = input.replace('\n\n', '<br/>');
-      input = input.replace(/\*\*(.+)\*\*/, '<strong>$1</strong>');
-      input = input.replace(/\*(.+)\*/, '<em>$1</em>');
+  computed: {
+    formattedText() {
+      var input = this.form.description;
+      input = input.replace(/[\n]{2}/, "</p><p>");
+      input = input.replace("\n\n", "<br/>");
+      input = input.replace(/\*\*(.+)\*\*/, "<strong>$1</strong>");
+      input = input.replace(/\*(.+)\*/, "<em>$1</em>");
       return input;
-    }
-
-  }
+    },
+  },
 };
 </script>
