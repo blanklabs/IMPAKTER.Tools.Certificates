@@ -101,7 +101,7 @@ import FormGuardMixin from "@/mixins/FormGuardMixin";
 import SubmitMixin from "@/mixins/SubmitMixin";
 
 export default {
-  name: "OrgForm",
+  name: "UserForm",
   data() {
     return {
       form: null,

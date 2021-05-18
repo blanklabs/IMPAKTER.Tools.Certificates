@@ -26,12 +26,14 @@ import PublicationsHome from "@/components/Publications/PublicationsHome"
 import MatchesHome from "@/components/Matches/MatchesHome"
 import LibraryHome from "@/components/Library/LibraryHome"
 import Contact from "@/components/Contact.vue"
+import UserForm from "@/components/User/UserForm"
+import UserProfile from "@/components/User/UserProfile"
+
 
 Vue.use(VueRouter)
 
 function authGuard(to, from, next) {
-
-  if (localStorage.getItem('accessToken') == null) {
+  if (!window.localStorage.getItem('accessToken')) {
     next('/signin');
   }
   else next();
@@ -79,27 +81,41 @@ const routes = [
   {
     path: '/news',
     name: 'News',
+    beforeEnter: authGuard,
     component: NewsHome
   },
   {
     path: '/publications',
     name: 'Publicatons',
+    beforeEnter: authGuard,
     component: PublicationsHome
   },
   {
     path: '/matches',
     name: 'Matches',
+    beforeEnter: authGuard,
     component: MatchesHome
   },
   {
     path: '/library',
     name: 'Library',
+    beforeEnter: authGuard,
     component: LibraryHome
   },
   {
-    path: '/profile/edit',
-    name: 'EditProfile',
+    path: '/org/edit',
+    name: 'EditOrg',
     component: OrgForm
+  },
+  {
+    path: '/profile/edit',
+    name: 'EditUser',
+    component: UserForm
+  },
+  {
+    path: '/profile',
+    name: 'UserProfile',
+    component: UserProfile
   },
   {
     path: '/prompt',
@@ -114,6 +130,7 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
+    beforeEnter: authGuard,
     component: Dashboard
   },
   {

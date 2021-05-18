@@ -18,10 +18,6 @@ const orgStore = {
             return state.organization;
         },
         organizationForm: state => {
-            if (state.organization.name == "") {
-                var org = localStorage.getItem("Organization")
-                state.organization.map(org)
-            }
             return state.organization
         },
     },

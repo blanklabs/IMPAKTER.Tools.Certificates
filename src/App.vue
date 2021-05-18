@@ -48,8 +48,8 @@ export default {
     NavDashboard,
     RiseLoader,
   },
-  mounted() {
-    this.isLoggedIn = this.$store.dispatch("user/checkLoginStatus");
+  async mounted() {
+    this.isLoggedIn = await this.$store.dispatch("user/checkLoginStatus");
   },
   created() {
     document.title = "Impakter - Certificates";
@@ -101,11 +101,10 @@ export default {
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootstrap-vue/src/index.scss";
 
-*{
-  font-family: 'Montserrat';
+* {
+  font-family: "Montserrat";
 }
 #app {
- 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

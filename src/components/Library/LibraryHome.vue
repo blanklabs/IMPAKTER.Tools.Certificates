@@ -1,47 +1,49 @@
 <template>
-    <div>
-     <DashBoardTabNav :tabs="['My Documents', 'My Articles', 'News']" :selected="selected" @selected="setSelected">
-        <DashBoardTab :isSelected="selected === 'My Documents'" >
-            <MyDocuments/>
-    
-        </DashBoardTab>
-        <DashBoardTab :isSelected="selected === 'My Articles'" >
-          <MyArticles/>
+  <div>
+    <DashBoardTabNav
+      :tabs="['My Documents', 'My Articles', 'News']"
+      @selectTab="tabSelect"
+    >
+      <DashBoardTab :isSelected="selectedTab === 'My Documents'">
+        <MyDocuments />
       </DashBoardTab>
-      <DashBoardTab :isSelected="selected === 'News'" >
-          <News/>
+      <DashBoardTab :isSelected="selectedTab === 'My Articles'">
+        <MyArticles />
       </DashBoardTab>
-      
+      <DashBoardTab :isSelected="selectedTab === 'News'">
+        <News />
+      </DashBoardTab>
     </DashBoardTabNav>
-    </div>
+  </div>
 </template>
 <script>
-import DashBoardTabNav from "../Shared/DashBoardTabNav"
-import DashBoardTab from "../Shared/DashBoardTab"
-import MyArticles from "./Articles"
-import MyDocuments from "./MyDocuments"
-import News from "./News"
+import DashBoardTabNav from "../Shared/DashBoardTabNav";
+import DashBoardTab from "../Shared/DashBoardTab";
+import MyArticles from "./Articles";
+import MyDocuments from "./MyDocuments";
+import News from "./News";
 export default {
   name: "Library",
   data() {
-    return{
-     selected: 'My Documents'
-   }
+    return {
+      selectedTab: "My Documents",
+    };
   },
-  components:{ 
+  components: {
     DashBoardTab,
     DashBoardTabNav,
     MyArticles,
     MyDocuments,
-    News 
+    News,
   },
   methods: {
-      setSelected(tab) {
-        this.selected = tab;
-      }
-  }
+    tabSelect(tab) {
+      console.log(tab);
+      this.selectedTab = tab;
+      //do something with the selected tab if needed
+    },
+  },
 };
 </script>
 <style scoped>
-
 </style>

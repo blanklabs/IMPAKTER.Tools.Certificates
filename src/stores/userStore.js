@@ -83,12 +83,12 @@ const userStore = {
         setMessagePopup(context, payload) {
             context.commit("setMessagePopup", payload)
         },
-        checkLoginStatus(context) {
+        async checkLoginStatus(context) {
             let accessToken = window.localStorage.getItem("accessToken");
             if (!context.state.isLoggedIn) {
                 if (accessToken) {
-                    let decoded = VueJwtDecode.decode(accessToken)
-                    console.log("decoded JWT:", JSON.stringify(decoded))
+                    let decoded = await VueJwtDecode.decode(accessToken)
+                    //console.log("decoded JWT:", JSON.stringify(decoded))
                     context.commit('org/setOrg', decoded.org, { root: true })
                     context.commit('setLoginStatus', true)
                 }
@@ -96,7 +96,7 @@ const userStore = {
                     context.commit('setLoginStatus', false)
                 }
             }
-            return context.getters.isLoggedIn;
+            return new Promise((resolve) => { resolve(context.getters.isLoggedIn) });
         }
     }
 }
