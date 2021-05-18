@@ -75,13 +75,18 @@ h5 {
 }
 .nav-item {
   padding: 10px;
+  border-left: 5px  solid transparent;
+
 }
 .nav-item:hover{
-  border-left: 5px solid #fe6663;
+
+  border-left: 5px  solid #fe6663;
 }
 
 .active {
     border-left: 5px solid #fe6663;
 }
+
+
 
 </style>

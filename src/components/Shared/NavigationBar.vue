@@ -105,16 +105,15 @@ export default {
 .nav-item {
   padding-left: 8px;
   padding-right: 8px;
+  border-bottom: solid transparent;
 }
 .nav-item:hover {
-  border-bottom-style: solid;
-  border-bottom-color: #fe6663;
+  border-bottom: solid #fe6663;
 }
 
 .router-link-exact-active {
   padding-bottom: 10px;
-  border-bottom-style: solid;
-  border-bottom-color: #fe6663;
+  border-bottom: solid #fe6663;
 }
 
 .logo {

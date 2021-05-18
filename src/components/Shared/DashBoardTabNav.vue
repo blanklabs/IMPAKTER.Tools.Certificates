@@ -56,14 +56,12 @@ a {
   color: #222222;
   text-decoration: none;
 }
-a:hover {
-  font-weight: bolder;
-}
+
 .nav-item:hover {
-  border-bottom: 3px solid #fe6663;
+  border-bottom: solid #fe6663;
 }
 .active {
-  border-bottom: 3px solid #fe6663;
+  border-bottom: solid #fe6663;
 }
 
 hr {
