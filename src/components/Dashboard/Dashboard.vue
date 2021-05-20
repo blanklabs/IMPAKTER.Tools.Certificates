@@ -8,7 +8,7 @@
     </div>
     <!-- When User has 0 certificates -->
       <div v-if="certificatesCount > 0">
-        <b-row id="smallCards">
+        <b-row class="smallCards">
           <b-col
             ><CardItem
               cardIcon="files"
@@ -74,17 +74,21 @@
       </div>
 
       <div v-else>
-        <img id="headerImg" src="../../assets/LandingPage/dummyHeader.png" />
-        <div id="headerSection">
+        <img class="headerImg" src="../../assets/LandingPage/dummyHeader.png" />
+        
+        <div class="headerSection">
           <h1>Welcome Message</h1>
-          <ActionButton
+          <div class="headerButtons">
+            <ActionButton
             btnIcon="person-circle"
             btnDescription="Complete your Profile"
-          />
-          <ActionButton
-            btnIcon="file-earmark-text"
-            btnDescription="Fill your First Certificate"
-          />
+            />
+            <ActionButton
+              btnIcon="file-earmark-text"
+              btnDescription="Fill your First Certificate"
+            />
+          </div>
+          
         </div>
       </div>
   </div>
@@ -119,17 +123,23 @@ export default {
 <style scoped>
 #dashBoard {
   font-family: "Montserrat", sans-serif;
+  justify-content: center;
 }
-#headerImg {
+.headerImg {
   max-height: auto;
   max-width: 1000px;
 }
-#headerSection {
-  align-content: center;
-
+.headerSection {
+  margin: 20px;
+  
+}
+.headerButtons{
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
   padding: 20px;
 }
-#smallCards {
+.smallCards {
   padding-bottom: 20px;
   padding-top: 20px;
 }

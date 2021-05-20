@@ -20,7 +20,7 @@
           <b-nav-item class="profile">
             <b-icon icon="person-circle" style="color: #ea5456"></b-icon>
             <div class="profile-content">
-              <b-dropdown-item>
+              <b-dropdown-item class="somethings">
                 <router-link to="/profile/">View Profile</router-link>
               </b-dropdown-item>
               <b-dropdown-item>
@@ -121,7 +121,7 @@ button {
   display: none;
   position: absolute;
   min-width: 160px;
-  margin-top: 10px;
+  margin-top: 13px;
   background: white;
   right: 0;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -132,14 +132,16 @@ button {
   padding: 12px 16px;
   width: 250px;
   text-decoration: none;
+  background: none;
   display: inline-block;
-}
-
-.dropdown-item{
-  background: green;
 }
 
 .profile:hover .profile-content{
   display: block;
 }
+.somethings{
+  margin:10px;
+}
+
+
 </style>

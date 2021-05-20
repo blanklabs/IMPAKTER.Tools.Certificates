@@ -156,7 +156,5 @@ export default {
   border: 2px solid #989898;
   background: white;
 }
-.nav-link{
-  color: blueviolet;
-}
+
 </style>
