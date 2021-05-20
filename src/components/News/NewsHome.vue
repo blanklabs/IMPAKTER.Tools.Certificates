@@ -22,38 +22,6 @@
         </div>
       </b-row>
 
-      <NewsArticle
-        class="newsArticle"
-        :articleImage="'https://placekitten.com/380/200'"
-        :articleTitle="'Can the New US and EU Climate Goals Save the World?'"
-        :newsLink="'https://impakter.com/ashden-meet-the-pioneers-boosting-rights-and-resilience-in-earths-threatened-forests/'"
-        >The last week in April was marked by the announcement of new, more
-        ambitious climate goals from two of the world’s largest polluters, the
-        United States and Europe. Could they be a turning point in the fight
-        against climate change?</NewsArticle
-      >
-
-      <NewsArticle
-        class="newsArticle"
-        :articleImage="'https://placekitten.com/380/200'"
-        articleTitle="'Can the New US and EU Climate Goals Save the World?'"
-        :newsLink="'https://impakter.com/ashden-meet-the-pioneers-boosting-rights-and-resilience-in-earths-threatened-forests/'"
-        >The last week in April was marked by the announcement of new, more
-        ambitious climate goals from two of the world’s largest polluters, the
-        United States and Europe. Could they be a turning point in the fight
-        against climate change?</NewsArticle
-      >
-
-      <NewsArticle
-        class="newsArticle"
-        :articleImage="'https://placekitten.com/380/200'"
-        :articleTitle="'Just Another title'"
-        :newsLink="'https://impakter.com/ashden-meet-the-pioneers-boosting-rights-and-resilience-in-earths-threatened-forests/'"
-        >The last week in April was marked by the announcement of new, more
-        ambitious climate goals from two of the world’s largest polluters, the
-        United States and Europe. Could they be a turning point in the fight
-        against climate change?</NewsArticle
-      >
     </DashBoardTabNav>
   </div>
 </template>
@@ -126,7 +94,7 @@ export default {
 </script>
 <style scoped>
 .newsArticle {
-  margin: 10px;
+  margin-left: 10px;
 }
 .newsDash {
   width: 100%;

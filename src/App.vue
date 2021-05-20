@@ -109,15 +109,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #010101;
+ 
 }
 .page-wrap {
   /* equal to footer height */
+
   margin-bottom: 100%;
 }
-.page-wrap:after {
-  content: "";
-  display: block;
-}
+// .page-wrap:after {
+//   content: "";
+//   display: block;
+// }
 
 .site-footer {
   padding-top: 15px;
