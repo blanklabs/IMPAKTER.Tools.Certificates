@@ -24,6 +24,36 @@
             <b-form-group
               label-cols="4"
               label-cols-lg="3"
+              label="Phone Number:"
+              label-for="phone"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="phone"
+                v-model="form.phone"
+                placeholder="Phone"
+              ></b-form-input>
+            </b-form-group>
+            <br />
+
+            <b-form-group
+              label-cols="4"
+              label-cols-lg="3"
+              label="Email:"
+              label-for="email"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="email"
+                v-model="form.email"
+                placeholder="email"
+              ></b-form-input>
+            </b-form-group>
+            <br />
+
+            <b-form-group
+              label-cols="4"
+              label-cols-lg="3"
               label="Website link:"
               label-for="website"
               label-align-sm="left"
@@ -63,9 +93,68 @@
             </b-tooltip>
             <br />
 
+            <b-form-group
+              label-cols="4"
+              label-cols-lg="3"
+              label="Key SDGs:"
+              label-for="keySDGs"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="keySDGs"
+                v-model="form.sdgs"
+                placeholder="Key"
+                required
+              ></b-form-input>
+            </b-form-group>
+            <br />
+
+            <b-form-group
+              label-cols="4"
+              label-cols-lg="3"
+              label="Social Media:"
+              label-for="socialMedia"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="facebook"
+                v-model="form.facebook"
+                placeholder="facebook"
+                required
+              ></b-form-input>
+              <b-form-input
+                id="Twitter"
+                v-model="form.twitter"
+                placeholder="Twitter"
+                required
+              ></b-form-input>
+               <b-form-input
+                id="Instagram"
+                v-model="form.instagram"
+                placeholder="Instagram"
+                required
+              ></b-form-input>
+            </b-form-group>
+            <br />
+
+             <b-form-group
+              label-cols="4"
+              label-cols-lg="3"
+              label="Video:"
+              label-for="video"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="video"
+                v-model="form.video"
+                placeholder="video"
+                required
+              ></b-form-input>
+            </b-form-group>
+
             <b-row class="buttons_row">
-              <b-button type="reset" variant="danger">Reset</b-button>
-              <b-button type="submit" variant="primary">Submit</b-button>
+              <b-button class="actButton" type="reset" >Reset</b-button>
+              <b-button class="actButton" type="submit">Submit</b-button>
             </b-row>
           </b-form>
         </b-col>
@@ -136,6 +225,7 @@ export default {
 </script>
 
 <style scoped>
+
 #rating {
   display: flex;
   flex-direction: column;
@@ -145,5 +235,10 @@ export default {
 
 #rating {
   margin-bottom: 10px !important;
+}
+.actButton{
+  color:black;
+  border: 2px solid #989898;
+  background: white;
 }
 </style>

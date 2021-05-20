@@ -12,9 +12,8 @@
     <DashBoardTabNav :tabs="tabs" @selectTab="tabSelect">
       <FilterBar />
       <b-row>
-        <div v-for="article in articles" :key="article.articleID">
+        <div class="newsArticle" v-for="article in articles" :key="article.articleID" >
           <NewsArticle
-            class="newsArticle"
             :articleImage="article.image"
             :articleTitle="article.title"
             >{{ article.summary.substring(0, 150) }}...</NewsArticle

@@ -166,7 +166,7 @@ a:link {
 }
 
 .impakterLogo {
-  margin-left: 60px;
+  margin-left: 40px;
   padding: 10px;
   max-width: 300px;
 }
@@ -209,7 +209,7 @@ a:link {
 .separator h5 {
   padding: 0 2rem; 
 }
-#identifier {
+.identifier {
   margin-top: 10px;
   margin-bottom: 10px;
 }

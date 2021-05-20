@@ -18,7 +18,7 @@
                
             </b-col>
             <b-col>
-            <b-img src="./dummyHeader.png" fluid> </b-img>
+            <b-img src="https://index.impakter.com/wp-content/uploads/2021/03/homeHeader-01-1.svg" fluid> </b-img>
             <!-- <img id="headerImage" src="@/assets/LandingPage/dummyHeader.png"/> -->
             </b-col>
       </b-row>

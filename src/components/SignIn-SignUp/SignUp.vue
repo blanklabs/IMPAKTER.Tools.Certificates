@@ -158,7 +158,7 @@ a:link {
 
 
 .impakterLogo {
-  margin-left: 60px;
+  margin-left: 40px;
   padding: 10px;
   max-width: 300px;
 }
