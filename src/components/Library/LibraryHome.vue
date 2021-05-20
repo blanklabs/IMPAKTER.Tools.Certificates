@@ -46,4 +46,8 @@ export default {
 };
 </script>
 <style scoped>
+* {
+  font-family: "Montserrat";
+  text-align: left;
+}
 </style>

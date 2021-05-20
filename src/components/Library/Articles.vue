@@ -1,6 +1,5 @@
 <template>
   <div class="myArticles">
-    <h2>My Articles</h2>
     <b-table
       :items="items"
       :fields="fields"
@@ -26,7 +25,7 @@
       </template>
       
       <template #cell(action)>
-        <b-button><b-icon icon="trash"></b-icon></b-button>
+        <b-button class="actionBtn"><b-icon icon="trash"></b-icon></b-button>
       </template>
     </b-table>
   </div>
@@ -72,8 +71,15 @@ export default {
 </script>
 
 <style scoped>
+
 .myDocuments{
     display:flexbox;
     text-align: left;
+}
+
+.actionBtn{
+  color:black;
+  border: transparent;
+  background: white;
 }
 </style>

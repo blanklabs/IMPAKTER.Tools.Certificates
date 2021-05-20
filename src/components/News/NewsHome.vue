@@ -94,7 +94,7 @@ export default {
 </script>
 <style scoped>
 .newsArticle {
-  margin-left: 10px;
+  margin: 10px;
 }
 .newsDash {
   width: 100%;
