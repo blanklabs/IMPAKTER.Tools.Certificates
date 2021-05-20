@@ -4,7 +4,7 @@
       <progress-bar :currentStep="3"> </progress-bar>
     </b-row>
     <b-row>
-      <b-col cols="6">
+      <b-col class ="m" cols="6">
         <div class="position-fixed" id="subb">
           <h3>Industries</h3>
           <p>You have selected the following industries</p>
@@ -19,7 +19,7 @@
             </h5>
           </div>
           <br />
-          <b-button @click="reselect" variant="outline-primary"
+          <b-button class="btn" @click="reselect" variant="outline-primary"
             >Reselect Industries</b-button
           >
         </div>
@@ -160,6 +160,13 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: "Montserrat";
+  text-align: left;
+}
+col{
+  text-align: left;
+}
 .bold {
   color: #41b883;
 }
@@ -175,5 +182,11 @@ export default {
 #bottom_button {
   margin-top: 10px;
   width: 100%;
+}
+
+.btn{
+  color:black;
+  border: 2px solid #989898;
+  background: white;
 }
 </style>

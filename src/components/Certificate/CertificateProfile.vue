@@ -26,9 +26,9 @@
     </b-card>
     <hr />-->
     <!--<h3>variant 2: vertical tabs</h3>-->
-    <b-card no-body v-if="!isSavePreview">
+    <b-card  no-body v-if="!isSavePreview">
       <b-tabs pills card vertical>
-        <b-tab title="Basic Information" active>
+        <b-tab class="tabClass" title="Basic Information" active>
           <b-card-text>
             <p><b>Certificate Name:</b> {{ form.name }}</p>
             <p><b>Certificate Description:</b> {{ form.description }}</p>
@@ -94,13 +94,13 @@
     </div>
     <br />
     <b-row class="buttons_row" v-if="isSavePreview">
-      <b-button @click="submit" variant="primary">Submit</b-button>
+      <b-button class="btn" @click="submit" >Submit</b-button>
     </b-row>
     <br />
     <b-row class="buttons_row" v-if="!isSavePreview">
-      <b-button @click="edit" variant="outline-danger">Edit</b-button>
-      <b-button @click="deleteCert" variant="danger">Delete</b-button>
-      <b-button @click="close" variant="primary"> Close</b-button>
+      <b-button class="btn" @click="edit">Edit</b-button>
+      <b-button class="btn" @click="deleteCert">Delete</b-button>
+      <b-button class="btn" @click="close"> Close</b-button>
     </b-row>
   </b-modal>
 </template>
@@ -150,3 +150,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+.btn{
+  color:black;
+  border: 2px solid #989898;
+  background: white;
+}
+.nav-link{
+  color: blueviolet;
+}
+</style>

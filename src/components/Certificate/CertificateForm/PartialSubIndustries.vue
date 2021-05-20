@@ -44,6 +44,7 @@
     </b-row>
     <b-row class="buttons_row">
       <b-button
+        class="btn"
         @click="$refs.preview_modal.showModal()"
         v-if="!isLast"
         variant="outline-primary"
@@ -125,10 +126,19 @@ export default {
 </script>
 
 <style scoped>
+* {
+  font-family: "Montserrat";
+  text-align: left;
+}
 #checkbox-group-1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
+}
+.btn{
+  color:black;
+  border: 2px solid #989898;
+  background: white;
 }
 </style>
