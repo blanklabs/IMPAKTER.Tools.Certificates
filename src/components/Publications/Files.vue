@@ -25,7 +25,7 @@
       </template>
       
       <template #cell(action)>
-        <b-button><b-icon icon="trash"></b-icon></b-button>
+        <b-button class="actionBtn"><b-icon icon="trash"></b-icon></b-button>
       </template>
     </b-table>
   </div>
@@ -73,5 +73,10 @@ export default {
 .files{
 display:flexbox;
 text-align: left;
+}
+.actionBtn{
+  color:black;
+  border: transparent;
+  background: white;
 }
 </style>
