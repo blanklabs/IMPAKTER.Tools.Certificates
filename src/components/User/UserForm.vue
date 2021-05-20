@@ -20,6 +20,7 @@
               ></b-form-input>
             </b-form-group>
             <br />
+            <ProfilePicture :profilePic="'https://placekitten.com/300/400'"/>
 
             <b-form-group
               label-cols="4"
@@ -188,6 +189,7 @@
 <script>
 import FormGuardMixin from "@/mixins/FormGuardMixin";
 import SubmitMixin from "@/mixins/SubmitMixin";
+import { ProfilePicture } from "uicomponents"
 
 export default {
   name: "UserForm",
@@ -217,7 +219,9 @@ export default {
     },
   },
   mixins: [FormGuardMixin, SubmitMixin],
-  components: {},
+  components: {
+    ProfilePicture,
+  },
   mounted() {
     this.form = this.$store.getters["org/organizationForm"];
   },
