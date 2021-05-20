@@ -12,15 +12,14 @@
     <DashBoardTabNav :tabs="tabs" @selectTab="tabSelect">
       <FilterBar />
       <b-row>
-        <div class="newsArticle" v-for="article in articles" :key="article.articleID" >
-          <NewsArticle
-            :articleImage="article.image"
-            :articleTitle="article.title"
-            >{{ article.summary.substring(0, 150) }}...</NewsArticle
-          >
+        <div
+          class="newsArticle"
+          v-for="article in articles"
+          :key="article.articleID"
+        >
+          <NewsArticle :article="article"></NewsArticle>
         </div>
       </b-row>
-
     </DashBoardTabNav>
   </div>
 </template>
@@ -28,7 +27,8 @@
 <script>
 import CommonMixin from "@/mixins/CommonMixin";
 
-import { NewsArticle } from "uicomponents";
+//import { NewsArticle } from "uicomponents";
+import NewsArticle from "@/components/Shared/NewsArticle";
 import DashBoardTabNav from "../Shared/DashBoardTabNav";
 import FilterBar from "./FilterBar";
 
