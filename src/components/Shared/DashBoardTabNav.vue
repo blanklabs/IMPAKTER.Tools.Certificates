@@ -45,7 +45,8 @@ export default {
   font-family: "Montserrat";
 }
 .DashTab {
-  width: 1200px;
+  margin-left: -25px;
+  width: 85rem;
 }
 ul {
   margin-bottom: 0;

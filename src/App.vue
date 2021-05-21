@@ -116,10 +116,10 @@ export default {
 
   margin-bottom: 100%;
 }
-// .page-wrap:after {
-//   content: "";
-//   display: block;
-// }
+.page-wrap:after {
+  content: "";
+  display: block;
+}
 
 .site-footer {
   padding-top: 15px;
@@ -185,13 +185,7 @@ button {
   text-align: left !important;
 }
 
-#spacer {
-  background-color: white;
-  position: fixed;
-  z-index: 90;
-  padding: 50px;
-  width: 100%;
-}
+
 
 #router_view_container {
   margin-top: 60px;
