@@ -1,11 +1,15 @@
 <template>
   <div>
+    
     <b-container>
+      <h1 class="sectionTitle">Edit Profile</h1>
+      <hr>
       <b-row class="main_row">
-        <b-col></b-col>
+
         <b-col cols="8">
           <b-form @submit="onSubmit" @reset="onReset">
             <b-form-group
+              class="title"
               label-cols="4"
               label-cols-lg="3"
               label="Name of the Organization:"
@@ -20,9 +24,10 @@
               ></b-form-input>
             </b-form-group>
             <br />
-            <ProfilePicture :profilePic="'https://placekitten.com/300/400'"/>
-
+            <UserCard :profilePic="'https://placekitten.com/200/200'"/>
+            <br />
             <b-form-group
+              class="title"
               label-cols="4"
               label-cols-lg="3"
               label="Phone Number:"
@@ -38,6 +43,7 @@
             <br />
 
             <b-form-group
+              class="title"
               label-cols="4"
               label-cols-lg="3"
               label="Email:"
@@ -53,6 +59,7 @@
             <br />
 
             <b-form-group
+              class="title"
               label-cols="4"
               label-cols-lg="3"
               label="Website link:"
@@ -69,6 +76,7 @@
             <br />
 
             <b-form-group
+              class="title"
               label-cols="4"
               label-cols-lg="3"
               label="Organization Description"
@@ -95,6 +103,7 @@
             <br />
 
             <b-form-group
+              class="title"
               label-cols="4"
               label-cols-lg="3"
               label="Key SDGs:"
@@ -111,6 +120,7 @@
             <br />
 
             <b-form-group
+              class="title"
               label-cols="4"
               label-cols-lg="3"
               label="Social Media:"
@@ -118,18 +128,21 @@
               label-align-sm="left"
             >
               <b-form-input
+                class="socialMediaInput"
                 id="facebook"
                 v-model="form.facebook"
-                placeholder="facebook"
+                placeholder="Facebook"
                 required
               ></b-form-input>
               <b-form-input
+                class="socialMediaInput"
                 id="Twitter"
                 v-model="form.twitter"
                 placeholder="Twitter"
                 required
               ></b-form-input>
                <b-form-input
+                class="socialMediaInput"
                 id="Instagram"
                 v-model="form.instagram"
                 placeholder="Instagram"
@@ -139,6 +152,7 @@
             <br />
 
              <b-form-group
+              class="title"
               label-cols="4"
               label-cols-lg="3"
               label="Video:"
@@ -183,13 +197,15 @@
         <b-button id="bottom_button" to="/wait">Go to Organizations</b-button>
       </b-modal>
     </b-container>
+    
   </div>
 </template>
 
 <script>
 import FormGuardMixin from "@/mixins/FormGuardMixin";
 import SubmitMixin from "@/mixins/SubmitMixin";
-import { ProfilePicture } from "uicomponents"
+//import { ProfilePicture } from "uicomponents"
+import UserCard from "../Shared/UserCard"
 
 export default {
   name: "UserForm",
@@ -220,7 +236,7 @@ export default {
   },
   mixins: [FormGuardMixin, SubmitMixin],
   components: {
-    ProfilePicture,
+    UserCard,
   },
   mounted() {
     this.form = this.$store.getters["org/organizationForm"];
@@ -229,7 +245,13 @@ export default {
 </script>
 
 <style scoped>
+.sectionTitle{
+  text-align: left;
+}
+.main_row{
+  display: grid;
 
+}
 #rating {
   display: flex;
   flex-direction: column;
@@ -244,5 +266,18 @@ export default {
   color:black;
   border: 2px solid #989898;
   background: white;
+}
+.title{
+  font-weight: bold;
+}
+.socialMediaInput{
+  margin-bottom: 15px;
+}
+hr {
+  margin-top: 0;
+  padding-top: 0;
+  height: 3px;
+  background-color: #ebebeb;
+  border: none;
 }
 </style>

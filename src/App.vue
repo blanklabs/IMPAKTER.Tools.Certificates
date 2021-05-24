@@ -97,7 +97,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "assets/custom_vars.scss";
+@import "assets/custom-vars.scss";
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootstrap-vue/src/index.scss";
 
@@ -195,5 +195,8 @@ button {
 .pagination {
   margin-top: 20px;
   margin-bottom: 40px;
+
+   
+
 }
 </style>

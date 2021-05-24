@@ -109,7 +109,13 @@ h2{
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
+hr {
+  margin-top: 0;
+  padding-top: 0;
+  height: 3px;
+  background-color: #ebebeb;
+  border: none;
+}
 
 </style>
 

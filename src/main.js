@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import BootstrapVue from 'bootstrap-vue'
+import {BootstrapVue} from 'bootstrap-vue'
 import VueFormulate from '@braid/vue-formulate'
 import VueRouter from 'vue-router'
 import store from "./store";
@@ -17,7 +17,7 @@ const gauthOption = {
 Vue.use(GoogleAuth, gauthOption)
 
 import 'uicomponents/dist/impakter-ui-components.css'
-import './assets/custom_vars.scss'
+import './assets/custom-vars.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-search-select/dist/VueSearchSelect.css'

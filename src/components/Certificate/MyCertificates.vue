@@ -111,6 +111,7 @@
         </b-row>
         <div id="paginate">
           <b-pagination
+          
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
@@ -423,5 +424,10 @@ table {
   border: 2px solid #989898;
   font-weight: 600;
   margin: 1px;
+}
+.pagination-active-bg {
+    z-index: 3;
+    color: #fff;
+    background-color: greenyellow;
 }
 </style>
