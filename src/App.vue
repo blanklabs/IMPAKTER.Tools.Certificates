@@ -2,6 +2,7 @@
   <div id="app">
     <!--<Sidebar v-if="isInside" />-->
     <rise-loader :loading="loading" :color="color" :size="size"></rise-loader>
+
     <b-container class="page-wrap">
       <b-row v-if="isLoggedIn">
         <NavDashboard />
@@ -10,6 +11,18 @@
       </b-row>
       <b-row v-else>
         <NavigationBar />
+      </b-row>
+      <b-row>
+        <b-container>
+          <b-alert
+            v-if="showMessage"
+            :variant="messageType"
+            show
+            dismissible
+            fade
+            >{{ message }}</b-alert
+          >
+        </b-container>
       </b-row>
       <b-row>
         <b-container id="router_view_container">
@@ -39,6 +52,9 @@ export default {
       messages: [],
       tabs: ["Home", "Hello"],
       loading: false,
+      showMessage: false,
+      messageType: "success",
+      message: "hello there",
     };
   },
   methods: {},
@@ -109,7 +125,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #010101;
- 
 }
 .page-wrap {
   /* equal to footer height */
@@ -185,8 +200,6 @@ button {
   text-align: left !important;
 }
 
-
-
 #router_view_container {
   margin-top: 60px;
   margin-left: 20px;
@@ -195,8 +208,5 @@ button {
 .pagination {
   margin-top: 20px;
   margin-bottom: 40px;
-
-   
-
 }
 </style>
