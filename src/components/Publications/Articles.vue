@@ -1,47 +1,17 @@
 <template>
   <div class="articles">
-    <!-- <div class="sectionDiv">
-      <h4>Upload Article</h4>
+     <h4>Upload Article</h4>
       <hr />
-      <div class="uploadDiv">
-        <ActionButton btnIcon="file-earmark" btnDescription="   Upload File" />
-        <p>File Name</p>
-      </div>
-      <div class="uploadDiv">
-        <ActionButton
-          btnIcon="file-earmark-image"
-          btnDescription="   Upload Photos"
-        />
-        <p>Photo Name</p>
-      </div>
-    </div>
-
-    <div class="sectionDiv">
-      <h4>Upload Author Bio</h4>
-      <hr />
-      <div class="uploadDiv">
-        <ActionButton btnIcon="file-earmark" btnDescription="   Upload Bio" />
-        <p>File Name</p>
-      </div>
-      <div class="uploadDiv">
-        <ActionButton
-          btnIcon="file-earmark-image"
-          btnDescription="   Upload Profile Picture"
-        />
-        <p>File Name</p>
-      </div>
-    </div> -->
-    <h3>Submit a new article</h3>
     <div class="uploadDiv">
       <b-form-group
-        class="title"
-        label-cols="4"
-        label-cols-lg="3"
+        class="titleName"
         label="Title of the article:"
         label-for="name"
         label-align-sm="left"
       >
+      <br/>
         <b-form-input
+          class="titleInput"
           id="name"
           v-model="articleTitle"
           placeholder="Name"
@@ -51,34 +21,58 @@
     </div>
     <div class="uploadDiv">
       <p>
-        <b>Article document: </b
-        ><input type="file" @change="onFileBrowsed($event, 'articleDoc')" />
+        <b>Upload Artilce File:</b>
+        <br>
+      
+         <input 
+          class="customFile"
+          type="file"
+          @change="onFileBrowsed($event, 'articleDoc')" 
+          />
+        
       </p>
     </div>
     <div class="uploadDiv">
       <p>
-        <b>Article Images: </b
-        ><input
+        <b>Upload Article Images:</b>
+        <br>
+        <input
+          class="customFile"
           type="file"
           @change="onFileBrowsed($event, 'articlePhotos')"
+          
           multiple
         />
       </p>
     </div>
     <div class="uploadDiv">
       <p>
-        <b>Article Author bio: </b
-        ><input type="file" @change="onFileBrowsed($event, 'authorDoc')" />
+        <b>Upload Author bio:</b>
+        <br>
+        <input 
+          class="customFile"
+          type="file" 
+          @change="onFileBrowsed($event, 'authorDoc')" 
+        />
       </p>
     </div>
     <div class="uploadDiv">
       <p>
-        <b>Article Author Profile Photo: </b
-        ><input type="file" @change="onFileBrowsed($event, 'authorPhoto')" />
+       <b>Upload Author Profile Photo: </b>
+        <br>
+        <input 
+          class="customFile"
+          type="file" 
+          @change="onFileBrowsed($event, 'authorPhoto')" 
+        />
       </p>
     </div>
-    <b-button @click="onUploadFile" :disabled="!this.articleDoc"
-      >Submit</b-button
+    <hr />
+    <b-button 
+      class="sendBtn" 
+      @click="onUploadFile" 
+      :disabled="!this.articleDoc"
+      >Submit Article</b-button
     >
   </div>
 </template>
@@ -184,11 +178,38 @@ export default {
   margin: 20px;
   align-items: center;
 }
-.sectionDiv {
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
+
 .sendBtn {
-  margin-left: 90%;
+  background: white;
+  padding: 10px;
+  color: #1d2029;
+  border-radius: 5px;
+  border: 2px solid #989898;
+  font-weight: bold;
+  margin: 1px;
+}
+
+.customFile{
+  margin: 10px 0;
+}
+.customFile::-webkit-file-upload-button {
+  background: white;
+  border-radius: 5px;
+  border: 2px solid #989898;
+  font-weight: bold;
+  padding: 5px;
+  margin-right: 10px;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.titleName{
+  display: inline-block;
+  font-weight: bold;
+}
+.titleInput{
+  margin-top: -20px;
+  width: 600px;
 }
 </style>
