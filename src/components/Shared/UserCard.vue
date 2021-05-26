@@ -3,8 +3,15 @@
     <b-card-img class="image"></b-card-img>
     <b-card-text>
       <h5>{{ header }}</h5>
-      <input type="file" @change="onFileBrowsed" />
-      <p>-or-</p>
+      <input 
+      class="customFile"
+      type="file" 
+      @change="onFileBrowsed" />
+        <div class="separator">
+      <hr />
+      <h5>OR</h5>
+      <hr />
+    </div>
       <b-form-input
         id="name"
         v-model="profilePic"
@@ -40,23 +47,45 @@ export default {
   font-family: "Montserrat", sans-serif;
 }
 .cardPicture {
-  /* max-width: 500px; */
   text-align: left;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border: none;
 }
-.actionBtn {
-  margin-left: 50px;
-  font-family: "Montserrat";
-  background: white;
-  padding: 10px;
-  color: #1d2029;
-  border-radius: 5px;
-  border: 2px solid #989898;
-  font-weight: bold;
-}
+
 .image {
   max-height: 400px;
   width: auto;
+}
+.customFile{
+  margin: 10px 0;
+}
+.customFile::-webkit-file-upload-button {
+  background: white;
+  border-radius: 5px;
+  border: 2px solid #989898;
+  font-weight: bold;
+  padding: 10px;
+  margin-right: 10px;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.customFile::-webkit-file-upload-button:hover {
+  background-color: #F8F8F8;
+}
+.separator {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+hr {
+  flex: 1;
+  height: 1px;
+  background-color: #bbbbbb;
+}
+.separator h5 {
+  padding: 0 2rem; 
 }
 </style>

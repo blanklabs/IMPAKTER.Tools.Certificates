@@ -238,6 +238,7 @@ export default {
   color: black;
   border: 2px solid #989898;
   background: white;
+  font-weight: bold;
 }
 .title {
   font-weight: bold;

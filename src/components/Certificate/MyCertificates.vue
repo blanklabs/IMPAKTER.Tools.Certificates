@@ -1,5 +1,5 @@
 <template>
-  <div className="cetificatesMain">
+  <div class="cetificatesMain">
     <div class="header">
       <ActionButton
         class="addBtn"
@@ -377,8 +377,8 @@ export default {
 };
 </script>
 
-<style scoped>
-* {
+<style>
+.cetificatesMain{
   font-family: "Montserrat";
   text-align: left;
 }
@@ -425,9 +425,32 @@ table {
   font-weight: 600;
   margin: 1px;
 }
-.pagination-active-bg {
+.page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: greenyellow;
+     background-color: #fe6663;
+   border-color: #fe6663;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+
+    background-color: #F6A8A8;
+    width: 100%;
+}
+.nav-pills{
+  padding: 0;
+  background-color: #f8f8f8;  
+}
+
+ a{
+    color: #1d2029;
+    font-weight: 500;
+    text-decoration: none;
+    background-color: transparent;
+}
+ a:hover{
+    color: #1d2029;
+    text-decoration: none;
+    background-color: transparent;
 }
 </style>
