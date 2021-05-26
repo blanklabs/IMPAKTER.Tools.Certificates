@@ -23,15 +23,7 @@ const orgStore = {
     },
     mutations: {
         async updateOrganization(state, payload) {
-            await organizationService.updateOrganization(payload).then((response) => {
-                this.responseMessage = response.data.msg;
-                this.responseStatus = response.data.status;
-            });
-            window.localStorage.removeItem('Organization')
-            var organizationResponse
-            await organizationService.fetchOrganization(state.organizationID).then(response => (organizationResponse = response.data.organizationDetails[0]));
-            window.localStorage.setItem('Organization', organizationResponse)
-            state.organization.map(organizationResponse)
+            state.organization = payload;
         },
 
         resetOrganization(state) {
@@ -45,8 +37,13 @@ const orgStore = {
         resetOrganization(context) {
             context.commit("resetOrganization")
         },
-        updateOrganization(context, payload) {
-            context.commit("updateOrganization", payload)
+        async updateOrganization(context, payload) {
+            console.log("executing updateOrganization in orgStore with payload:", JSON.stringify(payload))
+            await organizationService.updateOrganization(payload).then((response) => {
+                console.log("updated org successfully with repsonse:", JSON.stringify(response))
+                context.commit("global/setMessagePopup", { type: 1, message: "org updated successfully" }, { root: true });
+            });
+
         },
         fetchOrg(context) {
             if (!context.getters.organization) {

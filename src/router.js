@@ -14,6 +14,7 @@ import Home from "@/components/DevDebug";
 import CertificateProfile from "@/components/Certificate/CertificateProfile";
 //import store from "@/store.js"
 import OrgForm from "@/components/Organization/OrgForm";
+import OrgProfile from "@/components/Organization/OrgProfile";
 import SignIn from "@/components/SignIn-SignUp/SignIn";
 import SignUp from "@/components/SignIn-SignUp/SignUp";
 import SignUpPart2 from "@/components/SignIn-SignUp/SignUp-Part2";
@@ -109,12 +110,17 @@ const routes = [
     component: OrgForm
   },
   {
-    path: '/profile/edit',
+    path: '/org/profile',
+    name: 'OrgProfile',
+    component: OrgProfile
+  },
+  {
+    path: '/user/edit',
     name: 'EditUser',
     component: UserForm
   },
   {
-    path: '/profile',
+    path: '/user/profile',
     name: 'UserProfile',
     component: UserProfile
   },

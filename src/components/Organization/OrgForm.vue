@@ -1,149 +1,104 @@
-<template>
-  <div>
-    <b-container>
-      <b-row class="main_row">
-        <b-col></b-col>
-        <b-col cols="8">
-          <b-form @submit="onSubmit" @reset="onReset">
-            <b-form-group
-              label-cols="4"
-              label-cols-lg="3"
-              label="Name of the Organization:"
-              label-for="name"
-              label-align-sm="left"
-            >
-              <b-form-input
-                id="name"
-                v-model="form.name"
-                placeholder="Name"
-                required
-              ></b-form-input>
-            </b-form-group>
-            <br />
+import User from "../../../SHARED.CODE/Objects/User/user";
 
-            <b-form-group
-              label-cols="4"
-              label-cols-lg="3"
-              label="Website link:"
-              label-for="website"
-              label-align-sm="left"
-            >
-              <b-form-input
-                id="website"
-                v-model="form.website"
-                placeholder="www.rainforest.com"
-                required
-              ></b-form-input>
-            </b-form-group>
-            <br />
+import { Subject } from 'rxjs';
+import VueJwtDecode from 'vue-jwt-decode'
 
-            <b-form-group
-              label-cols="4"
-              label-cols-lg="3"
-              label="Organization Description"
-              label-for="description"
-              label-align-sm="left"
-              id="desc"
-            >
-              <b-form-textarea
-                id="description"
-                v-model="form.description"
-                placeholder="Please describe what this Organization is all about..."
-                rows="3"
-                max-rows="6"
-              ></b-form-textarea>
-            </b-form-group>
-            <b-tooltip
-              target="desc__BV_label_"
-              triggers="hover"
-              variant="secondary"
-              placement="lefttop"
-            >
-              Please describe the Organizaiton in around 500 words approx.
-            </b-tooltip>
-            <br />
-
-            <b-row class="buttons_row">
-              <b-button type="reset" variant="danger">Reset</b-button>
-              <b-button type="submit" variant="primary">Submit</b-button>
-            </b-row>
-          </b-form>
-        </b-col>
-        <b-col></b-col>
-      </b-row>
-      <b-modal ref="proceed-modal" hide-footer>
-        <p>Status Message:</p>
-        <b-alert v-if="InProgress" show variant="primary"
-          >Adding/Updating Organization...</b-alert
-        >
-        <b-alert v-if="ProgressCompleted" show variant="success">{{
-          this.responseMessage
-        }}</b-alert>
-        <b-alert v-if="ProgressFailed" show variant="danger">{{
-          this.responseMessage
-        }}</b-alert>
-        <b-row class="buttons_row">
-          <b-button @click="addNew" variant="primary">
-            Add another Organization</b-button
-          >
-        </b-row>
-        <br />
-
-        <div class="flex_and_center">-Or-</div>
-        <b-button id="bottom_button" to="/wait">Go to Organizations</b-button>
-      </b-modal>
-    </b-container>
-  </div>
-</template>
-
-<script>
-import FormGuardMixin from "@/mixins/FormGuardMixin";
-import SubmitMixin from "@/mixins/SubmitMixin";
-
-export default {
-  name: "OrgForm",
-  data() {
+const getdefaultState = () => {
     return {
-      form: null,
-    };
-  },
-  methods: {
-    onReset() {
-      this.$store.dispatch("resetOrganization");
-    },
-    async onSubmit() {
-      var req = this.form;
-      this.InProgress = true;
-      this.$refs["proceed-modal"].show();
-      //this.$alert("updating the Organization");
-      this.$store.dispatch("updateOrganization", req);
-      this.InProgress = false;
-      if (this.responseStatus == 1) {
-        this.ProgressCompleted = true;
-      } else this.ProgressFailed = true;
-    },
-    addNew() {
-      this.onReset();
-      this.$refs["proceed-modal"].hide();
-    },
-  },
-  mixins: [FormGuardMixin, SubmitMixin],
-  components: {},
-  mounted() {
-    this.form = this.$store.getters["org/organizationForm"];
-  },
-};
-</script>
-
-<style scoped>
-#rating {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left !important;
+        user: new User(),
+        isSignUpSuccess: false,
+        isLoggedin: false,
+        loginEvent: new Subject(),
+        networkEvent: new Subject()
+    }
 }
 
-#rating {
-  margin-bottom: 10px !important;
+const userStore = {
+    namespaced: true,
+    state: getdefaultState(),
+    getters: {
+        signupForm: state => {
+            state.user.orgName = "Impakter"
+            return state.user
+        },
+        signupStatus: state => {
+            return state.isSignUpSuccess;
+        },
+        isLoggedIn: state => {
+            return state.isLoggedIn;
+        },
+        logInEvent: state => {
+            return state.loginEvent.asObservable();
+        },
+        networkEvent: state => {
+            return state.networkEvent.asObservable();
+        },
+
+    },
+    mutations: {
+        signOut(state) {
+            console.log("logging out and removing accessToken");
+            state.loginEvent.next("loggedOut");
+            console.log("before reset state.user:", JSON.stringify(state.user));
+            console.log("resetting state");
+            state = getdefaultState();
+            console.log("after reset state.user:", JSON.stringify(state.user));
+            window.localStorage.removeItem("accessToken");
+        },
+        setUser(state, payload) {
+            state.user = payload.user;
+        },
+        setLoginStatus(state, payload) {
+            state.isLoggedIn = payload;
+        },
+        login(state, payload) {
+            state.loginEvent.next("loggedIn");
+            state.user = payload.user;
+            if (payload.case == "LOGIN") {
+                state.isLoggedin = true;
+            }
+            else {
+                state.isSignUpSuccess = true;
+            }
+        }
+
+    },
+    actions: {
+        async login(context, payload) {
+            context.commit('org/setOrg', payload.org, { root: true });
+            window.localStorage.setItem(
+                "accessToken",
+                payload.accessToken
+            );
+            await context.dispatch("certificate/fetchCertificates", null, { root: true });
+            await context.dispatch("news/fetchNews", null, { root: true });
+            context.commit("login", payload);
+            return new Promise((resolve) => {
+                resolve()
+            })
+        },
+        signOut(context) {
+            context.commit("signOut");
+        },
+        setMessagePopup(context, payload) {
+            context.commit("setMessagePopup", payload)
+        },
+        async checkLoginStatus(context) {
+            let accessToken = window.localStorage.getItem("accessToken");
+            if (!context.state.isLoggedIn) {
+                if (accessToken) {
+                    let decoded = await VueJwtDecode.decode(accessToken)
+                    //console.log("decoded JWT:", JSON.stringify(decoded))
+                    context.commit('org/setOrg', decoded.org, { root: true })
+                    context.commit('setLoginStatus', true)
+                }
+                else {
+                    context.commit('setLoginStatus', false)
+                }
+            }
+            return new Promise((resolve) => { resolve(context.getters.isLoggedIn) });
+        }
+    }
 }
-</style>
+
+export { userStore };

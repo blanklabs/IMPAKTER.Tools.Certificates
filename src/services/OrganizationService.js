@@ -1,18 +1,18 @@
 import Api from '@/services/Api'
 
-const resource = "/organizations"
+const resource = "/org"
 
 export default {
-    fetchOrganizations () {
+    fetchOrganizations() {
         return Api().get(`${resource}/`);
     },
-    fetchOrganization(organizationID){
+    fetchOrganization(organizationID) {
         return Api().get(`${resource}/${organizationID}`);
     },
-    createOrganization(payload){
-        return Api().post(`${resource}/`,payload);
+    createOrganization(payload) {
+        return Api().post(`${resource}/`, payload);
     },
-    updateOrganization(payload){
-        return Api().put(`${resource}/`,payload);
+    updateOrganization(payload) {
+        return Api().post(`${resource}`, payload);
     },
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar class="nav" toggleable="lg" type="light" fixed="top" >
+    <b-navbar class="nav" toggleable="lg" type="light" fixed="top">
       <b-navbar-brand href="https://index.impakter.com">
         <img class="logo" src="@/assets/logo_index.png" />
       </b-navbar-brand>
@@ -21,10 +21,10 @@
             <b-icon icon="person-circle" style="color: #ea5456"></b-icon>
             <div class="profile-content">
               <b-dropdown-item class="somethings">
-                <router-link to="/profile/">View Profile</router-link>
+                <router-link to="/org/profile">View Org Profile</router-link>
               </b-dropdown-item>
               <b-dropdown-item>
-                <router-link to="/profile/edit">Edit Profile</router-link>
+                <router-link to="/user/edit">Edit Org Profile</router-link>
               </b-dropdown-item>
               <b-dropdown-item href="https://index.impakter.com" target="_blank"
                 >Index</b-dropdown-item
@@ -107,7 +107,6 @@ a.router-link-exact-active {
   border-bottom: solid #fe6663;
 }
 
-
 button {
   margin-left: 10px;
 }
@@ -136,12 +135,10 @@ button {
   display: inline-block;
 }
 
-.profile:hover .profile-content{
+.profile:hover .profile-content {
   display: block;
 }
-.somethings{
-  margin:10px;
+.somethings {
+  margin: 10px;
 }
-
-
 </style>

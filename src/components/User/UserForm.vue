@@ -1,11 +1,9 @@
 <template>
   <div>
-    
     <b-container>
       <h1 class="sectionTitle">Edit Profile</h1>
-      <hr>
+      <hr />
       <b-row class="main_row">
-
         <b-col cols="8">
           <b-form @submit="onSubmit" @reset="onReset">
             <b-form-group
@@ -24,7 +22,11 @@
               ></b-form-input>
             </b-form-group>
             <br />
-            <UserCard :profilePic="'https://placekitten.com/200/200'"/>
+            <UserCard
+              :profilePic="form.logo"
+              @url="changeLogoUrl"
+              @file="saveLogoFile"
+            />
             <br />
             <b-form-group
               class="title"
@@ -68,7 +70,7 @@
             >
               <b-form-input
                 id="website"
-                v-model="form.website"
+                v-model="form.url"
                 placeholder="www.rainforest.com"
                 required
               ></b-form-input>
@@ -112,9 +114,8 @@
             >
               <b-form-input
                 id="keySDGs"
-                v-model="form.sdgs"
+                v-model="form.keySDGs"
                 placeholder="Key"
-                required
               ></b-form-input>
             </b-form-group>
             <br />
@@ -130,28 +131,25 @@
               <b-form-input
                 class="socialMediaInput"
                 id="facebook"
-                v-model="form.facebook"
+                v-model="form.facebookUrl"
                 placeholder="Facebook"
-                required
               ></b-form-input>
               <b-form-input
                 class="socialMediaInput"
                 id="Twitter"
-                v-model="form.twitter"
+                v-model="form.twitterUrl"
                 placeholder="Twitter"
-                required
               ></b-form-input>
-               <b-form-input
+              <b-form-input
                 class="socialMediaInput"
                 id="Instagram"
-                v-model="form.instagram"
+                v-model="form.instagramUrl"
                 placeholder="Instagram"
-                required
               ></b-form-input>
             </b-form-group>
             <br />
 
-             <b-form-group
+            <b-form-group
               class="title"
               label-cols="4"
               label-cols-lg="3"
@@ -161,43 +159,20 @@
             >
               <b-form-input
                 id="video"
-                v-model="form.video"
+                v-model="form.videoUrl"
                 placeholder="video"
-                required
               ></b-form-input>
             </b-form-group>
 
             <b-row class="buttons_row">
-              <b-button class="actButton" type="reset" >Reset</b-button>
+              <b-button class="actButton" type="reset">Reset</b-button>
               <b-button class="actButton" type="submit">Submit</b-button>
             </b-row>
           </b-form>
         </b-col>
         <b-col></b-col>
       </b-row>
-      <b-modal ref="proceed-modal" hide-footer>
-        <p>Status Message:</p>
-        <b-alert v-if="InProgress" show variant="primary"
-          >Adding/Updating Organization...</b-alert
-        >
-        <b-alert v-if="ProgressCompleted" show variant="success">{{
-          this.responseMessage
-        }}</b-alert>
-        <b-alert v-if="ProgressFailed" show variant="danger">{{
-          this.responseMessage
-        }}</b-alert>
-        <b-row class="buttons_row">
-          <b-button @click="addNew" variant="primary">
-            Add another Organization</b-button
-          >
-        </b-row>
-        <br />
-
-        <div class="flex_and_center">-Or-</div>
-        <b-button id="bottom_button" to="/wait">Go to Organizations</b-button>
-      </b-modal>
     </b-container>
-    
   </div>
 </template>
 
@@ -205,33 +180,31 @@
 import FormGuardMixin from "@/mixins/FormGuardMixin";
 import SubmitMixin from "@/mixins/SubmitMixin";
 //import { ProfilePicture } from "uicomponents"
-import UserCard from "../Shared/UserCard"
+import UserCard from "../Shared/UserCard";
 
 export default {
   name: "UserForm",
   data() {
     return {
-      form: null,
+      form: {},
     };
   },
   methods: {
     onReset() {
       this.$store.dispatch("resetOrganization");
     },
-    async onSubmit() {
-      var req = this.form;
-      this.InProgress = true;
-      this.$refs["proceed-modal"].show();
-      //this.$alert("updating the Organization");
-      this.$store.dispatch("updateOrganization", req);
-      this.InProgress = false;
-      if (this.responseStatus == 1) {
-        this.ProgressCompleted = true;
-      } else this.ProgressFailed = true;
+    onSubmit() {
+      this.$store.dispatch("org/updateOrganization", this.form);
     },
     addNew() {
       this.onReset();
       this.$refs["proceed-modal"].hide();
+    },
+    changeLogoUrl(url) {
+      this.form.logo = url;
+    },
+    saveLogoFile(logoFile) {
+      this.logoFile = logoFile;
     },
   },
   mixins: [FormGuardMixin, SubmitMixin],
@@ -245,12 +218,11 @@ export default {
 </script>
 
 <style scoped>
-.sectionTitle{
+.sectionTitle {
   text-align: left;
 }
-.main_row{
+.main_row {
   display: grid;
-
 }
 #rating {
   display: flex;
@@ -262,15 +234,15 @@ export default {
 #rating {
   margin-bottom: 10px !important;
 }
-.actButton{
-  color:black;
+.actButton {
+  color: black;
   border: 2px solid #989898;
   background: white;
 }
-.title{
+.title {
   font-weight: bold;
 }
-.socialMediaInput{
+.socialMediaInput {
   margin-bottom: 15px;
 }
 hr {

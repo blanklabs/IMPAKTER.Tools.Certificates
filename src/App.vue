@@ -30,6 +30,12 @@
         </b-container>
       </b-row>
     </b-container>
+    <b-modal ref="message-modal" hide-footer>
+      <p>{{ message }}</p>
+      <b-button class="mt-3" block @click="modalButtonClicked"
+        >Go to Dashboard</b-button
+      >
+    </b-modal>
     <footer class="site-footer">
       <p>2021 Copyright © ImpakterLimited</p>
     </footer>
@@ -57,7 +63,12 @@ export default {
       message: "hello there",
     };
   },
-  methods: {},
+  methods: {
+    modalButtonClicked() {
+      this.$refs["message-modal"].hide();
+      this.$router.push({ name: "Dashboard" });
+    },
+  },
   components: {
     NavigationBar,
     Sidebar,
@@ -66,6 +77,7 @@ export default {
   },
   async mounted() {
     this.isLoggedIn = await this.$store.dispatch("user/checkLoginStatus");
+    //this.$refs["message-modal"].show();
   },
   created() {
     document.title = "Impakter - Certificates";
@@ -88,9 +100,13 @@ export default {
         payload.message
       );
       if (payload.type == 0) {
-        this.$alert("Network failure: Please contact Administrator");
+        this.message = "Network failure: Please contact Administrator";
+        this.$refs["message-modal"].show();
+        //this.$alert("Network failure: Please contact Administrator");
       } else {
-        this.$alert(payload.message);
+        this.message = payload.message;
+        this.$refs["message-modal"].show();
+        //this.$alert(payload.message);
       }
     });
 
