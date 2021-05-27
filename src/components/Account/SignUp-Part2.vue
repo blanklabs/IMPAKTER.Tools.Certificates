@@ -5,7 +5,7 @@
     <h1>Sign-up</h1>
 
     <h4>Contact info</h4>
-    <b-alert v-if="isSignupSuccess" variant="success" show dismissible fade
+    <b-alert variant="success" show dismissible fade
       >Signed up successfully. Please fill the below information</b-alert
     >
 
@@ -42,15 +42,10 @@ const account = ServicesFactory.get("account");
 export default {
   name: "SignUp-Part2",
   data() {
-    return {
-      isSignupSuccess: false,
-    };
+    return {};
   },
   mixins: [AccountMixin, CommonMixin],
-  mounted() {
-    //todo - retrieve user from store
-    this.isSignupSuccess = this.$store.getters["account/signupStatus"];
-  },
+  mounted() {},
   methods: {
     async onSubmit(event) {
       event.preventDefault();
@@ -64,8 +59,6 @@ export default {
         this.isStatusMessage = true;
       }
       let responseStatus = this.response.status;
-
-      //login User
       if (responseStatus.code == 1) {
         if (responseStatus.case == this.signupCases.SUCCESS) {
           let responseData = this.response.data;
@@ -75,27 +68,13 @@ export default {
               case: "SIGNUP",
             };
             this.$store.dispatch("account/login", payload);
+            this.$router.push("/dashboard");
           } else {
             this.statusMessage = "Something went wrong. Please retry";
             this.isStatusMessage = true;
           }
-        } else if (responseStatus.case == this.signupCases.EXISTING) {
-          this.statusMessage =
-            "You are already signed up. Please sign in instead";
-          this.isStatusMessage = true;
-        } else if (responseStatus.case == this.signupCases.FAILED) {
-          this.statusMessage = responseStatus.message;
-          this.isStatusMessage = true;
-        }
-      } else {
-        if (responseStatus.code == 0) {
-          this.statusMessage =
-            "Sign up failed. Please try again in a bit or contact administrator";
-          this.isStatusMessage = true;
         }
       }
-
-      this.$router.push("/dashboard");
     },
   },
 };

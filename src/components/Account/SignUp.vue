@@ -95,9 +95,25 @@ export default {
         this.isStatusMessage = true;
       }
       let responseStatus = this.response.status;
+
       if (responseStatus.code == 1) {
-        //todo - save user information in store
-        this.$router.push("/signup/continue");
+        if (responseStatus.case == this.signupCases.SUCCESS) {
+          this.$store.commit("account/setUser", { user: this.user });
+          this.$router.push("/signup/continue");
+        } else if (responseStatus.case == this.signupCases.EXISTING) {
+          this.statusMessage =
+            "You are already signed up. Please sign in instead";
+          this.isStatusMessage = true;
+        } else if (responseStatus.case == this.signupCases.FAILED) {
+          this.statusMessage = responseStatus.message;
+          this.isStatusMessage = true;
+        }
+      } else {
+        if (responseStatus.code == 0) {
+          this.statusMessage =
+            "Sign up failed. Please try again in a bit or contact administrator";
+          this.isStatusMessage = true;
+        }
       }
     },
   },
