@@ -1,7 +1,7 @@
 <template>
   <div class="articles">
-     <h4>Upload Article</h4>
-      <hr />
+    <h4>Submit New Article</h4>
+    <hr />
     <div class="uploadDiv">
       <b-form-group
         class="titleName"
@@ -9,7 +9,7 @@
         label-for="name"
         label-align-sm="left"
       >
-      <br/>
+        <br />
         <b-form-input
           class="titleInput"
           id="name"
@@ -22,25 +22,23 @@
     <div class="uploadDiv">
       <p>
         <b>Upload Artilce File:</b>
-        <br>
-      
-         <input 
+        <br />
+
+        <input
           class="customFile"
           type="file"
-          @change="onFileBrowsed($event, 'articleDoc')" 
-          />
-        
+          @change="onFileBrowsed($event, 'articleDoc')"
+        />
       </p>
     </div>
     <div class="uploadDiv">
       <p>
         <b>Upload Article Images:</b>
-        <br>
+        <br />
         <input
           class="customFile"
           type="file"
           @change="onFileBrowsed($event, 'articlePhotos')"
-          
           multiple
         />
       </p>
@@ -48,30 +46,27 @@
     <div class="uploadDiv">
       <p>
         <b>Upload Author bio:</b>
-        <br>
-        <input 
+        <br />
+        <input
           class="customFile"
-          type="file" 
-          @change="onFileBrowsed($event, 'authorDoc')" 
+          type="file"
+          @change="onFileBrowsed($event, 'authorDoc')"
         />
       </p>
     </div>
     <div class="uploadDiv">
       <p>
-       <b>Upload Author Profile Photo: </b>
-        <br>
-        <input 
+        <b>Upload Author Profile Photo: </b>
+        <br />
+        <input
           class="customFile"
-          type="file" 
-          @change="onFileBrowsed($event, 'authorPhoto')" 
+          type="file"
+          @change="onFileBrowsed($event, 'authorPhoto')"
         />
       </p>
     </div>
     <hr />
-    <b-button 
-      class="sendBtn" 
-      @click="onUploadFile" 
-      :disabled="!this.articleDoc"
+    <b-button class="sendBtn" @click="onUploadFile" :disabled="!this.articleDoc"
       >Submit Article</b-button
     >
   </div>
@@ -137,6 +132,11 @@ export default {
         await this.postFileToServer(formData);
       }
       this.$store.commit("global/toggleLoading", "off");
+      this.$store.commit("global/setMessagePopup", {
+        type: 1,
+        message: "article submitted successfully",
+        redirection: "OrgProfile",
+      });
     },
     postFileToServer(formData) {
       return new Promise((resolve, reject) => {
@@ -189,7 +189,7 @@ export default {
   margin: 1px;
 }
 
-.customFile{
+.customFile {
   margin: 10px 0;
 }
 .customFile::-webkit-file-upload-button {
@@ -204,11 +204,11 @@ export default {
   cursor: pointer;
 }
 
-.titleName{
+.titleName {
   display: inline-block;
   font-weight: bold;
 }
-.titleInput{
+.titleInput {
   margin-top: -20px;
   width: 600px;
 }

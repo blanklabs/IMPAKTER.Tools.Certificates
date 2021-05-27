@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 
-import { userStore } from "@/stores/userStore"
+import { accountStore } from "@/stores/accountStore"
 import { certificateStore } from "@/stores/certificateStore"
 import { newsStore } from "@/stores/newsStore"
 import { globalStore } from "@/stores/globalStore"
@@ -13,7 +13,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     modules: {
         certificate: certificateStore,
-        user: userStore,
+        account: accountStore,
         news: newsStore,
         global: globalStore,
         org: orgStore,

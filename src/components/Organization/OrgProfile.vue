@@ -1,6 +1,12 @@
 <template>
   <div class="profileMain">
-    <h1>Profile</h1>
+    <p>
+      <span
+        ><b class="head">Profile</b
+        ><router-link to="/org/edit">- edit</router-link></span
+      >
+    </p>
+
     <hr />
     <b-row>
       <b-col class="columnLeft">
@@ -14,7 +20,7 @@
           <p>MultiIndustry</p>
         </div>
 
-        <div class="sectionDiv">
+        <!-- <div class="sectionDiv">
           <h2>TARGET AUDIENCE</h2>
           <p>B2B</p>
         </div>
@@ -22,42 +28,33 @@
         <div class="sectionDiv">
           <h2>APPLIES TO</h2>
           <p>Multiproduct</p>
-        </div>
+        </div> -->
 
         <div class="sectionDiv">
-          <h2>CONTROLLED BY</h2>
-          <p>Organization Name</p>
+          <h2>KEY SDGs</h2>
+          <p>{{ org.keySDGs }}</p>
         </div>
-
+        <div class="sectionDiv">
+          <h2>PHONE</h2>
+          <p>{{ org.phone }}</p>
+        </div>
+        <div class="sectionDiv">
+          <h2>EMAIL</h2>
+          <p>{{ org.email }}</p>
+        </div>
         <div class="sectionDiv">
           <h2>WEBSITE</h2>
-          <p><b-icon icon="box-arrow-up-right"></b-icon> Visit</p>
+          <p>
+            <b-icon icon="box-arrow-up-right"></b-icon
+            ><a :href="org.url">{{ org.url }}</a>
+          </p>
         </div>
       </b-col>
 
       <b-col class="columnRight">
         <div class="sectionDiv">
           <h2>Description</h2>
-          <p>
-            The Brazilian Association of Textile Retail (ABVTEX), founded in
-            1999, is the body that brings together the most representative
-            national and international networks of fashion retail, selling items
-            of clothing, footwear, bags, and accessories, as well as soft
-            furnishings for the home. It is the sector’s principal interlocutor
-            between bodies linked with industry, commerce and services; federal,
-            state and municipal government authorities; NGOS and associations;
-            the Press; and society in general. ABVTEX encourages dialogue
-            throughout the fashion value chain and is recognized for its
-            initiatives regarding compliance, responsible supply and use of
-            dignified labor, through the ABVTEX Program. Other pillars of its
-            operation are tackling informal employment and the development of
-            sustainable production chains supplying fashion retail, among RDA
-            other aspects. In a challenging atmosphere in which consumer
-            empowerment is positively transforming the fashion market, ABVTEX
-            brings together dozens of brands represented by associations in
-            defense of compliance with legislation, formalizing employment and
-            fair competition.
-          </p>
+          <p>{{ org.description }}</p>
         </div>
 
         <div class="sectionDiv">
@@ -73,14 +70,14 @@
 </template>
 <script>
 export default {
-  name: "UserProfile",
+  name: "OrgProfile",
   data() {
     return {
       org: {},
     };
   },
-  mounted() {
-    this.org = this.$store.getters["org/organization"];
+  async mounted() {
+    this.org = await this.$store.dispatch("org/fetchOrg");
   },
 };
 </script>
@@ -88,8 +85,11 @@ export default {
 * {
   text-align: left;
 }
+.head {
+  font-size: 34px;
+}
 h2 {
-  font-size: 24px;
+  font-size: 20px;
 }
 .image {
   margin-bottom: 10px;

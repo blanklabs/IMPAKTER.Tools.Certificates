@@ -12,7 +12,8 @@
       >{{ statusMessage }}</b-alert
     >
     <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
-      <img class="googleLogo" src="@/assets/google_logo.png"  /> Sign in with Google
+      <img class="googleLogo" src="@/assets/google_logo.png" /> Sign in with
+      Google
     </b-button>
     <div class="separator">
       <hr />
@@ -115,7 +116,7 @@ export default {
               org: responseData.org,
               case: "LOGIN",
             };
-            await this.$store.dispatch("user/login", payload);
+            await this.$store.dispatch("account/login", payload);
             this.$store.commit("global/toggleLoading", "off");
             this.$router.push("/dashboard");
           } else {
@@ -207,7 +208,7 @@ a:link {
 }
 
 .separator h5 {
-  padding: 0 2rem; 
+  padding: 0 2rem;
 }
 .identifier {
   margin-top: 10px;

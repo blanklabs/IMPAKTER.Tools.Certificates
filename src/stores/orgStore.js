@@ -38,12 +38,11 @@ const orgStore = {
             context.commit("resetOrganization")
         },
         async updateOrganization(context, payload) {
-            console.log("executing updateOrganization in orgStore with payload:", JSON.stringify(payload))
-            await organizationService.updateOrganization(payload).then((response) => {
-                console.log("updated org successfully with repsonse:", JSON.stringify(response))
-                context.commit("global/setMessagePopup", { type: 1, message: "org updated successfully" }, { root: true });
-            });
-
+            console.log("executing updateOrganization in orgStore with payload:", JSON.stringify(payload));
+            let response = await organizationService.updateOrganization(payload);
+            console.log("updated org successfully with repsonse:", JSON.stringify(response));
+            context.commit("global/setMessagePopup", { type: 1, message: "org updated successfully" }, { root: true });
+            return new Promise((resolve) => { resolve() })
         },
         fetchOrg(context) {
             if (!context.getters.organization) {
@@ -53,7 +52,9 @@ const orgStore = {
                     context.commit('setOrg', decoded.org);
                 }
             }
-            return context.getters.organization;
+            return new Promise((resolve) => {
+                resolve(context.getters.organization);
+            })
         }
     }
 }

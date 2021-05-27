@@ -9,11 +9,11 @@ const getdefaultState = () => {
         isSignUpSuccess: false,
         isLoggedin: false,
         loginEvent: new Subject(),
-        networkEvent: new Subject()
+        messageEvent: new Subject()
     }
 }
 
-const userStore = {
+const accountStore = {
     namespaced: true,
     state: getdefaultState(),
     getters: {
@@ -30,8 +30,8 @@ const userStore = {
         logInEvent: state => {
             return state.loginEvent.asObservable();
         },
-        networkEvent: state => {
-            return state.networkEvent.asObservable();
+        messageEvent: state => {
+            return state.messageEvent.asObservable();
         },
 
     },
@@ -101,4 +101,4 @@ const userStore = {
     }
 }
 
-export { userStore };
+export { accountStore };

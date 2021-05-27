@@ -1,104 +1,256 @@
-import User from "../../../SHARED.CODE/Objects/User/user";
+<template>
+  <div>
+    <b-container>
+      <h1 class="sectionTitle">Edit Profile</h1>
+      <hr />
+      <b-row class="main_row">
+        <b-col cols="8">
+          <b-form @submit="onSubmit" @reset="onReset">
+            <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Name of the Organization:"
+              label-for="name"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="name"
+                v-model="form.name"
+                placeholder="Name"
+                required
+              ></b-form-input>
+            </b-form-group>
+            <br />
+            <UserCard
+              :profilePic="form.logo"
+              @url="changeLogoUrl"
+              @file="saveLogoFile"
+            />
+            <br />
+            <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Phone Number:"
+              label-for="phone"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="phone"
+                v-model="form.phone"
+                placeholder="Phone"
+              ></b-form-input>
+            </b-form-group>
+            <br />
 
-import { Subject } from 'rxjs';
-import VueJwtDecode from 'vue-jwt-decode'
+            <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Email:"
+              label-for="email"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="email"
+                v-model="form.email"
+                placeholder="email"
+              ></b-form-input>
+            </b-form-group>
+            <br />
 
-const getdefaultState = () => {
+            <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Website link:"
+              label-for="website"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="website"
+                v-model="form.url"
+                placeholder="www.rainforest.com"
+                required
+              ></b-form-input>
+            </b-form-group>
+            <br />
+
+            <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Organization Description"
+              label-for="description"
+              label-align-sm="left"
+              id="desc"
+            >
+              <b-form-textarea
+                id="description"
+                v-model="form.description"
+                placeholder="Please describe what this Organization is all about..."
+                rows="3"
+                max-rows="6"
+              ></b-form-textarea>
+            </b-form-group>
+            <b-tooltip
+              target="desc__BV_label_"
+              triggers="hover"
+              variant="secondary"
+              placement="lefttop"
+            >
+              Please describe the Organizaiton in around 500 words approx.
+            </b-tooltip>
+            <br />
+
+            <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Key SDGs:"
+              label-for="keySDGs"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="keySDGs"
+                v-model="form.keySDGs"
+                placeholder="Key"
+              ></b-form-input>
+            </b-form-group>
+            <br />
+
+            <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Social Media:"
+              label-for="socialMedia"
+              label-align-sm="left"
+            >
+              <b-form-input
+                class="socialMediaInput"
+                id="facebook"
+                v-model="form.facebookUrl"
+                placeholder="Facebook"
+              ></b-form-input>
+              <b-form-input
+                class="socialMediaInput"
+                id="Twitter"
+                v-model="form.twitterUrl"
+                placeholder="Twitter"
+              ></b-form-input>
+              <b-form-input
+                class="socialMediaInput"
+                id="Instagram"
+                v-model="form.instagramUrl"
+                placeholder="Instagram"
+              ></b-form-input>
+            </b-form-group>
+            <br />
+
+            <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Video:"
+              label-for="video"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="video"
+                v-model="form.videoUrl"
+                placeholder="video"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-row class="buttons_row">
+              <b-button class="actButton" type="reset">Reset</b-button>
+              <b-button class="actButton" type="submit">Submit</b-button>
+            </b-row>
+          </b-form>
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+    </b-container>
+  </div>
+</template>
+
+<script>
+import SubmitMixin from "@/mixins/SubmitMixin";
+//import { ProfilePicture } from "uicomponents"
+import UserCard from "../Shared/UserCard";
+
+export default {
+  name: "UserForm",
+  data() {
     return {
-        user: new User(),
-        isSignUpSuccess: false,
-        isLoggedin: false,
-        loginEvent: new Subject(),
-        networkEvent: new Subject()
-    }
+      form: {},
+    };
+  },
+  methods: {
+    onReset() {
+      this.$store.dispatch("resetOrganization");
+    },
+    async onSubmit(event) {
+      event.preventDefault();
+      await this.$store.dispatch("org/updateOrganization", this.form);
+    },
+    addNew() {
+      this.onReset();
+      this.$refs["proceed-modal"].hide();
+    },
+    changeLogoUrl(url) {
+      this.form.logo = url;
+    },
+    saveLogoFile(logoFile) {
+      this.logoFile = logoFile;
+    },
+  },
+  mixins: [SubmitMixin],
+  components: {
+    UserCard,
+  },
+  async mounted() {
+    this.form = await this.$store.dispatch("org/fetchOrg");
+  },
+};
+</script>
+
+<style scoped>
+.sectionTitle {
+  text-align: left;
+}
+.main_row {
+  display: grid;
+}
+#rating {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left !important;
 }
 
-const userStore = {
-    namespaced: true,
-    state: getdefaultState(),
-    getters: {
-        signupForm: state => {
-            state.user.orgName = "Impakter"
-            return state.user
-        },
-        signupStatus: state => {
-            return state.isSignUpSuccess;
-        },
-        isLoggedIn: state => {
-            return state.isLoggedIn;
-        },
-        logInEvent: state => {
-            return state.loginEvent.asObservable();
-        },
-        networkEvent: state => {
-            return state.networkEvent.asObservable();
-        },
-
-    },
-    mutations: {
-        signOut(state) {
-            console.log("logging out and removing accessToken");
-            state.loginEvent.next("loggedOut");
-            console.log("before reset state.user:", JSON.stringify(state.user));
-            console.log("resetting state");
-            state = getdefaultState();
-            console.log("after reset state.user:", JSON.stringify(state.user));
-            window.localStorage.removeItem("accessToken");
-        },
-        setUser(state, payload) {
-            state.user = payload.user;
-        },
-        setLoginStatus(state, payload) {
-            state.isLoggedIn = payload;
-        },
-        login(state, payload) {
-            state.loginEvent.next("loggedIn");
-            state.user = payload.user;
-            if (payload.case == "LOGIN") {
-                state.isLoggedin = true;
-            }
-            else {
-                state.isSignUpSuccess = true;
-            }
-        }
-
-    },
-    actions: {
-        async login(context, payload) {
-            context.commit('org/setOrg', payload.org, { root: true });
-            window.localStorage.setItem(
-                "accessToken",
-                payload.accessToken
-            );
-            await context.dispatch("certificate/fetchCertificates", null, { root: true });
-            await context.dispatch("news/fetchNews", null, { root: true });
-            context.commit("login", payload);
-            return new Promise((resolve) => {
-                resolve()
-            })
-        },
-        signOut(context) {
-            context.commit("signOut");
-        },
-        setMessagePopup(context, payload) {
-            context.commit("setMessagePopup", payload)
-        },
-        async checkLoginStatus(context) {
-            let accessToken = window.localStorage.getItem("accessToken");
-            if (!context.state.isLoggedIn) {
-                if (accessToken) {
-                    let decoded = await VueJwtDecode.decode(accessToken)
-                    //console.log("decoded JWT:", JSON.stringify(decoded))
-                    context.commit('org/setOrg', decoded.org, { root: true })
-                    context.commit('setLoginStatus', true)
-                }
-                else {
-                    context.commit('setLoginStatus', false)
-                }
-            }
-            return new Promise((resolve) => { resolve(context.getters.isLoggedIn) });
-        }
-    }
+#rating {
+  margin-bottom: 10px !important;
 }
-
-export { userStore };
+.actButton {
+  color: black;
+  border: 2px solid #989898;
+  background: white;
+  font-weight: bold;
+}
+.title {
+  font-weight: bold;
+}
+.socialMediaInput {
+  margin-bottom: 15px;
+}
+hr {
+  margin-top: 0;
+  padding-top: 0;
+  height: 3px;
+  background-color: #ebebeb;
+  border: none;
+}
+</style>

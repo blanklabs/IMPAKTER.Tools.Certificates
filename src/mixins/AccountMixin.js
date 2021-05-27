@@ -12,7 +12,7 @@ export default {
         }
     },
     mounted() {
-        this.user = this.$store.getters["user/signupForm"];
+        this.user = this.$store.getters["account/signupForm"];
     }
 }
 

@@ -24,7 +24,7 @@
                 <router-link to="/org/profile">View Org Profile</router-link>
               </b-dropdown-item>
               <b-dropdown-item>
-                <router-link to="/user/edit">Edit Org Profile</router-link>
+                <router-link to="/org/edit">Edit Org Profile</router-link>
               </b-dropdown-item>
               <b-dropdown-item href="https://index.impakter.com" target="_blank"
                 >Index</b-dropdown-item
@@ -53,7 +53,7 @@ export default {
   methods: {
     logout() {
       this.loggedIn = false;
-      this.$store.dispatch("user/signOut");
+      this.$store.dispatch("account/signOut");
       this.$router.push("/signin");
     },
     login() {
@@ -61,11 +61,11 @@ export default {
     },
   },
   mounted() {
-    this.loggedIn = this.$store.getters["user/isLoggedin"];
+    this.loggedIn = this.$store.getters["account/isLoggedin"];
   },
   created() {
     document.title = "Impakter - Certificates";
-    this.subscription = this.$store.getters["user/logInEvent"].subscribe(
+    this.subscription = this.$store.getters["account/logInEvent"].subscribe(
       (message) => {
         if (message) {
           // add message to local state if not empty

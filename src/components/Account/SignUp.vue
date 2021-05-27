@@ -1,10 +1,11 @@
 <template>
-  <b-container class="signup_main" fluid="md" >
+  <b-container class="signup_main" fluid="md">
     <img class="impakterLogo" src="@/assets/logo_index.png" />
 
     <h1>Sign-up</h1>
     <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
-      <img class="googleLogo" src="@/assets/google_logo.png"  /> Sign up with Google
+      <img class="googleLogo" src="@/assets/google_logo.png" /> Sign up with
+      Google
     </b-button>
     <div class="separator">
       <hr />
@@ -103,7 +104,7 @@ export default {
               accessToken: responseData.accessToken,
               case: "SIGNUP",
             };
-            this.$store.dispatch("user/login", payload);
+            this.$store.dispatch("account/login", payload);
             this.$router.push("/signup/continue");
           } else {
             this.statusMessage = "Something went wrong. Please retry";
@@ -155,8 +156,6 @@ a:link {
   margin-bottom: 10px;
 }
 
-
-
 .impakterLogo {
   margin-left: 40px;
   padding: 10px;
@@ -190,7 +189,6 @@ a:link {
   font-weight: bold;
 }
 
-
 .separator {
   padding: 10px;
   display: flex;
@@ -198,7 +196,6 @@ a:link {
 }
 
 .separator h5 {
-  padding: 0 2rem; 
+  padding: 0 2rem;
 }
-
 </style>

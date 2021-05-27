@@ -32,6 +32,13 @@
     </b-container>
     <b-modal ref="message-modal" hide-footer>
       <p>{{ message }}</p>
+      <b-button
+        v-if="isMessageModalRedirectionButton"
+        class="mt-3"
+        block
+        @click="redirectionButtonClicked"
+        >{{ messageModalRedirectionText }}</b-button
+      >
       <b-button class="mt-3" block @click="modalButtonClicked"
         >Go to Dashboard</b-button
       >
@@ -61,12 +68,18 @@ export default {
       showMessage: false,
       messageType: "success",
       message: "hello there",
+      messageModalRedirectionText: "Add another",
+      isMessageModalRedirectionButton: false,
     };
   },
   methods: {
     modalButtonClicked() {
       this.$refs["message-modal"].hide();
       this.$router.push({ name: "Dashboard" });
+    },
+    redirectionButtonClicked() {
+      this.$refs["message-modal"].hide();
+      this.$router.push({ name: this.redirection });
     },
   },
   components: {
@@ -76,13 +89,13 @@ export default {
     RiseLoader,
   },
   async mounted() {
-    this.isLoggedIn = await this.$store.dispatch("user/checkLoginStatus");
+    this.isLoggedIn = await this.$store.dispatch("account/checkLoginStatus");
     //this.$refs["message-modal"].show();
   },
   created() {
     document.title = "Impakter - Certificates";
     this.logInEventSubscription = this.$store.getters[
-      "user/logInEvent"
+      "account/logInEvent"
     ].subscribe((message) => {
       console.log("message from subscription on App.vue:", message);
       if (message == "loggedIn") {
@@ -92,11 +105,11 @@ export default {
       }
     });
 
-    this.networkEventSubscription = this.$store.getters[
-      "global/networkEvent"
+    this.messageEventSubscription = this.$store.getters[
+      "global/messageEvent"
     ].subscribe((payload) => {
       console.log(
-        "message from network subscription on App.vue:",
+        "message from message subscription on App.vue:",
         payload.message
       );
       if (payload.type == 0) {
@@ -105,6 +118,10 @@ export default {
         //this.$alert("Network failure: Please contact Administrator");
       } else {
         this.message = payload.message;
+        if (payload.redirection) {
+          this.isMessageModalRedirectionButton = true;
+          this.redirection = payload.redirection;
+        }
         this.$refs["message-modal"].show();
         //this.$alert(payload.message);
       }
@@ -122,7 +139,7 @@ export default {
   },
   beforeDestroy() {
     this.logInEventSubscription.unsubscribe();
-    this.networkEventSubscription.unsubscribe();
+    this.messageEventSubscription.unsubscribe();
     this.loadingEventSubscription.unsubscribe();
   },
 };

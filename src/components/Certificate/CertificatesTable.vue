@@ -3,15 +3,9 @@
     <div class="header">
       <ActionButton
         class="addBtn"
-        btnIcon=""
-        btnDescription="refresh"
-        @click="refresh"
-      ></ActionButton>
-      <ActionButton
-        class="addBtn"
         btnIcon="plus"
         btnDescription="   Add New Certificate"
-        @click="add"
+        :action="add"
       ></ActionButton>
       <!-- <b-button variant="outline-primary" @click="add">
             Add New Certificate</b-button
@@ -111,7 +105,6 @@
         </b-row>
         <div id="paginate">
           <b-pagination
-          
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
@@ -378,7 +371,7 @@ export default {
 </script>
 
 <style>
-.cetificatesMain{
+.cetificatesMain {
   font-family: "Montserrat";
   text-align: left;
 }
@@ -426,31 +419,32 @@ table {
   margin: 1px;
 }
 .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-     background-color: #fe6663;
-   border-color: #fe6663;
+  z-index: 3;
+  color: #fff;
+  background-color: #fe6663;
+  border-color: #fe6663;
 }
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
 
-    background-color: #F6A8A8;
-    width: 100%;
+  background-color: #f6a8a8;
+  width: 100%;
 }
-.nav-pills{
+.nav-pills {
   padding: 0;
-  background-color: #f8f8f8;  
+  background-color: #f8f8f8;
 }
 
- a{
-    color: #1d2029;
-    font-weight: 500;
-    text-decoration: none;
-    background-color: transparent;
+a {
+  color: #1d2029;
+  font-weight: 500;
+  text-decoration: none;
+  background-color: transparent;
 }
- a:hover{
-    color: #1d2029;
-    text-decoration: none;
-    background-color: transparent;
+a:hover {
+  color: #1d2029;
+  text-decoration: none;
+  background-color: transparent;
 }
 </style>

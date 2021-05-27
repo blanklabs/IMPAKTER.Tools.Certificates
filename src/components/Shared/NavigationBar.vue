@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar class="nav" toggleable="lg" type="light" fixed="top" >
+    <b-navbar class="nav" toggleable="lg" type="light" fixed="top">
       <b-navbar-brand href="https://index.impakter.com">
         <img class="logo" src="@/assets/logo_index.png" />
       </b-navbar-brand>
@@ -61,7 +61,7 @@ export default {
   methods: {
     async logout() {
       this.loggedIn = false;
-      await this.$store.dispatch("user/signOut");
+      await this.$store.dispatch("account/signOut");
       this.$router.push("/signin");
     },
     login() {
@@ -69,11 +69,11 @@ export default {
     },
   },
   mounted() {
-    this.loggedIn = this.$store.getters["user/isLoggedin"];
+    this.loggedIn = this.$store.getters["account/isLoggedin"];
   },
   created() {
     document.title = "Impakter - Certificates";
-    this.subscription = this.$store.getters["user/logInEvent"].subscribe(
+    this.subscription = this.$store.getters["account/logInEvent"].subscribe(
       (message) => {
         if (message) {
           // add message to local state if not empty

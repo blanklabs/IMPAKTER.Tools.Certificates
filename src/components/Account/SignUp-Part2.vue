@@ -1,6 +1,6 @@
 <template>
-  <b-container  class="signup_main" fluid="md">
-    <img class="impakterLogo" src="@/assets/logo_index.png"  />
+  <b-container class="signup_main" fluid="md">
+    <img class="impakterLogo" src="@/assets/logo_index.png" />
 
     <h1>Sign-up</h1>
 
@@ -19,7 +19,11 @@
       >
       </b-form-input>
 
-      <b-form-input class="identifier" v-model="user.role" placeholder="Your Role">
+      <b-form-input
+        class="identifier"
+        v-model="user.role"
+        placeholder="Your Role"
+      >
       </b-form-input>
       <b-button class="action_btt" type="submit" variant="primary"
         >Sign Up</b-button
@@ -41,7 +45,7 @@ export default {
   },
   mixins: [AccountMixin, CommonMixin],
   mounted() {
-    this.isSignupSuccess = this.$store.getters["user/signupStatus"];
+    this.isSignupSuccess = this.$store.getters["account/signupStatus"];
   },
   methods: {
     onSubmit(event) {
@@ -96,5 +100,4 @@ a:link {
   white-space: nowrap;
   font-weight: bold;
 }
-
 </style>

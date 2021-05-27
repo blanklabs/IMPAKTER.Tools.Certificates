@@ -6,7 +6,7 @@ import FormSDGTargets from "@/components/Certificate/CertificateForm/SDGTargets"
 import FormSDGs from "@/components/Certificate/CertificateForm/SDGs";
 import FormSubIndustries from "@/components/Certificate/CertificateForm/SubIndustries";
 import FormIndustries from "@/components/Certificate/CertificateForm/Industries";
-import MyCertificates from "@/components/Certificate/MyCertificates";
+import CertificatesTable from "@/components/Certificate/CertificatesTable";
 import Login from "@/components/Archives/Login";
 import LoginPrompt from "@/components/Archives/LoginPrompt";
 import InProgress from "@/components/Shared/InProgress";
@@ -24,6 +24,7 @@ import NewsHome from "@/components/News/NewsHome";
 import HomeTest from "@/components/Landing/Home"; // This is just a TEST for future LandingPage
 import Dashboard from "@/components/Dashboard/Dashboard";
 import PublicationsHome from "@/components/Publications/PublicationsHome"
+import UploadPublication from "@/components/Publications/UploadPublication"
 import MatchesHome from "@/components/Matches/MatchesHome"
 import LibraryHome from "@/components/Library/LibraryHome"
 import Contact from "@/components/Contact.vue"
@@ -93,6 +94,12 @@ const routes = [
     component: PublicationsHome
   },
   {
+    path: '/publications/upload',
+    name: 'UploadPublication',
+    beforeEnter: authGuard,
+    component: UploadPublication
+  },
+  {
     path: '/matches',
     name: 'Matches',
     beforeEnter: authGuard,
@@ -148,9 +155,9 @@ const routes = [
   },
   {
     path: '/certificates',
-    name: 'MyCertificates',
+    name: 'CertificatesTable',
     beforeEnter: authGuard,
-    component: MyCertificates
+    component: CertificatesTable
   },
   {
     path: '/certificate',

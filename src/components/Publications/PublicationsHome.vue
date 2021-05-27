@@ -2,7 +2,7 @@
   <div>
     <DashBoardTabNav :tabs="['Articles', 'Files']" @selectTab="tabSelect">
       <DashBoardTab :isSelected="selectedTab === 'Articles'">
-        <Articles />
+        <PublicationsTable />
       </DashBoardTab>
       <DashBoardTab :isSelected="selectedTab === 'Files'">
         <Files />
@@ -13,7 +13,7 @@
 <script>
 import DashBoardTabNav from "../Shared/DashBoardTabNav";
 import DashBoardTab from "../Shared/DashBoardTab";
-import Articles from "./Articles";
+import PublicationsTable from "./PublicationsTable";
 import Files from "./Files";
 export default {
   name: "Publications",
@@ -25,7 +25,7 @@ export default {
   components: {
     DashBoardTab,
     DashBoardTabNav,
-    Articles,
+    PublicationsTable,
     Files,
   },
   methods: {
