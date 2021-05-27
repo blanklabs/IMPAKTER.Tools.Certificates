@@ -15,11 +15,11 @@ import CertificateProfile from "@/components/Certificate/CertificateProfile";
 //import store from "@/store.js"
 import OrgForm from "@/components/Organization/OrgForm";
 import OrgProfile from "@/components/Organization/OrgProfile";
-import SignIn from "@/components/SignIn-SignUp/SignIn";
-import SignUp from "@/components/SignIn-SignUp/SignUp";
-import SignUpPart2 from "@/components/SignIn-SignUp/SignUp-Part2";
-import SetPassword from "@/components/SignIn-SignUp/SetPassword";
-import SignUpThankYou from "@/components/SignIn-SignUp/SignUp-ThankYou";
+import SignIn from "@/components/Account/SignIn";
+import SignUp from "@/components/Account/SignUp";
+import SignUpPart2 from "@/components/Account/SignUp-Part2";
+import SetPassword from "@/components/Account/SetPassword";
+import SignUpThankYou from "@/components/Account/SignUp-ThankYou";
 import NewsHome from "@/components/News/NewsHome";
 import HomeTest from "@/components/Landing/Home"; // This is just a TEST for future LandingPage
 import Dashboard from "@/components/Dashboard/Dashboard";

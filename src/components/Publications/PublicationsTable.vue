@@ -68,7 +68,7 @@ export default {
     };
   },
   async mounted() {
-    this.$store.commit("global/toggleLoading", "on");
+    //this.$store.commit("global/toggleLoading", "on");
     this.allPublications = this.$store.getters["publication/publications"];
     this.filterPublications();
     if (this.allPublications.length == 0 || this.allPublications == undefined) {

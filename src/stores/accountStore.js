@@ -65,6 +65,7 @@ const accountStore = {
     },
     actions: {
         async login(context, payload) {
+            console.log("executing accountStore Login")
             context.commit('org/setOrg', payload.org, { root: true });
             window.localStorage.setItem(
                 "accessToken",

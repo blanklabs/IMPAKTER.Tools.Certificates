@@ -95,35 +95,9 @@ export default {
         this.isStatusMessage = true;
       }
       let responseStatus = this.response.status;
-
       if (responseStatus.code == 1) {
-        if (responseStatus.case == this.signupCases.SUCCESS) {
-          let responseData = this.response.data;
-          if (responseData.accessToken) {
-            let payload = {
-              accessToken: responseData.accessToken,
-              case: "SIGNUP",
-            };
-            this.$store.dispatch("account/login", payload);
-            this.$router.push("/signup/continue");
-          } else {
-            this.statusMessage = "Something went wrong. Please retry";
-            this.isStatusMessage = true;
-          }
-        } else if (responseStatus.case == this.signupCases.EXISTING) {
-          this.statusMessage =
-            "You are already signed up. Please sign in instead";
-          this.isStatusMessage = true;
-        } else if (responseStatus.case == this.signupCases.FAILED) {
-          this.statusMessage = responseStatus.message;
-          this.isStatusMessage = true;
-        }
-      } else {
-        if (responseStatus.code == 0) {
-          this.statusMessage =
-            "Sign up failed. Please try again in a bit or contact administrator";
-          this.isStatusMessage = true;
-        }
+        //todo - save user information in store
+        this.$router.push("/signup/continue");
       }
     },
   },

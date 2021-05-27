@@ -1,51 +1,54 @@
 <template>
   <div id="app">
-    <!--<Sidebar v-if="isInside" />-->
-    <rise-loader :loading="loading" :color="color" :size="size"></rise-loader>
+    <b-overlay no-center :show="loading" rounded="sm">
+      <!--<Sidebar v-if="isInside" />-->
+      <!-- <rise-loader :loading="isLoading" :color="color" :size="size"></rise-loader> -->
+      <!-- <Spinner></Spinner> -->
 
-    <b-container class="page-wrap">
-      <b-row v-if="isLoggedIn">
-        <NavDashboard />
-        <Sidebar />
-        <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->
-      </b-row>
-      <b-row v-else>
-        <NavigationBar />
-      </b-row>
-      <b-row>
-        <b-container>
-          <b-alert
-            v-if="showMessage"
-            :variant="messageType"
-            show
-            dismissible
-            fade
-            >{{ message }}</b-alert
-          >
-        </b-container>
-      </b-row>
-      <b-row>
-        <b-container id="router_view_container">
-          <router-view />
-        </b-container>
-      </b-row>
-    </b-container>
-    <b-modal ref="message-modal" hide-footer>
-      <p>{{ message }}</p>
-      <b-button
-        v-if="isMessageModalRedirectionButton"
-        class="mt-3"
-        block
-        @click="redirectionButtonClicked"
-        >{{ messageModalRedirectionText }}</b-button
-      >
-      <b-button class="mt-3" block @click="modalButtonClicked"
-        >Go to Dashboard</b-button
-      >
-    </b-modal>
-    <footer class="site-footer">
-      <p>2021 Copyright © ImpakterLimited</p>
-    </footer>
+      <b-container class="page-wrap">
+        <b-row v-if="isLoggedIn">
+          <NavDashboard />
+          <Sidebar />
+          <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->
+        </b-row>
+        <b-row v-else>
+          <NavigationBar />
+        </b-row>
+        <b-row>
+          <b-container>
+            <b-alert
+              v-if="showMessage"
+              :variant="messageType"
+              show
+              dismissible
+              fade
+              >{{ message }}</b-alert
+            >
+          </b-container>
+        </b-row>
+        <b-row>
+          <b-container id="router_view_container">
+            <router-view />
+          </b-container>
+        </b-row>
+      </b-container>
+      <b-modal ref="message-modal" hide-footer>
+        <p>{{ message }}</p>
+        <b-button
+          v-if="isMessageModalRedirectionButton"
+          class="mt-3"
+          block
+          @click="redirectionButtonClicked"
+          >{{ messageModalRedirectionText }}</b-button
+        >
+        <b-button class="mt-3" block @click="modalButtonClicked"
+          >Go to Dashboard</b-button
+        >
+      </b-modal>
+      <footer class="site-footer">
+        <p>2021 Copyright © ImpakterLimited</p>
+      </footer>
+    </b-overlay>
   </div>
 </template>
 
@@ -56,7 +59,12 @@ import Sidebar from "./components/Shared/Sidebar";
 import NavDashboard from "./components/Shared/NavDashboard";
 
 //import PulseLoader from "vue-spinner/src/PulseLoader.vue";
-import RiseLoader from "vue-spinner/src/RiseLoader.vue";
+//import RiseLoader from "vue-spinner/src/RiseLoader.vue";
+
+//import Spinner from "vue-simple-spinner";
+
+//import Loading from "vue-loading-overlay";
+//import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   data() {
@@ -86,7 +94,6 @@ export default {
     NavigationBar,
     Sidebar,
     NavDashboard,
-    RiseLoader,
   },
   async mounted() {
     this.isLoggedIn = await this.$store.dispatch("account/checkLoginStatus");

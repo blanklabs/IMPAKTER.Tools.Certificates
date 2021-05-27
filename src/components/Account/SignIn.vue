@@ -37,10 +37,19 @@
       required
     >
     </b-form-input>
-
-    <b-button class="signInButton" v-on:click="login('DIRECT')">
-      Sign in with Email
-    </b-button>
+    <b-overlay
+      :show="loading"
+      rounded
+      opacity="0.6"
+      spinner-small
+      spinner-variant="primary"
+      class="d-inline-block"
+      @hidden="onHidden"
+    >
+      <b-button class="signInButton" v-on:click="login('DIRECT')">
+        Sign in with Email
+      </b-button>
+    </b-overlay>
     <hr />
     <p>
       Don’t have an account? <router-link to="/signup">Sign Up</router-link>
@@ -57,7 +66,9 @@ import AccountMixin from "@/mixins/AccountMixin";
 export default {
   name: "SignIn",
   data() {
-    return {};
+    return {
+      loading: false,
+    };
   },
   mixins: [CommonMixin, AccountMixin],
   methods: {
@@ -100,7 +111,8 @@ export default {
       }
     },
     async afterLogin() {
-      this.$store.commit("global/toggleLoading", "on");
+      //this.$store.commit("global/toggleLoading", "on");
+      this.loading = true;
       let responseStatus = this.response.status;
 
       //console.log("this.response.status:", this.response.status);
@@ -118,6 +130,7 @@ export default {
             };
             await this.$store.dispatch("account/login", payload);
             this.$store.commit("global/toggleLoading", "off");
+            this.loading = false;
             this.$router.push("/dashboard");
           } else {
             this.statusMessage = "Something went wrong. Please retry";
@@ -137,6 +150,13 @@ export default {
             "Sign up failed. Please try again in a bit or contact administrator";
           this.isStatusMessage = true;
         }
+      }
+    },
+  },
+  watch: {
+    isStatusMessage: function () {
+      if (this.isStatusMessage) {
+        this.loading = false;
       }
     },
   },
