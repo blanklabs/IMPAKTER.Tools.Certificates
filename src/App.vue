@@ -9,7 +9,6 @@
         <b-row v-if="isLoggedIn">
           <NavDashboard />
           <Sidebar />
-          <!--<dash-board-tab-nav :tabs="tabs" :selected="'Home'" />-->
         </b-row>
         <b-row v-else>
           <NavigationBar />
@@ -170,6 +169,7 @@ export default {
   /* equal to footer height */
 
   margin-bottom: 100%;
+  
 }
 .page-wrap:after {
   content: "";
@@ -177,6 +177,7 @@ export default {
 }
 
 .site-footer {
+  
   padding-top: 15px;
   justify-content: center;
   text-align: center;

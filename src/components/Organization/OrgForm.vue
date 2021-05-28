@@ -119,6 +119,38 @@
               ></b-form-input>
             </b-form-group>
             <br />
+             <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Target Audience:"
+              label-for="targetAudience"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="name"
+                v-model="form.targetAudience"
+                placeholder="Target Audience"
+                required
+              ></b-form-input>
+            </b-form-group>
+            <br />
+            <b-form-group
+              class="title"
+              label-cols="4"
+              label-cols-lg="3"
+              label="Applies To:"
+              label-for="appliesTo"
+              label-align-sm="left"
+            >
+              <b-form-input
+                id="name"
+                v-model="form.appliesTo"
+                placeholder="Applies To"
+                required
+              ></b-form-input>
+            </b-form-group>
+            <br />
 
             <b-form-group
               class="title"

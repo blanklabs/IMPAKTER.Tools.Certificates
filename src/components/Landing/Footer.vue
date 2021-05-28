@@ -48,10 +48,7 @@ background: #E4E4E4;
 margin-top: auto;
    
  }
- /* #rows{
-     padding: 15px 0 0 100px;
-     text-align: left;
- } */
+
 h4{
   font-weight:bolder;
   font-size: 18px;

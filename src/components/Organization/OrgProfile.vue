@@ -49,6 +49,13 @@
             ><a :href="org.url">{{ org.url }}</a>
           </p>
         </div>
+         <div class="sectionDiv">
+          <h2>SOCIAL MEDIA</h2>
+          <p>Facebook</p>
+          <p>Twitter</p>
+          <p>Instagram</p>
+        </div>
+
       </b-col>
 
       <b-col class="columnRight">

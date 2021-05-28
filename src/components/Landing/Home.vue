@@ -9,10 +9,13 @@
               <div class="buttonHeader">
                 <ActionButton  
                   btnIcon="chevron-right" 
+                  btnAction="/signup"
+                  
                   btnDescription="   Get Started">
                 </ActionButton>
                 <ActionButton  
                   btnIcon="person-circle" 
+                  btnAction="/signin"
                   btnDescription="   Sign-in">
                 </ActionButton>
               </div>
