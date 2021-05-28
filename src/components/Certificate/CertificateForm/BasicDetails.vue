@@ -123,7 +123,9 @@
             </b-form-group>
 
             <hr />
-            <h5>Please add links to documents that describe this certificate</h5>
+            <h5>
+              Please add links to documents that describe this certificate
+            </h5>
             <b-card>
               <b-card-text>
                 <div v-for="(item, index) in documentCount" :key="index">
@@ -156,13 +158,16 @@
                   <hr />
                 </div>
               </b-card-text>
-              <ActionButton btnIcon="file-earmark-medical" btnDescription="   Add another document" @click="incrementDocumentCount"/>
+              <ActionButton
+                btnIcon="file-earmark-medical"
+                btnDescription="   Add another document"
+                @action="incrementDocumentCount"
+              />
             </b-card>
             <hr />
 
             <b-row class="buttons_row">
-    
-              <b-button class="actButton" type="reset" >Reset</b-button>
+              <b-button class="actButton" type="reset">Reset</b-button>
               <b-button class="actButton" type="submit">Next</b-button>
             </b-row>
           </b-form>
@@ -182,7 +187,7 @@ import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import FormGuardMixin from "@/mixins/FormGuardMixin";
 import ProgressBar from "./ProgressBar.vue";
 import { documentObject } from "@/models/certificateObjects";
-import { ActionButton } from "uicomponents"
+import ActionButton from "@/components/Shared/ActionButton";
 
 export default {
   data() {
@@ -296,13 +301,12 @@ export default {
 #rating {
   margin-bottom: 10px !important;
 }
-.card{
+.card {
   border: none;
 }
-.actButton{
-  color:black;
+.actButton {
+  color: black;
   border: 2px solid #989898;
   background: white;
 }
-
 </style>

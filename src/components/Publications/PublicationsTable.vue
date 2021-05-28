@@ -22,8 +22,14 @@
           :current-page="currentPage"
           hover
         >
-          <template #head(name)>
-            <div class="text-nowrap">Article Name</div>
+          <template #cell(submissionDate)="data">
+            <p>
+              {{ data.item.submissionDate.slice(0, 10) }}
+            </p>
+          </template>
+          <template #cell(status)="data">
+            <p v-if="data.item.status == 0">Under Review</p>
+            <p v-else>Published</p>
           </template>
         </b-table>
       </b-row>

@@ -13,7 +13,7 @@
     </div>
     <DashBoardTabNav :tabs="tabs" @selectTab="tabSelect">
       <b-container class="certificateTable">
-        <b-row >
+        <b-row>
           <b-table
             :fields="fields"
             :items="certificates"
@@ -250,7 +250,7 @@
 <script>
 import CertificateProfile from "./CertificateProfile.vue";
 import DashBoardTabNav from "../Shared/DashBoardTabNav";
-import { ActionButton } from "uicomponents";
+import ActionButton from "./../Shared/ActionButton";
 
 export default {
   name: "MyCertificates",
@@ -384,10 +384,9 @@ export default {
   width: 100%;
 }
 
-
-.certificateTable{
+.certificateTable {
   margin-top: -17px;
- 
+
   margin-left: 0;
   margin-right: 0;
 }

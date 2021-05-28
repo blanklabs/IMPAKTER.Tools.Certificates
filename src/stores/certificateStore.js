@@ -6,7 +6,7 @@ const certificateService = ServicesFactory.get("certificates");
 //import certificateModel from "./models/certificate";
 import certificateModel from "../../../SHARED.CODE/Objects/Certificate/certificate";
 //import {certificateModel} from "shared.code";
-import organizationModel from ".././models/organization";
+//import organizationModel from ".././models/organization";
 import { awsConfig } from "@/models/constants"
 import {
     Transport,
@@ -43,7 +43,7 @@ const certificateStore = {
             activeStatus: true
         },
         certificate: new certificateModel(),
-        organization: new organizationModel(),
+        organization: {},
         organizationName: null,
         certificates: [],
         organizationID: null,
@@ -132,7 +132,7 @@ const certificateStore = {
         },
 
         resetCertificate(state) {
-            state.certificate = new certificateModel.certificateModel()
+            state.certificate = new certificateModel()
 
         },
 
