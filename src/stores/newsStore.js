@@ -39,9 +39,8 @@ const newsStore = {
 
     },
     actions: {
-
         async fetchNews(context) {
-            let org = context.rootGetters["org/organization"];
+            let org = await context.dispatch("org/fetchOrg", null, { root: true });
             let response = new Transport();
             try {
                 let webResponse = await news.fetchNews(org.orgID);

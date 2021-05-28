@@ -13,7 +13,7 @@
         <b-form-input
           class="titleInput"
           id="name"
-          v-model="articleTitle"
+          v-model="article.articleTitle"
           placeholder="Name"
           required
         ></b-form-input>
@@ -66,102 +66,71 @@
       </p>
     </div>
     <hr />
-    <b-button class="sendBtn" @click="onUploadFile" :disabled="!this.articleDoc"
+    <b-button
+      class="sendBtn"
+      @click="onUploadFile"
+      :disabled="!this.article.articleDoc"
       >Submit Article</b-button
     >
   </div>
 </template>
 <script>
 //import { ActionButton } from "uicomponents";
-import axios from "axios";
 import { uuid } from "vue-uuid";
-
+import CommonMixin from "@/mixins/CommonMixin";
 export default {
-  name: "Articles",
+  name: "UploadPublication",
   data() {
     return {
-      uuid: uuid.v1(),
-      orgID: 1,
-      articleTitle: "",
-      articleDoc: "",
-      articlePhotos: "",
-      authorDoc: "",
-      authorPhoto: "",
+      article: {
+        uuid: uuid.v1(),
+        articleTitle: "",
+        articleDoc: "",
+        articlePhotos: "",
+        authorDoc: "",
+        authorPhoto: "",
+      },
     };
   },
   components: {},
+  mixins: [CommonMixin],
   methods: {
     onFileBrowsed(event, file) {
       if (file == "articleDoc") {
         const selectedFile = event.target.files[0];
-        this.articleDoc = selectedFile;
+        this.article.articleDoc = selectedFile;
       } else if (file == "articlePhotos") {
         const selectedFiles = event.target.files;
-        this.articlePhotos = selectedFiles;
+        this.article.articlePhotos = selectedFiles;
       } else if (file == "authorDoc") {
         const selectedFile = event.target.files[0];
-        this.authorDoc = selectedFile;
+        this.article.authorDoc = selectedFile;
       } else {
         const selectedFile = event.target.files[0];
-        this.authorPhoto = selectedFile;
+        this.article.authorPhoto = selectedFile;
       }
     },
     async onUploadFile() {
       console.log("executing onUploadFile");
       this.$store.commit("global/toggleLoading", "on");
-      if (this.articleDoc) {
-        const formData = new FormData();
-        formData.append("articleDoc", this.articleDoc);
-        await this.postFileToServer(formData);
-      }
-      if (this.articlePhotos) {
-        const formData = new FormData();
-        for (const i of Object.keys(this.articlePhotos)) {
-          formData.append("articlePhotos", this.articlePhotos[i]);
-        }
-        this.postFileToServer(formData);
-      }
-      if (this.authorDoc) {
-        const formData = new FormData();
-        formData.append("authorDoc", this.authorDoc);
-        await this.postFileToServer(formData);
-      }
-      if (this.authorPhoto) {
-        const formData = new FormData();
-        formData.append("authorPhoto", this.authorPhoto);
-        await this.postFileToServer(formData);
-      }
+      this.response = await this.$store.dispatch(
+        "publication/uploadPublication",
+        this.article
+      );
       this.$store.commit("global/toggleLoading", "off");
-      this.$store.commit("global/setMessagePopup", {
-        type: 1,
-        message: "article submitted successfully",
-        redirection: "OrgProfile",
-      });
-    },
-    postFileToServer(formData) {
-      return new Promise((resolve, reject) => {
-        let config = {
-          headers: {
-            orgID: this.orgID,
-            articleID: this.uuid,
-            articleTitle: this.articleTitle,
-          },
-        };
-        axios
-          .post(
-            "http://localhost:3030/api/publications/upload",
-            formData,
-            config
-          )
-          .then((res) => {
-            console.log(res);
-            resolve();
-          })
-          .catch((err) => {
-            console.log(err);
-            reject();
-          });
-      });
+      if (this.response.status.code == this.transportCodes.SUCCESS) {
+        this.$store.commit("global/setMessagePopup", {
+          type: 1,
+          message: "article submitted successfully",
+          redirection: "PublicationsHome",
+        });
+      } else {
+        this.$store.commit("global/setMessagePopup", {
+          type: 0,
+          message: this.response.status.message,
+          redirection: "PublicationsHome",
+        });
+      }
     },
   },
 };

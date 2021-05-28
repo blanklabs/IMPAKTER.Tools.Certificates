@@ -7,6 +7,7 @@ import { certificateStore } from "@/stores/certificateStore"
 import { newsStore } from "@/stores/newsStore"
 import { globalStore } from "@/stores/globalStore"
 import { orgStore } from "@/stores/orgStore";
+import { publicationStore } from "@/stores/publicationStore"
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
         news: newsStore,
         global: globalStore,
         org: orgStore,
+        publication: publicationStore,
     }
 
 });

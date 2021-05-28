@@ -73,6 +73,7 @@ const accountStore = {
             );
             await context.dispatch("certificate/fetchCertificates", null, { root: true });
             await context.dispatch("news/fetchNews", null, { root: true });
+            await context.dispatch("publication/fetchPublications", null, { root: true })
             context.commit("login", payload);
             return new Promise((resolve) => {
                 resolve()

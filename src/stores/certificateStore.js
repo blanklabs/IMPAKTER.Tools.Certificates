@@ -238,7 +238,7 @@ const certificateStore = {
             context.commit("deleteCertificate")
         },
         async fetchCertificates(context) {
-            let org = context.rootGetters["org/organization"];
+            let org = await context.dispatch("org/fetchOrg", null, { root: true });
             console.log("Executing fetch Certificates")
             let response = new Transport();
             try {

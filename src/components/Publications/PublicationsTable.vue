@@ -15,7 +15,7 @@
       <b-row>
         <b-table
           :fields="fields"
-          :items="publications"
+          :items="allPublications"
           :head-variant="light"
           :bordered="false"
           :responsive="md"
@@ -49,7 +49,7 @@
 import ActionButton from "./../Shared/ActionButton";
 
 export default {
-  name: "Mypublications",
+  name: "PublicationsTable",
   data() {
     return {
       showModal: false,
@@ -63,7 +63,7 @@ export default {
       response: null,
       InProgress: true,
       networkConnected: null,
-      fields: ["name", "submitted", "status"],
+      fields: ["title", "submissionDate", "status"],
       selectedTab: "Active",
     };
   },
@@ -86,13 +86,13 @@ export default {
       this.filterPublications();
     },
     filterPublications() {
-      if (this.selectedTab === "Editing") {
+      if (this.selectedTab === "Articles") {
         this.publications = this.allPublications.filter(
           (certificate) => certificate.status == 0
         );
       } else if (this.selectedTab === "Active") {
         this.publications = this.allPublications.filter(
-          (certificate) => certificate.status == 1
+          (certificate) => certificate.status == 0
         );
       } else {
         this.publications = this.allPublications.filter(
@@ -128,9 +128,12 @@ export default {
     },
     async refresh() {
       this.$store.commit("global/toggleLoading", "on");
-      this.allPublications = await this.$store.dispatch(
-        "certificate/fetchpublications"
+      let response = await this.$store.dispatch(
+        "publication/fetchPublications"
       );
+      if (response.status) {
+        this.allPublications = response.publications;
+      }
       this.filterPublications();
       this.$store.commit("global/toggleLoading", "off");
     },
