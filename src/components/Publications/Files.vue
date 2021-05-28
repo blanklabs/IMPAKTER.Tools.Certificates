@@ -1,6 +1,7 @@
 <template>
   <div class="files">
     <b-table
+      class="fileTable"
       :items="items"
       :fields="fields"
       :select-mode="selectMode"
@@ -73,6 +74,9 @@ export default {
 .files{
 display:flexbox;
 text-align: left;
+}
+.fileTable{
+  margin: -17px 0 0 0;
 }
 .actionBtn{
   color:black;

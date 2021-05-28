@@ -1,6 +1,7 @@
 <template>
   <div class="myDocuments">
-    <b-table
+    <b-table 
+      class="docuTable"
       :items="items"
       :fields="fields"
       :select-mode="selectMode"
@@ -73,8 +74,10 @@ export default {
 <style scoped>
 
 .myDocuments{
-    display:flexbox;
     text-align: left;
+}
+.docuTable{
+  margin: -17px 0 0 0;
 }
 
 .actionBtn{

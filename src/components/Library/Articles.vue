@@ -1,6 +1,7 @@
 <template>
   <div class="myArticles">
     <b-table
+      class="articlesTable"
       :items="items"
       :fields="fields"
       :select-mode="selectMode"
@@ -76,7 +77,9 @@ export default {
     display:flexbox;
     text-align: left;
 }
-
+.articlesTable{
+  margin: -17px 0 0 0;
+}
 .actionBtn{
   color:black;
   border: transparent;

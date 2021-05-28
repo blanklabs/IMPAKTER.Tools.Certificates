@@ -20,7 +20,7 @@
           <p>MultiIndustry</p>
         </div>
 
-        <!-- <div class="sectionDiv">
+        <div class="sectionDiv">
           <h2>TARGET AUDIENCE</h2>
           <p>B2B</p>
         </div>
@@ -28,7 +28,7 @@
         <div class="sectionDiv">
           <h2>APPLIES TO</h2>
           <p>Multiproduct</p>
-        </div> -->
+        </div>
 
         <div class="sectionDiv">
           <h2>KEY SDGs</h2>

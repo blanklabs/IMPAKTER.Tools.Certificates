@@ -1,17 +1,7 @@
 <template>
-  <div class="cetificatesMain">
-    <!-- <div class="header">
-      <ActionButton
-        class="addBtn"
-        btnIcon="plus"
-        btnDescription="Submit new article"
-        :action="add"
-      ></ActionButton>
-    
-    </div> -->
-    <b-container>
-      <b-row>
+  <div class="publicationMain">
         <b-table
+          class="publicationTable"
           :fields="fields"
           :items="allPublications"
           :head-variant="light"
@@ -32,7 +22,6 @@
             <p v-else>Published</p>
           </template>
         </b-table>
-      </b-row>
       <div id="paginate">
         <b-pagination
           v-model="currentPage"
@@ -43,7 +32,6 @@
           pills
         ></b-pagination>
       </div>
-    </b-container>
     <br />
   </div>
 </template>
@@ -151,7 +139,7 @@ export default {
 </script>
 
 <style>
-.cetificatesMain {
+.publicationMain {
   font-family: "Montserrat";
   text-align: left;
 }
@@ -186,6 +174,9 @@ table {
 }
 .titleHeader {
   float: left;
+}
+.publicationTable{
+  margin: -17px 0 0 0;
 }
 
 #customButton {

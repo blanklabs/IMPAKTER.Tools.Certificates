@@ -7,14 +7,10 @@
         btnDescription="   Add New Certificate"
         :action="add"
       ></ActionButton>
-      <!-- <b-button variant="outline-primary" @click="add">
-            Add New Certificate</b-button
-          > -->
     </div>
     <DashBoardTabNav :tabs="tabs" @selectTab="tabSelect">
-      <b-container class="certificateTable">
-        <b-row>
           <b-table
+            class="certificateTable"
             :fields="fields"
             :items="certificates"
             :head-variant="light"
@@ -102,7 +98,7 @@
               <!--<b-button>See Details</b-button>-->
             </template>
           </b-table>
-        </b-row>
+ 
         <div id="paginate">
           <b-pagination
             v-model="currentPage"
@@ -113,7 +109,6 @@
             pills
           ></b-pagination>
         </div>
-      </b-container>
     </DashBoardTabNav>
     <!--<div >
         <b-card no-body>
@@ -376,8 +371,6 @@ export default {
   text-align: left;
 }
 #main_head {
-  display: flex;
-  position: fixed;
   justify-content: flex-start;
   background-color: white;
   z-index: 80;
@@ -385,10 +378,7 @@ export default {
 }
 
 .certificateTable {
-  margin-top: -17px;
-
-  margin-left: 0;
-  margin-right: 0;
+  margin: -17px 0 0 0;
 }
 
 .certificateName {
