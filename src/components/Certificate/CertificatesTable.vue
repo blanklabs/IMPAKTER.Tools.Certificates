@@ -12,8 +12,8 @@
           > -->
     </div>
     <DashBoardTabNav :tabs="tabs" @selectTab="tabSelect">
-      <b-container>
-        <b-row>
+      <b-container class="certificateTable">
+        <b-row >
           <b-table
             :fields="fields"
             :items="certificates"
@@ -384,8 +384,12 @@ export default {
   width: 100%;
 }
 
-table {
-  margin-top: 0px;
+
+.certificateTable{
+  margin-top: -17px;
+ 
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .certificateName {

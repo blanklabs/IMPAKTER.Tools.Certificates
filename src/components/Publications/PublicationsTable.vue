@@ -1,16 +1,14 @@
 <template>
   <div class="cetificatesMain">
-    <div class="header">
+    <!-- <div class="header">
       <ActionButton
         class="addBtn"
         btnIcon="plus"
         btnDescription="Submit new article"
         :action="add"
       ></ActionButton>
-      <!-- <b-button variant="outline-primary" @click="add">
-            Add New Certificate</b-button
-          > -->
-    </div>
+    
+    </div> -->
     <b-container>
       <b-row>
         <b-table
@@ -46,7 +44,7 @@
 
 
 <script>
-import ActionButton from "./../Shared/ActionButton";
+//import ActionButton from "./../Shared/ActionButton";
 
 export default {
   name: "PublicationsTable",
@@ -77,7 +75,7 @@ export default {
     this.$store.commit("global/toggleLoading", "off");
   },
   components: {
-    ActionButton,
+    // ActionButton,
   },
   methods: {
     tabSelect(tab) {
