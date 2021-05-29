@@ -5,32 +5,30 @@
       <!-- <rise-loader :loading="isLoading" :color="color" :size="size"></rise-loader> -->
       <!-- <Spinner></Spinner> -->
 
-      <b-container class="page-wrap">
-        <b-row v-if="isLoggedIn">
-          <NavDashboard />
-          <Sidebar />
-        </b-row>
-        <b-row v-else>
-          <NavigationBar />
-        </b-row>
-        <b-row>
-          <b-container>
-            <b-alert
-              v-if="showMessage"
-              :variant="messageType"
-              show
-              dismissible
-              fade
-              >{{ message }}</b-alert
-            >
-          </b-container>
-        </b-row>
-        <b-row>
-          <b-container id="router_view_container">
-            <router-view />
-          </b-container>
-        </b-row>
-      </b-container>
+      <b-row v-if="isLoggedIn">
+        <NavDashboard />
+        <Sidebar />
+      </b-row>
+      <b-row v-else>
+        <NavigationBar />
+      </b-row>
+      <b-row>
+        <b-container>
+          <b-alert
+            v-if="showMessage"
+            :variant="messageType"
+            show
+            dismissible
+            fade
+            >{{ message }}</b-alert
+          >
+        </b-container>
+      </b-row>
+      <b-row>
+        <div id="router_view_container">
+          <router-view />
+        </div>
+      </b-row>
       <b-modal ref="message-modal" hide-footer>
         <p>{{ message }}</p>
         <b-button
@@ -44,6 +42,13 @@
           >Go to Dashboard</b-button
         >
       </b-modal>
+      <div v-if="isLoggedIn">
+        <FooterDash />
+      </div>
+      <div v-else>
+        <Footer />
+      </div>
+
       <footer class="site-footer">
         <p>2021 Copyright © ImpakterLimited</p>
       </footer>
@@ -56,6 +61,8 @@ import NavigationBar from "./components/Shared/NavigationBar";
 //import DashBoardTabNav from "./components/Shared/DashBoardTabNav.vue";
 import Sidebar from "./components/Shared/Sidebar";
 import NavDashboard from "./components/Shared/NavDashboard";
+import Footer from "./components/Shared/Footer";
+import FooterDash from "./components/Dashboard/FooterDash";
 
 //import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 //import RiseLoader from "vue-spinner/src/RiseLoader.vue";
@@ -93,6 +100,8 @@ export default {
     NavigationBar,
     Sidebar,
     NavDashboard,
+    Footer,
+    FooterDash,
   },
   async mounted() {
     window.scrollTo(0, 0);
@@ -166,15 +175,16 @@ export default {
   text-align: center;
   color: #010101;
 }
-.page-wrap {
-  /* equal to footer height */
+// .page-wrap {
+//   /* equal to footer height */
 
-  margin-bottom: 100%;
-}
-.page-wrap:after {
-  content: "";
-  display: block;
-}
+//   margin-bottom: 100%;
+
+// }
+// .page-wrap:after {
+//   content: "";
+//   display: block;
+// }
 
 .site-footer {
   padding-top: 15px;
@@ -212,12 +222,12 @@ button {
   margin-left: 10px;
 }
 
-.flex_and_start {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left !important;
-}
+// .flex_and_start {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   text-align: left !important;
+// }
 
 #checkbox-group-1 {
   display: flex;
@@ -241,8 +251,7 @@ button {
 }
 
 #router_view_container {
-  margin-top: 60px;
-  margin-left: 20px;
+  margin: 50px 50px 50px;
 }
 
 .pagination {

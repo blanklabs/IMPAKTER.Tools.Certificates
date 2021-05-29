@@ -1,5 +1,5 @@
 <template>
-  <div id="dashBoard">
+  <div class="dashBoard">
     <div>
       <b-alert v-if="isSignupSuccess" variant="success" show dismissible fade
         >Profile updated successfully. Please verify your email address by
@@ -133,9 +133,10 @@ export default {
 </script>
 
 <style scoped>
-#dashBoard {
+.dashBoard {
   font-family: "Montserrat", sans-serif;
   justify-content: center;
+  margin-left: 500px;
 }
 .headerImg {
   max-height: auto;
@@ -151,8 +152,8 @@ export default {
   padding: 20px;
 }
 .smallCards {
-  padding-bottom: 20px;
-  padding-top: 20px;
+  padding-bottom: 30px;
+  padding-top: 30px;
 }
 .col {
   margin: 10px;
