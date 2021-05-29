@@ -79,7 +79,7 @@
             </b-col>
             <b-col>
               <CardItem
-                cardIcon="bar-chart" 
+                cardIcon="building" 
                 cardTitle="Organizations"
                 iconColor="#EA5955"
                 buttonIcon="arrow-right">
@@ -98,7 +98,6 @@
           <h3>Our Partners</h3>
           <img src="../../assets/LandingPage/Partners_Landing.png" id="partners"/>
         </div>     
-        <Footer/>
     </div>
     
 </template>
@@ -108,7 +107,6 @@ import {
     HeaderDescription, 
     CardItem,
     ActionButton } from "uicomponents"
-import Footer from "./Footer"
 export default {
 name: "Home",
 data(){
@@ -120,7 +118,6 @@ components:{
      CardItem,
      
      ActionButton,
-     Footer
      }
 }
 </script>
@@ -136,7 +133,7 @@ body{
 
 .fullscreen { 
   font-family: 'Montserrat', sans-serif;
-  position: absolute;
+  position: flex;
   min-height: 100vh;
   top: 100px;
   left: 100px;

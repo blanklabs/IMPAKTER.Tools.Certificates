@@ -1,5 +1,5 @@
 <template>
-  <div class="publicationMain">
+  <div class="publicationDiv">
         <b-table
           class="publicationTable"
           :fields="fields"
@@ -139,19 +139,10 @@ export default {
 </script>
 
 <style>
-.publicationMain {
+.publicationDiv {
   font-family: "Montserrat";
   text-align: left;
 }
-#main_head {
-  display: flex;
-  position: fixed;
-  justify-content: flex-start;
-  background-color: white;
-  z-index: 80;
-  width: 100%;
-}
-
 table {
   margin-top: 0px;
 }
@@ -160,21 +151,7 @@ table {
   cursor: pointer;
 }
 
-#main_heading {
-  justify-content: flex-start;
-}
-.header {
-  margin-bottom: 50px;
-  display: block;
-  padding: 10px;
-}
-.addBtn {
-  margin-top: 50px;
-  float: right;
-}
-.titleHeader {
-  float: left;
-}
+
 .publicationTable{
   margin: -17px 0 0 0;
 }

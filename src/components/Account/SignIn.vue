@@ -1,60 +1,62 @@
 <template>
-  <b-container class="signin_main" fluid="md">
-    <img class="impakterLogo" src="@/assets/logo_index.png" />
-    <h1>Sign In to Index Certificate Tool</h1>
-    <p>We suggest you to sign in with the email address you use at work.</p>
-    <b-alert
-      :show="isStatusMessage"
-      @dismissed="isStatusMessage = false"
-      variant="danger"
-      dismissible
-      fade
-      >{{ statusMessage }}</b-alert
-    >
-    <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
-      <img class="googleLogo" src="@/assets/google_logo.png" /> Sign in with
-      Google
-    </b-button>
-    <div class="separator">
-      <hr />
-      <h5>OR</h5>
-      <hr />
-    </div>
-    <b-form-input
-      class="identifier"
-      v-model="user.email"
-      id="email"
-      placeholder="name@work-email.com"
-      required
-    >
-    </b-form-input>
-
-    <b-form-input
-      class="identifier"
-      id="password"
-      v-model="user.password"
-      placeholder="password"
-      required
-    >
-    </b-form-input>
-    <b-overlay
-      :show="loading"
-      rounded
-      opacity="0.6"
-      spinner-small
-      spinner-variant="primary"
-      class="d-inline-block"
-      @hidden="onHidden"
-    >
-      <b-button class="signInButton" v-on:click="login('DIRECT')">
-        Sign in with Email
+  <div class="signInDiv">
+    <b-container class="signin_main" fluid="md">
+      <img class="impakterLogo" src="@/assets/logo_index.png" />
+      <h1>Sign In to Index Certificate Tool</h1>
+      <p>We suggest you to sign in with the email address you use at work.</p>
+      <b-alert
+        :show="isStatusMessage"
+        @dismissed="isStatusMessage = false"
+        variant="danger"
+        dismissible
+        fade
+        >{{ statusMessage }}</b-alert
+      >
+      <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
+        <img class="googleLogo" src="@/assets/google_logo.png" /> Sign in with
+        Google
       </b-button>
-    </b-overlay>
-    <hr />
-    <p>
-      Don’t have an account? <router-link to="/signup">Sign Up</router-link>
-    </p>
-  </b-container>
+      <div class="separator">
+        <hr />
+        <h5>OR</h5>
+        <hr />
+      </div>
+      <b-form-input
+        class="identifier"
+        v-model="user.email"
+        id="email"
+        placeholder="name@work-email.com"
+        required
+      >
+      </b-form-input>
+
+      <b-form-input
+        class="identifier"
+        id="password"
+        v-model="user.password"
+        placeholder="password"
+        required
+      >
+      </b-form-input>
+      <b-overlay
+        :show="loading"
+        rounded
+        opacity="0.6"
+        spinner-small
+        spinner-variant="primary"
+        class="d-inline-block"
+        @hidden="onHidden"
+      >
+        <b-button class="signInButton" v-on:click="login('DIRECT')">
+          Sign in with Email
+        </b-button>
+      </b-overlay>
+      <hr />
+      <p>
+        Don’t have an account? <router-link to="/signup">Sign Up</router-link>
+      </p>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -164,6 +166,15 @@ export default {
 </script>
 
 <style scoped>
+.signInDiv{
+    display: flex;
+    margin: 100px 50px 100px 600px;
+}
+.signin_main {
+  max-width: 500px;
+  height: 100%;
+}
+
 h1 {
   padding: 10px;
   font-weight: bold;
@@ -181,10 +192,7 @@ a:link {
   text-decoration: none;
 }
 
-.signin_main {
-  margin-top: 10px;
-  max-width: 500px;
-}
+
 
 .impakterLogo {
   margin-left: 40px;
