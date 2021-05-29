@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  class="libraryMain">
     <DashBoardTabNav
       :tabs="['My Documents', 'My Articles', 'News']"
       @selectTab="tabSelect"
@@ -49,5 +49,9 @@ export default {
 * {
   font-family: "Montserrat";
   text-align: left;
+}
+.libraryMain {
+  width: 100%;
+  margin: 0 0 250px 400px;
 }
 </style>

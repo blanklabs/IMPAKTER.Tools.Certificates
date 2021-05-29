@@ -369,6 +369,7 @@ export default {
 .cetificatesMain {
   font-family: "Montserrat";
   text-align: left;
+  margin: 0 0 250px 400px;
 }
 #main_head {
   justify-content: flex-start;

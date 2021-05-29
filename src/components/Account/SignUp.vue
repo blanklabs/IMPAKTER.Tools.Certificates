@@ -1,4 +1,5 @@
 <template>
+  <div class="signUpDiv">
   <b-container class="signup_main" fluid="md">
     <img class="impakterLogo" src="@/assets/logo_index.png" />
 
@@ -66,6 +67,7 @@
       >
     </b-form>
   </b-container>
+  </div>
 </template>
 
 <script>
@@ -121,6 +123,14 @@ export default {
 </script>
 
 <style scoped>
+.signUpDiv{
+    display: flex;
+    margin: 100px 50px 100px 600px;
+}
+.signup_main {
+  max-width: 500px;
+  height: 100%;
+}
 h1 {
   padding: 10px;
   font-weight: bold;
@@ -137,10 +147,7 @@ a:link {
   color: black;
   text-decoration: none;
 }
-.signup_main {
-  margin-top: 10px;
-  max-width: 500px;
-}
+
 .identifier {
   margin-top: 10px;
   margin-bottom: 10px;

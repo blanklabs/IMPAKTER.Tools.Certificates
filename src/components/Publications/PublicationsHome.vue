@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="publicationsMain">
     <div class="header">
       <ActionButton
         class="addBtn"
@@ -28,7 +28,7 @@ export default {
   name: "Publications",
   data() {
     return {
-      selectedTab: "Articles",
+      selectedTab: "All",
     };
   },
   components: {
@@ -51,4 +51,30 @@ export default {
 };
 </script>
 <style scoped>
+.publicationsMain{
+  width: 100%;
+  margin: 0 -400px 250px 400px; 
+}
+#main_head {
+  justify-content: flex-start;
+  background-color: white;
+  z-index: 100;
+  width: 100%;
+}
+#main_heading {
+  justify-content: flex-start;
+}
+.header {
+  margin-bottom: 50px;
+  display: block;
+  padding: 10px;
+}
+.addBtn {
+  margin-top: 50px;
+  float: right;
+}
+.titleHeader {
+  float: left;
+}
+
 </style>

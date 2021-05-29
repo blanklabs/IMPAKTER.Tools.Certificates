@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="matchesMain">
       <h1>Matches</h1>
       <img class="headerImg" src="../../assets/LandingPage/dummyHeader.png" />
         <b-row class="contentRow">
@@ -36,7 +36,10 @@ export default {
   text-align: left;
   align-items: center;
 }
-
+.matchesMain{
+  width: 100%;
+  margin: 0 0 250px 300px;
+}
 .headerImg {
 
   margin-top: 10px;

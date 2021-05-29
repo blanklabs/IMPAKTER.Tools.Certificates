@@ -2,7 +2,7 @@
     <footer id="footerLand">
          <hr>
          <b-container>
-         <b-row id="rows">
+         <b-row>
            <b-col cols="3" >
               <h4>ABOUT IMPAKTER INDEX</h4>
               <a href="#"><p>Home</p></a>

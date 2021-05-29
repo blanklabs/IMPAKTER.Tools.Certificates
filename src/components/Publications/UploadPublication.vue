@@ -138,7 +138,8 @@ export default {
 
 <style scoped>
 .articles {
-  display: flexbox;
+   width: 100%;
+  margin: 0 0 250px 400px; 
   text-align: left;
 }
 .uploadDiv {
