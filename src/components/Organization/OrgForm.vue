@@ -119,7 +119,7 @@
               ></b-form-input>
             </b-form-group>
             <br />
-             <b-form-group
+            <b-form-group
               class="title"
               label-cols="4"
               label-cols-lg="3"
@@ -129,9 +129,8 @@
             >
               <b-form-input
                 id="name"
-                v-model="form.targetAudience"
+                v-model="targetAudience"
                 placeholder="Target Audience"
-                required
               ></b-form-input>
             </b-form-group>
             <br />
@@ -145,9 +144,8 @@
             >
               <b-form-input
                 id="name"
-                v-model="form.appliesTo"
+                v-model="appliesTo"
                 placeholder="Applies To"
-                required
               ></b-form-input>
             </b-form-group>
             <br />

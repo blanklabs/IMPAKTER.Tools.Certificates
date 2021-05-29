@@ -71,13 +71,18 @@ const accountStore = {
                 "accessToken",
                 payload.accessToken
             );
-            await context.dispatch("certificate/fetchCertificates", null, { root: true });
-            await context.dispatch("news/fetchNews", null, { root: true });
-            await context.dispatch("publication/fetchPublications", null, { root: true })
+            await context.dispatch('afterLogin');
             context.commit("login", payload);
             return new Promise((resolve) => {
                 resolve()
             })
+        },
+        async afterLogin(context) {
+            console.log("executing afterlogin")
+            await context.dispatch("certificate/fetchCertificates", null, { root: true });
+            await context.dispatch("news/fetchNews", null, { root: true });
+            await context.dispatch("publication/fetchPublications", null, { root: true })
+            return new Promise((resolve) => { resolve() })
         },
         signOut(context) {
             context.commit("signOut");

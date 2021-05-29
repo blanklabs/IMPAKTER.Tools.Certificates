@@ -95,6 +95,7 @@ export default {
     NavDashboard,
   },
   async mounted() {
+    window.scrollTo(0, 0);
     this.isLoggedIn = await this.$store.dispatch("account/checkLoginStatus");
     //this.$refs["message-modal"].show();
   },
@@ -169,7 +170,6 @@ export default {
   /* equal to footer height */
 
   margin-bottom: 100%;
-  
 }
 .page-wrap:after {
   content: "";
@@ -177,7 +177,6 @@ export default {
 }
 
 .site-footer {
-  
   padding-top: 15px;
   justify-content: center;
   text-align: center;

@@ -33,6 +33,9 @@
                 >Marketplace</b-dropdown-item
               >
               <hr />
+              <b-dropdown-item @click="accountSettings"
+                >Account Settings</b-dropdown-item
+              >
               <b-dropdown-item @click="logout">Logout</b-dropdown-item>
             </div>
           </b-nav-item>

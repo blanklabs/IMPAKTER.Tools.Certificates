@@ -36,6 +36,7 @@ import HowItWorks from "./components/HowitWorks"
 Vue.use(VueRouter)
 
 function authGuard(to, from, next) {
+  window.scrollTo(0, 0);
   if (!window.localStorage.getItem('accessToken')) {
     next('/signin');
   }

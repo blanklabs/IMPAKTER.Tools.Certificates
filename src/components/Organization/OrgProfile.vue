@@ -46,16 +46,28 @@
           <h2>WEBSITE</h2>
           <p>
             <b-icon icon="box-arrow-up-right"></b-icon
-            ><a :href="org.url">{{ org.url }}</a>
+            ><a :href="org.url" target="_blank">{{ org.url }}</a>
           </p>
         </div>
-         <div class="sectionDiv">
+        <div class="sectionDiv">
           <h2>SOCIAL MEDIA</h2>
-          <p>Facebook</p>
-          <p>Twitter</p>
-          <p>Instagram</p>
+          <p>
+            Facebook: <b-icon icon="box-arrow-up-right"></b-icon
+            ><a :href="org.facebookUrl" target="_blank">{{
+              org.facebookUrl
+            }}</a>
+          </p>
+          <p>
+            Twitter: <b-icon icon="box-arrow-up-right"></b-icon
+            ><a :href="org.twitterUrl" target="_blank">{{ org.twitterUrl }}</a>
+          </p>
+          <p>
+            Instagram: <b-icon icon="box-arrow-up-right"></b-icon
+            ><a :href="org.instagramUrl" target="_blank">{{
+              org.instagramUrl
+            }}</a>
+          </p>
         </div>
-
       </b-col>
 
       <b-col class="columnRight">

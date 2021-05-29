@@ -37,7 +37,7 @@
             iconColor="#F79755"
             buttonIcon="arrow-right"
             btnLink="/publications"
-            ><h1>2</h1>
+            ><h1>{{ publicationsCount }}</h1>
           </CardItem>
         </b-col>
       </b-row>
@@ -67,6 +67,7 @@
             cardIcon="check2-all"
             cardTitle="Matches"
             iconColor="#CC0000"
+            btnLink="#"
             ><h3>Comming Soon</h3>
           </CardItem>
         </b-col>
@@ -93,7 +94,9 @@
   </div>
 </template>
 <script>
-import { ActionButton, CardItem } from "uicomponents";
+import { ActionButton } from "uicomponents";
+import CardItem from "@/components/Shared/CardItem";
+
 export default {
   name: "Dashboard",
   data() {
@@ -101,6 +104,8 @@ export default {
       isSignupSuccess: false,
       newsCount: 0,
       certificatesCount: 0,
+      publicationsCount: 0,
+      isSessionActive: true,
     };
   },
   components: {
@@ -108,12 +113,21 @@ export default {
     CardItem,
   },
 
-  mounted() {
+  async mounted() {
+    //this.isSessionActive = this.$store.getters["account/isSessionActive"];
+    if (!this.isSessionActive) {
+      this.$store.commit("global/toggleLoading", "on");
+      await this.$store.dispatch("account/afterLogin");
+      this.$store.commit("global/toggleLoading", "off");
+    }
     this.isSignupSuccess = this.$store.getters["account/signupStatus"];
     this.certificatesCount = this.$store.getters[
       "certificate/getCertificatesCount"
     ];
     this.newsCount = this.$store.getters["news/getNewsCount"];
+    this.publicationsCount = this.$store.getters[
+      "publication/getPublicationsCount"
+    ];
   },
 };
 </script>
