@@ -120,18 +120,19 @@
             </b-form-group>
             <br />
             <b-form-group
-              class="title"
               label-cols="4"
               label-cols-lg="3"
+              class="title"
               label="Target Audience:"
               label-for="targetAudience"
               label-align-sm="left"
+              id="prio"
             >
-              <b-form-input
-                id="name"
-                v-model="targetAudience"
-                placeholder="Target Audience"
-              ></b-form-input>
+              <b-form-select
+                id="priority"
+                v-model="form.targetAudience"
+                :options="targetAudienceOptions"
+              ></b-form-select>
             </b-form-group>
             <br />
             <b-form-group
@@ -216,6 +217,10 @@ export default {
   data() {
     return {
       form: {},
+      targetAudienceOptions: [
+        { text: "B2B", value: 0 },
+        { text: "B2C", value: 1 },
+      ],
     };
   },
   methods: {
@@ -253,6 +258,7 @@ export default {
 }
 .main_row {
   display: grid;
+  margin-left: 300px;
 }
 #rating {
   display: flex;

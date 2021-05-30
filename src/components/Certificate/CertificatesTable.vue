@@ -297,7 +297,6 @@ export default {
     add() {
       this.$store.dispatch("certificate/changeMode", "new");
       this.$store.dispatch("certificate/resetCertificate");
-      this.$store.dispatch("certificate/resetComputed");
       this.$router.push({ name: "formPage1" });
     },
     copy(item) {

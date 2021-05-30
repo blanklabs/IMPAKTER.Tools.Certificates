@@ -11,15 +11,15 @@
         <b-form-group v-slot="{ ariaDescribedby }">
           <b-form-checkbox
             class="flex_and_start"
-            v-model="allSelected"
+            v-model="isAllSelected"
             :indeterminate="indeterminate"
             @change="toggleAll"
           >
-            <b>{{ allSelected ? "Un-select All" : "Select All" }}</b>
+            <b>{{ isAllSelected ? "Un-select All" : "Select All" }}</b>
           </b-form-checkbox>
           <b-form-checkbox-group
             id="checkbox-group-1"
-            v-model="selected"
+            v-model="selectedSdgTargets"
             :aria-describedby="ariaDescribedby"
             name="flavour-1"
             stacked
@@ -35,15 +35,13 @@
           </b-form-checkbox-group>
         </b-form-group>
       </b-row>
-      <hr>
+      <hr />
       <b-row class="buttons_row">
         <b-button className="btn" @click="back">Previous</b-button>
         <b-button className="btn" @click="next">Next</b-button>
       </b-row>
       <b-row class="buttons_row">
-        <b-button @click="skip" 
-          >Skip Targets</b-button
-        >
+        <b-button @click="skip">Skip Targets</b-button>
       </b-row>
     </div>
   </div>
@@ -57,26 +55,27 @@ export default {
   name: "PartialSdgTargets",
   data() {
     return {
-      allSelected: false,
-      selected: [],
-      targets: [],
+      isAllSelected: false,
+      selectedSdgTargets: [],
+      currentSdgTargetsList: [],
     };
   },
   methods: {
     toggleAll(checked) {
-      this.selected = checked
+      this.selectedSdgTargets = checked
         ? this.computedTargets.map((x) => {
             return x.value;
           })
         : [];
     },
     next() {
-      this.$store.dispatch("certificate/addSdgTargets", this.selected);
-      this.targets = [];
+      this.form.sdgTargets = this.selectedSdgTargets;
+      this.currentSdgTargetsList = [];
       this.$emit("next");
       window.scrollTo(0, 0);
     },
     back() {
+      this.currentSdgTargetsList = [];
       this.$emit("back");
     },
     skip() {
@@ -88,22 +87,17 @@ export default {
     computedTargets() {
       this.sdgTargets.forEach((element) => {
         if (element.goal == this.currentSdgIndex) {
-          this.targets.push({ value: element.code, text: element.title });
+          this.currentSdgTargetsList.push({
+            value: element.code,
+            text: element.title,
+          });
         }
       });
-      return this.targets;
-
-      //return this.sdgs[this.currentSdgIndex].targets
-    },
-    currentSdg() {
-      var current = this.sdgs.filter((x) => {
-        x.value == this.currentSdgIndex;
-      });
-      return current.text;
+      return this.currentSdgTargetsList;
     },
   },
   mounted() {
-    this.selected = this.form.sdgTargets;
+    this.selectedSdgTargets = this.form.sdgTargets;
   },
   mixins: [SdgMixin, CertificateFormMixin],
 };
@@ -126,19 +120,18 @@ export default {
   margin-top: 0px;
 }
 
-.btn{
-  color:black;
+.btn {
+  color: black;
   border: 2px solid #989898;
   background: white;
 }
-hr{
+hr {
   position: absolute;
   margin-top: 0;
   padding-top: 0;
   height: 3px;
   width: 100%;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   border: none;
-
 }
 </style>

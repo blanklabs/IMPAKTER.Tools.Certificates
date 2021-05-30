@@ -6,7 +6,6 @@
         ><router-link to="/org/edit">- edit</router-link></span
       >
     </p>
-
     <hr />
     <b-row>
       <b-col class="columnLeft">
@@ -104,6 +103,11 @@ export default {
 * {
   text-align: left;
 }
+
+.columnLeft {
+  margin-left: 300px;
+}
+
 .head {
   font-size: 34px;
 }

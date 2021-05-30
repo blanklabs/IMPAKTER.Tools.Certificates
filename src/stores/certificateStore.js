@@ -3,9 +3,9 @@ import axios from 'axios'
 
 const certificateService = ServicesFactory.get("certificates");
 
-//import certificateModel from "./models/certificate";
-import certificateModel from "../../../SHARED.CODE/Objects/Certificate/certificate";
-//import {certificateModel} from "shared.code";
+//import certificateObject from "./models/certificate";
+import certificateObject from "../../../SHARED.CODE/Objects/Certificate/certificateObject";
+//import {certificateObject} from "shared.code";
 //import organizationModel from ".././models/organization";
 import { awsConfig } from "@/models/constants"
 import {
@@ -42,7 +42,7 @@ const certificateStore = {
             industrySectors: [],
             activeStatus: true
         },
-        certificate: new certificateModel(),
+        certificate: new certificateObject(),
         organization: {},
         organizationName: null,
         certificates: [],
@@ -55,9 +55,7 @@ const certificateStore = {
 
     },
     getters: {
-        certificateForm: state => {
-            state.certificate.setOrganizationID(state.organizationID)
-            console.log(state.organizationID)
+        certificate: state => {
             return state.certificate
         },
         payloadArchived: state => {
@@ -109,15 +107,13 @@ const certificateStore = {
         }
     },
     mutations: {
-        changeCertificate(state, payload) {
-            state.certificate = payload
-        },
-        addSdgs(state, payload) {
-            state.certificate.sdgs = payload
-            state.certificate.computeSdgs()
-        },
-        addSdgTargets(state, payload) {
-            state.certificate.sdgTargets = payload
+        setCertificate(state, payload) {
+            return new Promise((resolve) => {
+                state.certificate = payload
+                resolve();
+            }
+            )
+
         },
         addIndustries(state, payload) {
             state.certificate.industries = payload
@@ -132,8 +128,7 @@ const certificateStore = {
         },
 
         resetCertificate(state) {
-            state.certificate = new certificateModel()
-
+            state.certificate = new certificateObject()
         },
 
         addCertificate(state, payload) {
@@ -141,10 +136,6 @@ const certificateStore = {
         },
         changeMode(state, payload) {
             state.mode = payload
-        },
-
-        resetComputedSdgs(state) {
-            state.certificate.computedSdgs = []
         },
 
         async updateCertificateStatus(state, payload) {
@@ -157,7 +148,7 @@ const certificateStore = {
                 this.responseStatus = response.data.status
             });
             console.log(this.responseMessage)
-            state.certificate = new certificateModel.certificateModel()
+            state.certificate = new certificateObject.certificateObject()
 
         },
 
@@ -167,7 +158,7 @@ const certificateStore = {
                 this.responseStatus = response.data.status
             });
             console.log(this.responseMessage)
-            state.certificate = new certificateModel.certificateModel()
+            state.certificate = new certificateObject.certificateObject()
 
         },
 
@@ -185,7 +176,7 @@ const certificateStore = {
                 let certificatesResponse = payload;
                 state.certificates = [];
                 for (var i = 0; i < certificatesResponse.length; i++) {
-                    let cert = new certificateModel();
+                    let cert = new certificateObject();
                     cert.change(certificatesResponse[i]);
                     cert.computeSdgs();
                     state.certificates.push(cert);
@@ -198,6 +189,14 @@ const certificateStore = {
 
     },
     actions: {
+        async resetCertificate(context) {
+            let org = await context.dispatch("org/fetchOrg", null, { root: true });
+            let certificate = new certificateObject(org.orgID);
+            await context.commit("setCertificate", certificate);
+            return new Promise((resolve) => {
+                resolve(certificate);
+            })
+        },
         changeCertificate(context, payload) {
             context.commit("changeCertificate", payload)
         },
@@ -214,18 +213,11 @@ const certificateStore = {
             context.commit("addSubIndustries", payload)
         },
 
-        resetCertificate(context) {
-            context.commit("resetCertificate")
-        },
-
         addCertificate(context, payload) {
             context.commit("addCertificate", payload)
         },
         changeMode(context, payload) {
             context.commit("changeMode", payload)
-        },
-        resetComputed(context) {
-            context.commit("resetComputedSdgs")
         },
         updateCertificateStatus(context, payload) {
             context.commit("updateCertificateStatus", payload)
@@ -254,6 +246,34 @@ const certificateStore = {
             } catch (err) {
                 context.commit("global/setMessagePopup", { type: 0, message: err }, { root: true });
             }
+        },
+        async postCertificate(context, payload) {
+            console.log("Executing postCertificate")
+            let request = new Transport();
+            let response = new Transport();
+            request.data = payload;
+            try {
+                let webResponse;
+                if (context.getters.mode == "edit") {
+                    webResponse = await certificateService.updateCertificate(request);
+                } else {
+                    webResponse = await certificateService.createCertificate(request);
+                }
+                response = webResponse.data;
+                if (response.status.code == transportCodes.SUCCESS) {
+                    await context.dispatch('resetCertificate');
+                    return new Promise((resolve) => {
+                        context.commit("global/toggleLoading", "off", { root: true });
+                        resolve(response)
+                    })
+                }
+
+            }
+            catch (err) {
+                context.commit("global/setMessagePopup", { type: 0, message: err }, { root: true });
+            }
+
+
         }
     }
 }

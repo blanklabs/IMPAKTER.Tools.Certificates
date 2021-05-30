@@ -11,7 +11,7 @@
 
           <div
             class="flex_and_start"
-            v-for="(sdg, index) in form.computedSdgs"
+            v-for="(sdg, index) in computedSdgs"
             :key="index"
           >
             <h5 :class="sdg.value === currentSdg ? 'bold' : ''">
@@ -35,14 +35,6 @@
     <!--<b-card class="mt-3" header="Form result so far">
       <pre class="m-0">{{ form }}</pre>
     </b-card>-->
-    <b-modal ref="proceed-modal" hide-footer>
-      <h4>The Certificate: "{{ form.name }}" - {{ this.responseMessage }}</h4>
-      <b-button @click="addMore" > Add more details</b-button>
-      <br />
-      <b-button @click="addNew"> Add another Certificate</b-button>
-      <br />
-      <b-button to="/organization/home">Go to my certificates</b-button>
-    </b-modal>
   </b-container>
 </template>
 
@@ -67,6 +59,7 @@ export default {
       if (this.sdgIndex < this.form.sdgs.length) {
         this.currentSdg = this.form.sdgs[this.sdgIndex];
       } else {
+        await this.$store.commit("certificate/setCertificate", this.form);
         this.$router.push({ name: "formPage3-1" });
       }
 
@@ -74,26 +67,18 @@ export default {
     },
     back() {
       if (this.sdgIndex == 0) {
-        this.$store.dispatch("certificate/resetComputed");
         this.$router.go(-1);
       }
       this.sdgIndex--;
       this.currentSdg = this.form.sdgs[this.sdgIndex];
     },
-    addMore() {
-      this.$router.push({ name: "formPart2" });
-    },
-    addNew() {
-      this.$store.dispatch("certificate/resetCertificate");
-      this.$router.push({ name: "formPage1" });
-    },
     reselect() {
-      this.$store.dispatch("certificate/resetComputed");
       this.$router.go(-1);
     },
   },
   computed: {},
   mounted() {
+    this.computeSDGs();
     this.sdgIndex = 0;
     this.currentSdg = this.form.sdgs[this.sdgIndex];
   },
@@ -102,17 +87,16 @@ export default {
 </script>
 
 <style scoped>
-h3{
+h3 {
   text-align: left;
 }
 .bold {
-  color: #F6A8A8;
+  color: #f6a8a8;
 }
 
-.btn{
-  color:black;
+.btn {
+  color: black;
   border: 2px solid #989898;
   background: white;
 }
-
 </style>

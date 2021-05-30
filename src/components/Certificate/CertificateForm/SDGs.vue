@@ -14,15 +14,15 @@
           >
             <b-form-checkbox
               class="flex_and_start"
-              v-model="allSelected"
+              v-model="isAllSelected"
               :indeterminate="indeterminate"
               @change="toggleAll"
             >
-              <b>{{ allSelected ? "Un-select All" : "Select All" }}</b>
+              <b>{{ isAllSelected ? "Un-select All" : "Select All" }}</b>
             </b-form-checkbox>
             <b-form-checkbox-group
               id="checkbox-group-1"
-              v-model="selected"
+              v-model="selectedSDGs"
               :options="sdgs"
               :aria-describedby="ariaDescribedby"
               name="flavour-1"
@@ -33,7 +33,7 @@
         <b-col> </b-col>
       </b-row>
       <b-row class="buttons_row">
-        <b-button class="actButton" @click="back" > Back</b-button>
+        <b-button class="actButton" @click="back"> Back</b-button>
         <b-button class="actButton" @click="next"> Next</b-button>
       </b-row>
     </b-container>
@@ -52,21 +52,22 @@ export default {
   name: "FormSDGs",
   data() {
     return {
-      selected: [],
-      allSelected: false,
+      selectedSDGs: [],
+      isAllSelected: false,
     };
   },
   methods: {
     toggleAll(checked) {
-      this.selected = checked
+      this.selectedSDGs = checked
         ? this.sdgs.map((x) => {
             return x.value;
           })
         : [];
     },
-    next() {
-      this.selected.sort((a, b) => a - b);
-      this.$store.dispatch("certificate/addSdgs", this.selected);
+    async next() {
+      this.selectedSDGs.sort((a, b) => a - b);
+      this.form.sdgs = this.selectedSDGs;
+      await this.$store.commit("certificate/setCertificate", this.form);
       this.permitNavigation = true;
       this.$router.push({ name: "formPage2-2" });
     },
@@ -75,7 +76,7 @@ export default {
     },
   },
   mounted() {
-    this.selected = this.form.sdgs;
+    this.selectedSDGs = this.form.sdgs;
   },
   mixins: [SdgMixin, CertificateFormMixin, FormGuardMixin],
   components: { ProgressBar },
@@ -83,8 +84,8 @@ export default {
 </script>
 
 <style scoped>
-.actButton{
-  color:black;
+.actButton {
+  color: black;
   border: 2px solid #989898;
   background: white;
 }

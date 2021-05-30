@@ -8,16 +8,16 @@
         v-slot="{ ariaDescribedby }"
         ><b-form-checkbox
           class="flex_and_start"
-          v-model="allSelected"
+          v-model="isAllSelected"
           :indeterminate="indeterminate"
           @change="toggleAll"
         >
-          <b>{{ allSelected ? "Un-select All" : "Select All" }}</b>
+          <b>{{ isAllSelected ? "Un-select All" : "Select All" }}</b>
         </b-form-checkbox>
 
         <b-form-checkbox-group
           id="checkbox-group-1"
-          v-model="selected"
+          v-model="selectedSubIndustries"
           :aria-describedby="ariaDescribedby"
           name="flavour-1"
           stacked
@@ -68,14 +68,14 @@ export default {
   name: "PartialSubIndustries",
   data() {
     return {
-      selected: [],
-      allSelected: false,
-      subindustries: [],
+      selectedSubIndustries: [],
+      isAllSelected: false,
+      currentSubIndustryList: [],
     };
   },
   methods: {
     toggleAll(checked) {
-      this.selected = checked
+      this.selectedSubIndustries = checked
         ? this.computedSubIndustries.map((x) => {
             return x.value;
           })
@@ -88,12 +88,13 @@ export default {
       ) {
         this.$emit("isLast");
       }
-      this.$store.dispatch("certificate/addSubIndustries", this.selected);
-      this.subindustries = [];
+      this.form.subIndustries = this.selectedSubIndustries;
+      this.currentSubIndustryList = [];
       this.$emit("next");
       window.scrollTo(0, 0);
     },
     back() {
+      this.currentSubIndustryList = [];
       this.$emit("back");
     },
     skip() {},
@@ -106,19 +107,19 @@ export default {
     computedSubIndustries() {
       this.subIndustries.forEach((element) => {
         if (element.section == this.currentIndustryIndex) {
-          this.subindustries.push({
+          this.currentSubIndustryList.push({
             value: element.code,
             text: element.description,
           });
         }
       });
-      return this.subindustries;
+      return this.currentSubIndustryList;
 
       //return this.sdgs[this.currentIndustryIndex].targets
     },
   },
   mounted() {
-    this.selected = this.form.industrySectors;
+    this.selectedSubIndustries = this.form.industrySectors;
   },
   mixins: [IndustryMixin, CertificateFormMixin],
   components: { CertificateProfile },
@@ -136,8 +137,8 @@ export default {
   align-items: flex-start;
   text-align: left !important;
 }
-.btn{
-  color:black;
+.btn {
+  color: black;
   border: 2px solid #989898;
   background: white;
 }

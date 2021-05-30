@@ -4,13 +4,13 @@
       <progress-bar :currentStep="3"> </progress-bar>
     </b-row>
     <b-row>
-      <b-col class ="m" cols="6">
+      <b-col class="m" cols="6">
         <div class="position-fixed" id="subb">
           <h3>Industries</h3>
           <p>You have selected the following industries</p>
           <div
             class="flex_and_start"
-            v-for="(industry, index) in form.computedIndustries"
+            v-for="(industry, index) in computedIndustries"
             :key="index"
           >
             <h5 :class="industry.value === currentIndustry ? 'bold' : ''">
@@ -40,29 +40,6 @@
     <!--<b-card class="mt-3" header="Form result so far">
       <pre class="m-0">{{ form }}</pre>
     </b-card>-->
-    <b-modal ref="proceed-modal" hide-footer title="">
-      <b-alert v-if="InProgress" show variant="primary"
-        >Adding/Updating Certificate...</b-alert
-      >
-      <b-alert v-if="ProgressCompleted" show variant="success">{{
-        this.responseMessage
-      }}</b-alert>
-      <b-alert v-if="ProgressFailed" show variant="danger">{{
-        this.responseMessage
-      }}</b-alert>
-      <b-row class="buttons_row">
-        <b-button @click="addMore" variant="primary">
-          Add more details</b-button
-        >
-        <b-button @click="addNew" variant="primary">
-          Add another certificate</b-button
-        >
-      </b-row>
-      <br />
-
-      <div class="flex_and_center">-Or-</div>
-      <b-button id="bottom_button" to="/wait">Go to my certificates</b-button>
-    </b-modal>
     <certificate-profile
       ref="preview_modal"
       :isSavePreview="true"
@@ -73,14 +50,13 @@
 
 <script>
 import PartialSubIndustries from "@/components/Certificate/CertificateForm/PartialSubIndustries";
-import { ServicesFactory } from "@/services/ServicesFactory";
-const certificateService = ServicesFactory.get("certificates");
 
 import IndustryMixin from "@/mixins/IndustryMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import SubmitMixin from "@/mixins/SubmitMixin";
 import ProgressBar from "./ProgressBar.vue";
 import CertificateProfile from "../CertificateProfile.vue";
+import CommonMixin from "@/mixins/CommonMixin";
 
 export default {
   name: "FormSubIndustries",
@@ -102,24 +78,27 @@ export default {
       }
     },
     async submit() {
-      var mode = this.$store.getters["certificate/mode"];
-      var req = this.$store.getters["certificate/payload"];
-      this.InProgress = true;
-      this.$refs["proceed-modal"].show();
-      if (mode == "edit") {
-        //this.$alert("updating the certificate");
-        await certificateService.updateCertificate(req).then((response) => {
-          this.responseMessage = response.data.msg;
-          this.responseStatus = response.data.status;
+      this.$store.commit("global/toggleLoading", "on");
+      this.response = await this.$store.dispatch(
+        "certificate/postCertificate",
+        this.form
+      );
+      this.$store.commit("global/toggleLoading", "off");
+      if (this.response.status.code == this.transportCodes.SUCCESS) {
+        this.$store.commit("global/setMessagePopup", {
+          type: 1,
+          message: "Certificate posted successfully",
+          redirection: "CertificatesHome",
         });
       } else {
-        await certificateService.createCertificate(req).then((response) => {
-          this.responseMessage = response.data.msg;
-          this.responseStatus = response.data.status;
-          this.$store.state.certificate.certificateID = response.data.insertId;
+        this.$store.commit("global/setMessagePopup", {
+          type: 0,
+          message: this.response.status.message,
+          redirection: "CertificatesHome",
         });
       }
 
+      this.$refs["proceed-modal"].show();
       //this.$store.dispatch("certificate/resetCertificate");
       this.InProgress = false;
       if (this.responseStatus == 1) {
@@ -128,7 +107,6 @@ export default {
     },
     back() {
       if (this.industryIndex == 0) {
-        this.$store.dispatch("certificate/resetComputed");
         this.$router.go(-1);
       }
       this.industryIndex--;
@@ -139,11 +117,9 @@ export default {
     },
     addNew() {
       this.$store.dispatch("certificate/resetCertificate");
-      this.$store.dispatch("certificate/resetComputed");
       this.$router.push({ name: "formPage1" });
     },
     reselect() {
-      this.$store.dispatch("certificate/resetComputed");
       this.$router.go(-1);
     },
     toggleIsLast() {
@@ -153,9 +129,10 @@ export default {
   computed: {},
   mounted() {
     this.industryIndex = 0;
+    this.computeIndustries();
     this.currentIndustry = this.form.industries[this.industryIndex];
   },
-  mixins: [IndustryMixin, CertificateFormMixin, SubmitMixin],
+  mixins: [IndustryMixin, CertificateFormMixin, SubmitMixin, CommonMixin],
 };
 </script>
 
@@ -164,7 +141,7 @@ export default {
   font-family: "Montserrat";
   text-align: left;
 }
-col{
+col {
   text-align: left;
 }
 .bold {
@@ -184,8 +161,8 @@ col{
   width: 100%;
 }
 
-.btn{
-  color:black;
+.btn {
+  color: black;
   border: 2px solid #989898;
   background: white;
 }

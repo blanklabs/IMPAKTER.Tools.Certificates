@@ -18,7 +18,7 @@
             >
               <b-form-input
                 id="name"
-                v-model="form.name"
+                v-model="form.certificate.name"
                 placeholder="Name"
                 required
               ></b-form-input>
@@ -34,7 +34,7 @@
             >
               <b-form-textarea
                 id="description"
-                v-model="form.description"
+                v-model="form.certificate.description"
                 placeholder="Please describe what this certificate is all about..."
                 rows="3"
                 max-rows="6"
@@ -78,7 +78,7 @@
             >
               <b-form-select
                 id="priority"
-                v-model="form.priority"
+                v-model="form.certificate.priority"
                 :options="scale"
               ></b-form-select>
             </b-form-group>
@@ -101,7 +101,7 @@
             >
               <b-form-radio-group
                 class="pt-2"
-                v-model="form.sdgEngagement"
+                v-model="form.certificate.sdgEngagement"
                 :options="sdgEngagementOptions"
                 id="rating"
                 :aria-describedby="ariaDescribedby"
@@ -112,11 +112,11 @@
             <b-form-group
               label-align-sm="left"
               description="As you selected other, please specify"
-              v-if="form.sdgEngagement == '5'"
+              v-if="form.certificate.sdgEngagement == '5'"
             >
               <b-form-input
                 id="name"
-                v-model="form.sdgEngagementOther"
+                v-model="form.certificate.sdgEngagementOther"
                 placeholder="Other"
                 required
               ></b-form-input>
@@ -128,7 +128,7 @@
             </h5>
             <b-card>
               <b-card-text>
-                <div v-for="(item, index) in documentCount" :key="index">
+                <div v-for="(item, index) in form.documents" :key="index">
                   <b-form-group
                     label-cols="4"
                     label-cols-lg="3"
@@ -161,7 +161,7 @@
               <ActionButton
                 btnIcon="file-earmark-medical"
                 btnDescription="   Add another document"
-                @action="incrementDocumentCount"
+                :action="incrementDocumentCount"
               />
             </b-card>
             <hr />
@@ -186,61 +186,28 @@
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import FormGuardMixin from "@/mixins/FormGuardMixin";
 import ProgressBar from "./ProgressBar.vue";
-import { documentObject } from "@/models/certificateObjects";
 import ActionButton from "@/components/Shared/ActionButton";
+import { document } from "../../../../../SHARED.CODE/Objects/Certificate/certificateObjects";
+import { sdgEngagementOptions } from "../../../../../SHARED.CODE/Constants/Index/Certificates/sdgEngagement";
 
 export default {
   data() {
     return {
       file: "",
-      sdgEngagementOptions: [
-        {
-          value: 1,
-          text:
-            "We have analyzed and identified specific Sustainable Development Goals and their underlying targets that are most relevant to our business",
-        },
-        {
-          value: 2,
-          text:
-            "We have aligned our ongoing sustainability reporting metrics to the SDGs",
-        },
-        {
-          value: 3,
-          text:
-            "We have set specific improvement goals to help achieve the SDGs (including goals set in the SDG Action Manager)",
-        },
-        {
-          value: 4,
-          text:
-            "We have conducted internal training across our organization to educate our employees about the SDGs and our strategy to contribute to them",
-        },
-        {
-          value: 5,
-          text: "Other",
-        },
-      ],
+      name: "CertificateFormPage1",
+      sdgEngagementOptions: sdgEngagementOptions,
       sdgEngagementOther: null,
-      documentCount: 1,
     };
   },
   methods: {
     async onSubmit(event) {
       event.preventDefault();
-      //alert(JSON.stringify(this.form));
-      if (this.form.sdgEngagement == "5") {
-        this.form.sdgEngagement = this.sdgEngagementOther;
-      }
-      if (this.form.rating == "P3") {
-        this.form.rating = this.ratingOther;
-      }
-
-      await this.$store.dispatch("certificate/changeCertificate", this.form);
+      await this.$store.commit("certificate/setCertificate", this.form);
       this.permitNavigation = true;
       this.$router.push({ name: "formPage2-1" });
     },
     onReset() {
       this.$store.dispatch("certificate/resetCertificate");
-      this.$store.dispatch("certificate/resetComputed");
     },
     onFileChange() {
       this.file = this.$refs.file.files[0];
@@ -275,18 +242,12 @@ export default {
       }
     },
     incrementDocumentCount() {
-      this.documentCount++;
-      this.form.documents.push(new documentObject());
+      this.form.documents.push(new document());
     },
   },
   mixins: [CertificateFormMixin, FormGuardMixin],
   components: { ProgressBar, ActionButton },
-  mounted() {
-    if (this.form.documents.length != 0) {
-      this.documentCount = this.form.documents.length;
-    }
-    this.form.documents.push(new documentObject());
-  },
+  mounted() {},
 };
 </script>
 

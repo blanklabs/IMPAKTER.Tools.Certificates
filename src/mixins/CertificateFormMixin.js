@@ -11,8 +11,7 @@ export default {
         }
     },
     mounted() {
-        this.form = this.$store.getters["certificate/certificateForm"];
-
+        this.form = this.$store.getters["certificate/certificate"];
     }
 }
 

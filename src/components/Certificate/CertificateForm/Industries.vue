@@ -63,9 +63,10 @@ export default {
           })
         : [];
     },
-    next() {
+    async next() {
       this.selected.sort();
-      this.$store.dispatch("certificate/addIndustries", this.selected);
+      this.form.industries = this.selected;
+      await this.$store.commit("certificate/setCertificate", this.form);
       this.$router.push({ name: "formPage3-2" });
     },
     back() {
@@ -91,8 +92,8 @@ export default {
   align-items: flex-start;
   text-align: left !important;
 }
-.btn{
-  color:black;
+.btn {
+  color: black;
   border: 2px solid #989898;
   background: white;
 }
