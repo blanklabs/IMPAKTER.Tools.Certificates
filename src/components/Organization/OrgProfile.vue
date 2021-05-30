@@ -118,8 +118,8 @@ h2 {
   margin-left: 0px;
 }
 .profileMain {
-  top: 0;
-  left: 0;
+  width: 100%;
+  margin: 0 0 250px 400px;
 }
 .sectionDiv {
   margin-top: 20px;
