@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="editMain">
     <b-container>
       <h1 class="sectionTitle">Edit Profile</h1>
       <hr />
@@ -253,6 +253,10 @@ export default {
 </script>
 
 <style scoped>
+.editMain{
+  width: 100%;
+  margin: 0 0 250px 400px;
+}
 .sectionTitle {
   text-align: left;
 }
