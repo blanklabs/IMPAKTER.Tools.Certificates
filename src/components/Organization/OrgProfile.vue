@@ -104,10 +104,6 @@ export default {
   text-align: left;
 }
 
-.columnLeft {
-  margin-left: 300px;
-}
-
 .head {
   font-size: 34px;
 }

@@ -253,7 +253,7 @@ export default {
 </script>
 
 <style scoped>
-.editMain{
+.editMain {
   width: 100%;
   margin: 0 0 250px 400px;
 }
@@ -262,7 +262,6 @@ export default {
 }
 .main_row {
   display: grid;
-  margin-left: 300px;
 }
 #rating {
   display: flex;
