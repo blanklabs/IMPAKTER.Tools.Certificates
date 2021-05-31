@@ -175,16 +175,6 @@ export default {
   text-align: center;
   color: #010101;
 }
-// .page-wrap {
-//   /* equal to footer height */
-
-//   margin-bottom: 100%;
-
-// }
-// .page-wrap:after {
-//   content: "";
-//   display: block;
-// }
 
 .site-footer {
   padding-top: 15px;
@@ -222,12 +212,6 @@ button {
   margin-left: 10px;
 }
 
-// .flex_and_start {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: flex-start;
-//   text-align: left !important;
-// }
 
 #checkbox-group-1 {
   display: flex;
@@ -251,7 +235,9 @@ button {
 }
 
 #router_view_container {
-  margin: 50px 50px 50px;
+  // margin: 50px 50px 50px;
+  width: 100%;
+  margin: 50px 0 250px 400px;
 }
 
 .pagination {

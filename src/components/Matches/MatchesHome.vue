@@ -37,8 +37,9 @@ export default {
   align-items: center;
 }
 .matchesMain{
-  width: 100%;
-  margin: 0 0 250px 300px;
+  width: 85%;
+  min-height: 55vh; 
+
 }
 .headerImg {
 

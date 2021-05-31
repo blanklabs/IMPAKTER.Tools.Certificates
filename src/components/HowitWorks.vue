@@ -6,7 +6,8 @@
 </template>
 <style scoped>
 .mainContainer{
-display:flexbox;
-text-align: left;
+  height: 55vh;
+  margin: 0 200px 0 -150px;
+  text-align: left;
 }
 </style>

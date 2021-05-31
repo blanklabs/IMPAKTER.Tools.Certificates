@@ -124,20 +124,21 @@ components:{
 <style scoped>
 html{
   height: 100%;
+  
 }
 body{
-  margin:0;
+
   display: flex;
 }
+
 @media screen and (min-width:601px) {
 
 .fullscreen { 
   font-family: 'Montserrat', sans-serif;
   position: flex;
   min-height: 100vh;
-  top: 100px;
-  left: 100px;
-  right: 100px;
+  margin: 0 50px 0 -350px;
+
 }
 div{
   padding: 15px;

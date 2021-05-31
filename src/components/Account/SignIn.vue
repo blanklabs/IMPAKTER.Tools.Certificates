@@ -167,8 +167,9 @@ export default {
 
 <style scoped>
 .signInDiv{
+    height: 55vh;
     display: flex;
-    margin: 100px 50px 100px 600px;
+    margin: 0 0 0 -400px;
 }
 .signin_main {
   max-width: 500px;

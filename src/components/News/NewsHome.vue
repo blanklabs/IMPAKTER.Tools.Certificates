@@ -97,6 +97,6 @@ export default {
 }
 .newsDash {
   width: 100%;
-  margin: 0 0 250px 400px;
+  
 }
 </style>

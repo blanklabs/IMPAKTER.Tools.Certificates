@@ -125,7 +125,7 @@ export default {
 <style scoped>
 .signUpDiv{
     display: flex;
-    margin: 100px 50px 100px 600px;
+    margin: 0 0 -35px -400px;
 }
 .signup_main {
   max-width: 500px;

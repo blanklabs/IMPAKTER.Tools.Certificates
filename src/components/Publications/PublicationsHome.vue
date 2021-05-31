@@ -52,8 +52,8 @@ export default {
 </script>
 <style scoped>
 .publicationsMain{
-  width: 100%;
-  margin: 0 -400px 250px 400px; 
+  width: 85%;
+  min-height: 55vh; 
 }
 #main_head {
   justify-content: flex-start;
