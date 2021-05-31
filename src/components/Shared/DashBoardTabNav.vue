@@ -57,11 +57,17 @@ a {
   color: #222222;
   text-decoration: none;
 }
-
-.nav-item:hover {
-  border-bottom: solid #fe6663;
+.nav-item {
+  border-bottom: solid transparent;
+  margin-bottom: -5px;
 }
-.active {
+.nav-link:hover{
+
+  border-bottom: solid #fe6663;
+   cursor:pointer
+}
+
+.nav-link.active {
   border-bottom: solid #fe6663;
 }
 

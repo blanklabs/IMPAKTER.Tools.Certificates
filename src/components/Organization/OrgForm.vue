@@ -1,6 +1,6 @@
 <template>
   <div class="editMain">
-    <b-container>
+ 
       <h1 class="sectionTitle">Edit Profile</h1>
       <hr />
       <b-row class="main_row">
@@ -203,7 +203,7 @@
         </b-col>
         <b-col></b-col>
       </b-row>
-    </b-container>
+    
   </div>
 </template>
 
@@ -254,8 +254,8 @@ export default {
 
 <style scoped>
 .editMain {
-  width: 100%;
-  margin: 0 0 250px 400px;
+  width: 85%;
+  min-height: 55vh; 
 }
 .sectionTitle {
   text-align: left;

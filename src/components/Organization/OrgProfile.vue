@@ -113,13 +113,10 @@ h2 {
 .image {
   margin-bottom: 10px;
 }
-#router_view_container {
-  margin-top: 0px;
-  margin-left: 0px;
-}
+
 .profileMain {
-  width: 100%;
-  margin: 0 0 250px 400px;
+  width: 85%;
+  min-height: 50vh; 
 }
 .sectionDiv {
   margin-top: 20px;
