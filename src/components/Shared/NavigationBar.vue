@@ -19,6 +19,9 @@
           <b-nav-item>
             <router-link to="/howitworks"> HOW IT WORKS</router-link>
           </b-nav-item>
+           <b-nav-item>
+            <router-link to="/FAQ"> FAQ</router-link>
+          </b-nav-item>
           <b-nav-item>
             <router-link to="/contact">CONTACT US</router-link>
           </b-nav-item>

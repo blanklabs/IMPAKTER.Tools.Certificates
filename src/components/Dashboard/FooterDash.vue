@@ -1,18 +1,14 @@
 <template>
-    <footer id="footerLand">
+    <footer>
          <hr>
-         <b-container>
-         <b-row>
-           <b-col cols="3">
-              <h4>MORE FROM IMPAKTER</h4>
-              <a href="https://impakter.com/team/" target="_blank"><p>Team</p></a>
-              <a href="https://impakter.com/global-leaders-contributors/" target="_blank"><p>Global Leaders</p></a>
-              <a href="https://seller.impakter.com/empower-sustainability/" target="_blank"><p>Our Impact</p></a>
-              <a href="#" target="_blank"><p>Contact us</p></a>
+         <div class= "footerMain">
 
-           </b-col>
-         </b-row>
-        </b-container>
+              <a href="https://impakter.com/" target="_blank"><p>MEDIA - Online Publication</p></a>
+              <a href="https://up.impakter.com/" target="_blank"><p>UP - Networking & Investment</p></a>
+              <a href="https://index.impakter.com/" target="_blank"><p>INDEX - Sustainability Index</p></a>
+              <a href="https://eco.impakter.com/" target="_blank"><p>Eco Marketplace</p></a>
+           
+        </div>
     </footer>
 </template>
 <script>
@@ -23,17 +19,25 @@ export default {
 
 <style scoped>
 footer{
-width:100%; 
-background: #E4E4E4;
-margin-top: auto;
+  width:100%; 
+  background: #E4E4E4;
+  margin-top: auto;
+  margin-left: 230px;
+  
    
- }
+}
+.footerMain{
+  
+  display: flex;
+  justify-content: center;
+}
 
 h4{
   font-weight:bolder;
   font-size: 18px;
 }
 a{
+  margin: 0 25px 0 25px;
   color: black;
 }
 a:link {

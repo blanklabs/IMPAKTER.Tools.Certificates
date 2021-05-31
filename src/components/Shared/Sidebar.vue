@@ -5,6 +5,10 @@
         <img class="image" :src="org.logo" />
         <h5>{{ org.name }}</h5>
       </div>
+      
+      <b-nav-item @click="tab = 'dashboard'" :class="{active : tab === 'dashboard'}"> 
+        <router-link to="/dashboard">Dashboard</router-link>
+      </b-nav-item>
       <b-nav-item @click="tab = 'certificates'" :class="{active : tab === 'certificates'}">
         <router-link to="/certificates"
           >My Certificates</router-link
@@ -22,6 +26,16 @@
       <b-nav-item @click="tab = 'library'" :class="{active : tab === 'library'}">
         <router-link to="/library">Library</router-link>
       </b-nav-item>
+
+      <div class="bottomSection">
+        <hr/>
+        <b-nav-item @click="tab = 'faq'" :class="{active : tab === 'faq'}">
+          <router-link to="/FAQ">FAQ</router-link>
+        </b-nav-item>
+         <b-nav-item @click="tab = 'contact'" :class="{active : tab === 'contact'}">
+          <router-link to="/contact">Contact Us</router-link>
+        </b-nav-item>
+      </div>
     </b-nav>
   </div>
 </template>
@@ -44,7 +58,7 @@ export default {
 <style scoped>
 .sidenav {
   font-family: "Montserrat";
-  height: 100%;
+  min-height: 100vh;
   width: 230px;
   position: fixed;
   z-index: 1;
@@ -60,7 +74,7 @@ export default {
   padding: 10px;
   max-height: 150px;
   max-height: 150px;
-  border-radius: 50%;
+  border-radius: 10%;
 }
 h5 {
   padding-top: 15px;
@@ -85,6 +99,10 @@ h5 {
 
 .active {
     border-left: 5px solid #fe6663;
+}
+.bottomSection{
+  margin-top: 100%;
+  font-size: 10px;
 }
 
 

@@ -30,7 +30,8 @@ import LibraryHome from "@/components/Library/LibraryHome"
 import Contact from "@/components/Contact.vue"
 import UserForm from "@/components/User/UserForm"
 import UserProfile from "@/components/User/UserProfile"
-import HowItWorks from "./components/HowitWorks"
+import HowItWorks from "@/components/HowitWorks"
+import FAQ from "@/components/FAQ"
 
 
 Vue.use(VueRouter)
@@ -184,6 +185,11 @@ const routes = [
     path: '/howitworks',
     name: 'HowItWorks',
     component: HowItWorks,
+  },
+  {
+    path: '/FAQ',
+    name: 'FAQ',
+    component: FAQ,
   },
   {
     path: '/certificates/add',
