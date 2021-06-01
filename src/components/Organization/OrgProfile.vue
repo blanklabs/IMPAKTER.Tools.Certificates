@@ -1,12 +1,11 @@
 <template>
   <div class="profileMain">
-    <p>
-      <span
-        ><b class="head">Profile</b
-        ><router-link to="/org/edit">- edit</router-link></span
-      >
-    </p>
-    <hr />
+     <h1 class="sectionTitle">Profile | <router-link to="/org/edit">
+    <b-icon icon="pencil"  ></b-icon>
+      </router-link></h1>
+    
+      <hr />
+    
     <b-row>
       <b-col class="columnLeft">
         <div class="sectionDiv">
@@ -87,6 +86,7 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "OrgProfile",
   data() {
@@ -94,6 +94,7 @@ export default {
       org: {},
     };
   },
+
   async mounted() {
     this.org = await this.$store.dispatch("org/fetchOrg");
   },
@@ -128,6 +129,11 @@ hr {
   height: 3px;
   background-color: #ebebeb;
   border: none;
+}
+
+.addBtn {
+  margin-top: -50px;
+  float: right;
 }
 </style>
 

@@ -20,7 +20,7 @@
           <b-nav-item class="profile">
             <b-icon icon="person-circle" style="color: #ea5456"></b-icon>
             <div class="profile-content">
-              <b-dropdown-item class="somethings">
+              <b-dropdown-item>
                 <router-link to="/org/profile">View Org Profile</router-link>
               </b-dropdown-item>
               <b-dropdown-item>
@@ -120,6 +120,7 @@ button {
   position: relative;
 }
 .profile-content {
+  padding: 8px;
   display: none;
   position: absolute;
   min-width: 160px;
@@ -140,8 +141,9 @@ button {
 
 .profile:hover .profile-content {
   display: block;
+ 
 }
-.somethings {
-  margin: 10px;
-}
+
+
+
 </style>
