@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <div class="mainDiv">
     <b-container>
       <b-row>
         <progress-bar :currentStep="3"> </progress-bar>
       </b-row>
-      <b-row>
-        <b-col> </b-col>
+      <b-row class="main_row">
         <b-col cols="8">
           <b-form-group
             label="Please select all the industries applicable to this certificate"
@@ -85,6 +84,12 @@ export default {
 * {
   font-family: "Montserrat";
   text-align: left;
+}
+.mainDiv{
+  margin-top: -150px;
+}
+.main_row{
+  margin-top: 100px;
 }
 #checkbox-group-1 {
   display: flex;
