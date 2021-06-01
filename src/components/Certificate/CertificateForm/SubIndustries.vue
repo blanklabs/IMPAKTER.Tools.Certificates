@@ -51,7 +51,7 @@
 <script>
 import PartialSubIndustries from "@/components/Certificate/CertificateForm/PartialSubIndustries";
 
-import IndustryMixin from "@/mixins/IndustryMixin";
+import IndustryDisplayMixin from "@/mixins/IndustryDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import SubmitMixin from "@/mixins/SubmitMixin";
 import ProgressBar from "./ProgressBar.vue";
@@ -66,6 +66,7 @@ export default {
       currentIndustry: null,
       industryIndex: 0,
       isLast: false,
+      computedIndustries: [],
     };
   },
   methods: {
@@ -129,10 +130,17 @@ export default {
   computed: {},
   mounted() {
     this.industryIndex = 0;
-    this.computeIndustries();
+    this.computedIndustries = this.getIndustriesForDisplay(
+      this.form.industries
+    );
     this.currentIndustry = this.form.industries[this.industryIndex];
   },
-  mixins: [IndustryMixin, CertificateFormMixin, SubmitMixin, CommonMixin],
+  mixins: [
+    IndustryDisplayMixin,
+    CertificateFormMixin,
+    SubmitMixin,
+    CommonMixin,
+  ],
 };
 </script>
 

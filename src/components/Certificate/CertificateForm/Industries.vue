@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import IndustryMixin from "../../../mixins/IndustryMixin";
+import IndustryDisplayMixin from "../../../mixins/IndustryDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import ProgressBar from "./ProgressBar.vue";
 export default {
@@ -76,7 +76,7 @@ export default {
   mounted() {
     this.selected = this.form.industries;
   },
-  mixins: [IndustryMixin, CertificateFormMixin],
+  mixins: [IndustryDisplayMixin, CertificateFormMixin],
   components: { ProgressBar },
 };
 </script>

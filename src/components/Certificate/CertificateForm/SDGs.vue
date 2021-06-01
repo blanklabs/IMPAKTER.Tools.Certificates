@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import SdgMixin from "../../../mixins/SdgMixin";
+import SdgDisplayMixin from "../../../mixins/SdgDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import FormGuardMixin from "@/mixins/FormGuardMixin";
 import ProgressBar from "./ProgressBar.vue";
@@ -78,7 +78,7 @@ export default {
   mounted() {
     this.selectedSDGs = this.form.sdgs;
   },
-  mixins: [SdgMixin, CertificateFormMixin, FormGuardMixin],
+  mixins: [SdgDisplayMixin, CertificateFormMixin, FormGuardMixin],
   components: { ProgressBar },
 };
 </script>

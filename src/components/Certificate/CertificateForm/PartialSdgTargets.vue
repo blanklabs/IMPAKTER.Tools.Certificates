@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import SdgMixin from "@/mixins/SdgMixin";
+import SdgDisplayMixin from "@/mixins/SdgDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 
 export default {
@@ -99,7 +99,7 @@ export default {
   mounted() {
     this.selectedSdgTargets = this.form.sdgTargets;
   },
-  mixins: [SdgMixin, CertificateFormMixin],
+  mixins: [SdgDisplayMixin, CertificateFormMixin],
 };
 </script>
 

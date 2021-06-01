@@ -79,7 +79,7 @@
               <b-form-select
                 id="priority"
                 v-model="form.certificate.priority"
-                :options="scale"
+                :options="threeScale"
               ></b-form-select>
             </b-form-group>
             <b-tooltip

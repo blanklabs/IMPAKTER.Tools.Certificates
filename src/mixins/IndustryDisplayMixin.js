@@ -7,19 +7,19 @@ export default {
         return {
             industries: industries,
             subIndustries: subIndustries,
-            computedIndustries: []
         }
     },
     methods: {
-        computeIndustries() {
-            this.computedIndustries = []
-            this.form.industries.forEach(
+        getIndustriesForDisplay(rawIndustries) {
+            let computedIndustries = []
+            rawIndustries.forEach(
                 industry => {
                     var temp = industries.filter(function (item) {
                         return item.value == industry;
                     })
-                    this.computedIndustries.push(temp[0])
+                    computedIndustries.push(temp[0])
                 })
+            return computedIndustries;
         }
 
     }

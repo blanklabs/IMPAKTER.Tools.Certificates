@@ -177,8 +177,7 @@ const certificateStore = {
                 state.certificates = [];
                 for (var i = 0; i < certificatesResponse.length; i++) {
                     let cert = new certificateObject();
-                    cert.change(certificatesResponse[i]);
-                    cert.computeSdgs();
+                    cert = certificatesResponse[i];
                     state.certificates.push(cert);
                 }
                 state.certificates = state.certificates.sort(compute.compareByName);

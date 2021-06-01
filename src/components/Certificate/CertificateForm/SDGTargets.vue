@@ -11,7 +11,7 @@
 
           <div
             class="flex_and_start"
-            v-for="(sdg, index) in computedSdgs"
+            v-for="(sdg, index) in sdgsDisplay"
             :key="index"
           >
             <h5 :class="sdg.value === currentSdg ? 'bold' : ''">
@@ -40,7 +40,7 @@
 
 <script>
 import PartialSdgTargets from "@/components/Certificate/CertificateForm/PartialSdgTargets";
-import SdgMixin from "@/mixins/SdgMixin";
+import SdgDisplayMixin from "@/mixins/SdgDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import ProgressBar from "./ProgressBar.vue";
 export default {
@@ -51,6 +51,7 @@ export default {
       currentSdg: null,
       sdgIndex: 0,
       responseMessage: null,
+      sdgsDisplay: [],
     };
   },
   methods: {
@@ -78,11 +79,11 @@ export default {
   },
   computed: {},
   mounted() {
-    this.computeSDGs();
+    this.sdgsDisplay = this.getSdgsForDisplay(this.form.sdgs);
     this.sdgIndex = 0;
     this.currentSdg = this.form.sdgs[this.sdgIndex];
   },
-  mixins: [SdgMixin, CertificateFormMixin],
+  mixins: [SdgDisplayMixin, CertificateFormMixin],
 };
 </script>
 

@@ -32,7 +32,7 @@
             "
             class="certificateName"
           >
-            {{ data.item.name }}
+            {{ data.item.certificate.name }}
           </p>
         </template>
         <template #head(computedPriority)>
@@ -44,6 +44,11 @@
           >
             Priority
           </div>
+        </template>
+        <template #cell(computedPriority)="data">
+          <p>
+            {{ data.item.certificate.priority }}
+          </p>
         </template>
         <template #head(sdgs)>
           <div
@@ -238,6 +243,8 @@
 import CertificateProfile from "./CertificateProfile.vue";
 import DashBoardTabNav from "../Shared/DashBoardTabNav";
 import ActionButton from "./../Shared/ActionButton";
+import CommonDisplayMixin from "@/mixins/CommonDisplayMixin";
+import CertificateDisplayMixin from "@/mixins/CertificateDisplayMixin";
 
 export default {
   name: "MyCertificates",
@@ -262,9 +269,13 @@ export default {
   async mounted() {
     this.$store.commit("global/toggleLoading", "on");
     this.allCertificates = this.$store.getters["certificate/certificates"];
-    this.filterCertificates();
     if (this.allCertificates.length == 0 || this.allCertificates == undefined) {
       this.refresh();
+    } else {
+      this.allCertificates = await this.getCertificatesForDisplay(
+        this.allCertificates
+      );
+      await this.filterCertificates();
     }
     this.$store.commit("global/toggleLoading", "off");
   },
@@ -273,26 +284,30 @@ export default {
     DashBoardTabNav,
     ActionButton,
   },
+  mixins: [CommonDisplayMixin, CertificateDisplayMixin],
   methods: {
-    tabSelect(tab) {
+    async tabSelect(tab) {
       console.log(tab);
       this.selectedTab = tab;
-      this.filterCertificates();
+      await this.filterCertificates();
     },
     filterCertificates() {
       if (this.selectedTab === "Editing") {
         this.certificates = this.allCertificates.filter(
-          (certificate) => certificate.status == 0
+          (certificateObj) => certificateObj.certificate.status == 0
         );
       } else if (this.selectedTab === "Active") {
         this.certificates = this.allCertificates.filter(
-          (certificate) => certificate.status == 1
+          (certificateObj) => certificateObj.certificate.status == 1
         );
       } else {
         this.certificates = this.allCertificates.filter(
-          (certificate) => certificate.status == 2
+          (certificateObj) => certificateObj.certificate.status == 2
         );
       }
+      return new Promise((resolve) => {
+        resolve();
+      });
     },
     add() {
       this.$store.dispatch("certificate/changeMode", "new");
@@ -344,7 +359,17 @@ export default {
       this.allCertificates = await this.$store.dispatch(
         "certificate/fetchCertificates"
       );
-      this.filterCertificates();
+      if (
+        this.allCertificates.length == 0 ||
+        this.allCertificates == undefined
+      ) {
+        //todo No Certificates Added message
+      } else {
+        this.allCertificates = await this.getCertificatesForDisplay(
+          this.allCertificates
+        );
+        await this.filterCertificates();
+      }
       this.$store.commit("global/toggleLoading", "off");
     },
   },
@@ -361,7 +386,7 @@ export default {
   font-family: "Montserrat";
   text-align: left;
   width: 85%;
-  min-height: 55vh; 
+  min-height: 55vh;
 }
 #main_head {
   justify-content: flex-start;

@@ -9,20 +9,20 @@ export default {
       //manual
       sdgs: sdgs,
       sdgTargets: sdgTargets,
-      computedSdgs: [],
       computedSdgTargets: []
     }
 
   },
   methods: {
-    computeSDGs() {
-      this.computedSdgs = [];
-      this.form.sdgs.forEach((sdg) => {
+    getSdgsForDisplay(rawSdgs) {
+      let computedSdgs = [];
+      rawSdgs.forEach((sdg) => {
         var temp = this.sdgs.filter(function (item) {
           return item.value == sdg;
         });
-        this.computedSdgs.push(temp[0]);
+        computedSdgs.push(temp[0]);
       });
+      return computedSdgs;
     },
 
   },

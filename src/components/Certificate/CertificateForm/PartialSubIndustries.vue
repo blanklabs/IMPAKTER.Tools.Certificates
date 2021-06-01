@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import IndustryMixin from "@/mixins/IndustryMixin";
+import IndustryDisplayMixin from "@/mixins/IndustryDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import CertificateProfile from "../CertificateProfile.vue";
 
@@ -121,7 +121,7 @@ export default {
   mounted() {
     this.selectedSubIndustries = this.form.industrySectors;
   },
-  mixins: [IndustryMixin, CertificateFormMixin],
+  mixins: [IndustryDisplayMixin, CertificateFormMixin],
   components: { CertificateProfile },
 };
 </script>
