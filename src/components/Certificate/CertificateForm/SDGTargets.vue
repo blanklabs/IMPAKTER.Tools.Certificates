@@ -1,11 +1,11 @@
 <template>
-  <b-container class="bv-example-row">
+  <b-container class="mainDiv">
     <b-row>
       <progress-bar :currentStep="2"> </progress-bar>
     </b-row>
     <b-row class="main_row">
       <b-col cols="6">
-        <div class="">
+        <div class="position-fixed">
           <h3>UN Sustainable Development Goals</h3>
           <p>You selected the following SDGs</p>
 
@@ -87,6 +87,13 @@ export default {
 </script>
 
 <style scoped>
+.mainDiv{
+  margin-left: 100px;
+  margin-top: -150px;
+}
+.main_row{
+  margin-top: 100px;
+}
 h3 {
   text-align: left;
 }

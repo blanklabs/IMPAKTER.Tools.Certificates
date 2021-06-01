@@ -1,9 +1,11 @@
 <template>
+<div class="mainDiv">
+
   <b-container>
     <b-row>
       <progress-bar :currentStep="3"> </progress-bar>
     </b-row>
-    <b-row>
+    <b-row class="main_row">
       <b-col class="m" cols="6">
         <div class="position-fixed" id="subb">
           <h3>Industries</h3>
@@ -46,6 +48,7 @@
       @submit="submit"
     ></certificate-profile>
   </b-container>
+</div>
 </template>
 
 <script>
@@ -141,11 +144,18 @@ export default {
   font-family: "Montserrat";
   text-align: left;
 }
+.mainDiv{
+  margin-left: -100px;
+  margin-top: -150px;
+}
+.main_row{
+  margin-top: 100px;
+}
 col {
   text-align: left;
 }
 .bold {
-  color: #41b883;
+  color: #f6a8a8;
 }
 
 #subb {

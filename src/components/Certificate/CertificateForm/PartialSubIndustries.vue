@@ -1,6 +1,6 @@
 
 <template>
-  <div>
+  <div >
     <h4>Industry Description</h4>
     <b-row>
       <b-form-group
@@ -130,6 +130,12 @@ export default {
 * {
   font-family: "Montserrat";
   text-align: left;
+}
+.mainDiv{
+  margin-top: -150px;
+}
+.main_row{
+  margin-top: 100px;
 }
 #checkbox-group-1 {
   display: flex;

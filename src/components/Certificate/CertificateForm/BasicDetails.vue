@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="mainDiv">
     <b-container>
-      <b-row>
+    <b-row>
         <progress-bar :currentStep="1"> </progress-bar>
-      </b-row>
+    </b-row>
       <b-row class="main_row">
         <b-col></b-col>
         <b-col cols="8">
@@ -252,6 +252,13 @@ export default {
 </script>
 
 <style scoped>
+.mainDiv{
+  margin-left: -100px;
+  margin-top: -150px;
+}
+.main_row{
+  margin-top: 100px;
+}
 #rating {
   display: flex;
   flex-direction: column;
@@ -270,4 +277,5 @@ export default {
   border: 2px solid #989898;
   background: white;
 }
+
 </style>

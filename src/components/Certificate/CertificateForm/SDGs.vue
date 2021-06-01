@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mainDiv">
     <b-container>
       <b-row>
         <progress-bar :currentStep="2"> </progress-bar>
@@ -84,6 +84,13 @@ export default {
 </script>
 
 <style scoped>
+.mainDiv{
+  margin-left: -100px;
+  margin-top: -150px;
+}
+.main_row{
+  margin-top: 100px;
+}
 .actButton {
   color: black;
   border: 2px solid #989898;

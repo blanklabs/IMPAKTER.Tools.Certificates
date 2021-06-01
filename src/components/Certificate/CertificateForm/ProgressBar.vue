@@ -27,9 +27,15 @@ export default {
 }
 </script>
 
-(html comment removed:  Add "scoped" attribute to limit CSS to this component only )
 <style scoped>
+.root{
+    background-color: white;
+    margin-bottom: 60px;
+    margin-top: 0;
 
+  z-index: 100;
+    padding-top: 60px;
+}
 span {
   margin-right: 70px;
 }
@@ -39,20 +45,19 @@ span {
   font-weight: bold;
 }
 .container{
-  
-  position: absolute;
+  height: 150px;
+  position: fixed;
+  margin-top: 0;
+  z-index: 100;
   background-color: white;
   
 }
 .progressbar {
-  display: inline-flex;
-  margin-bottom: 0px;
-  padding: 5px;
+  /* display: inline-flex; */
+  padding-top: 100px;
   justify-items: center;
-  align-items: center;
+  align-items:flex-end;
 }
-.root{
-    margin-bottom: 60px;
-}
+
 
 </style>
