@@ -10,7 +10,7 @@
     >
 
     <DashBoardTabNav :tabs="tabs" @selectTab="tabSelect">
-      <FilterBar />
+      <FilterBar @filter="search" />
       <b-row>
         <div
           class="newsArticle"
@@ -85,6 +85,28 @@ export default {
       this.isShowMessage = true;
       this.fetch();
     },
+    search(criteria) {
+      console.log("criteria:", JSON.stringify(criteria));
+
+      this.articles = this.allArticles.filter((article) => {
+        let articleDate = new Date(article.datetime);
+        let dateFilter;
+        //let keywordFilter;
+        //let ratingFilter;
+        if (criteria.fromDate && criteria.toDate) {
+          if (
+            articleDate >= criteria.fromDate &&
+            articleDate <= criteria.toDate
+          ) {
+            dateFilter = true;
+          } else {
+            dateFilter = false;
+          }
+          console.log(dateFilter);
+          return dateFilter;
+        }
+      });
+    },
   },
   mounted() {
     this.fetch();
@@ -97,6 +119,5 @@ export default {
 }
 .newsDash {
   width: 100%;
-  
 }
 </style>
