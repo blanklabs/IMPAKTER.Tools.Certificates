@@ -14,7 +14,7 @@
             <b-form-checkbox
               class="flex_and_start"
               v-model="allSelected"
-              :indeterminate="indeterminate"
+              :indeterminate.sync="indeterminate"
               @change="toggleAll"
             >
               <b>{{ allSelected ? "Un-select All" : "Select All" }}</b>
@@ -52,6 +52,7 @@ export default {
     return {
       selected: [],
       allSelected: false,
+      indeterminate: true,
     };
   },
   methods: {
@@ -85,10 +86,10 @@ export default {
   font-family: "Montserrat";
   text-align: left;
 }
-.mainDiv{
+.mainDiv {
   margin-top: -150px;
 }
-.main_row{
+.main_row {
   margin-top: 100px;
 }
 #checkbox-group-1 {

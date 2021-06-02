@@ -3,6 +3,7 @@ import User from "../../../SHARED.CODE/Objects/User/user";
 import {
     Transport,
     transportCodes,
+    generalCases
 } from "../../../SHARED.CODE/Objects/Transport";
 
 //import { User, Transport, transportCodes } from "shared.code";
@@ -19,7 +20,8 @@ export default {
             user: new User(),
             request: new Transport(),
             response: new Transport(),
-            transportCodes: transportCodes
+            transportCodes: transportCodes,
+            generalCases: generalCases
 
         }
     },

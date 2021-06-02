@@ -1,9 +1,9 @@
 <template>
   <div class="mainDiv">
     <b-container>
-    <b-row>
+      <b-row>
         <progress-bar :currentStep="1"> </progress-bar>
-    </b-row>
+      </b-row>
       <b-row class="main_row">
         <b-col></b-col>
         <b-col cols="8">
@@ -101,7 +101,7 @@
             >
               <b-form-radio-group
                 class="pt-2"
-                v-model="form.certificate.sdgEngagement"
+                v-model="form.certificate.sdgEngagementID"
                 :options="sdgEngagementOptions"
                 id="rating"
                 :aria-describedby="ariaDescribedby"
@@ -112,7 +112,7 @@
             <b-form-group
               label-align-sm="left"
               description="As you selected other, please specify"
-              v-if="form.certificate.sdgEngagement == '5'"
+              v-if="form.certificate.sdgEngagementID == '5'"
             >
               <b-form-input
                 id="name"
@@ -138,7 +138,7 @@
                   >
                     <b-form-input
                       id="name"
-                      v-model="form.documents[index].documentName"
+                      v-model="form.documents[index].name"
                       placeholder="Certificate attaining procedure"
                     ></b-form-input>
                   </b-form-group>
@@ -151,7 +151,7 @@
                   >
                     <b-form-input
                       id="name"
-                      v-model="form.documents[index].documentUrl"
+                      v-model="form.documents[index].url"
                       placeholder="https://www.iso.org/obp/ui/#iso:std:iso:14001:ed-3:v1:en"
                     ></b-form-input>
                   </b-form-group>
@@ -206,8 +206,8 @@ export default {
       this.permitNavigation = true;
       this.$router.push({ name: "formPage2-1" });
     },
-    onReset() {
-      this.$store.dispatch("certificate/resetCertificate");
+    async onReset() {
+      await this.$store.dispatch("certificate/resetCertificate");
     },
     onFileChange() {
       this.file = this.$refs.file.files[0];
@@ -252,11 +252,11 @@ export default {
 </script>
 
 <style scoped>
-.mainDiv{
+.mainDiv {
   margin-left: -100px;
   margin-top: -150px;
 }
-.main_row{
+.main_row {
   margin-top: 100px;
 }
 #rating {
@@ -277,5 +277,4 @@ export default {
   border: 2px solid #989898;
   background: white;
 }
-
 </style>

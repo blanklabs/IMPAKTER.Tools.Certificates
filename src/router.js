@@ -4,7 +4,7 @@ import BasicDetails from "@/components/Certificate/CertificateForm/BasicDetails"
 import Part2 from "@/components/Certificate/CertificateForm/Part2";
 import FormSDGTargets from "@/components/Certificate/CertificateForm/SDGTargets";
 import FormSDGs from "@/components/Certificate/CertificateForm/SDGs";
-import FormSubIndustries from "@/components/Certificate/CertificateForm/SubIndustries";
+import FormIndustrySectors from "@/components/Certificate/CertificateForm/IndustrySectors";
 import FormIndustries from "@/components/Certificate/CertificateForm/Industries";
 import CertificatesTable from "@/components/Certificate/CertificatesTable";
 import Login from "@/components/Archives/Login";
@@ -219,7 +219,7 @@ const routes = [
     path: '/certificates/add/subindustries',
     name: 'formPage3-2',
     beforeEnter: authGuard,
-    component: FormSubIndustries
+    component: FormIndustrySectors
   },
   {
     path: '/certificates/add/part2',

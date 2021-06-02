@@ -11,11 +11,11 @@
 
           <div
             class="flex_and_start"
-            v-for="(sdg, index) in sdgsDisplay"
+            v-for="(sdg, index) in form.sdgs"
             :key="index"
           >
-            <h5 :class="sdg.value === currentSdg ? 'bold' : ''">
-              {{ sdg.text }}
+            <h5 :class="sdg === currentSdg ? 'bold' : ''">
+              {{ sdg | sdgFilter }}
             </h5>
           </div>
           <br />
@@ -51,7 +51,6 @@ export default {
       currentSdg: null,
       sdgIndex: 0,
       responseMessage: null,
-      sdgsDisplay: [],
     };
   },
   methods: {
@@ -79,7 +78,6 @@ export default {
   },
   computed: {},
   mounted() {
-    this.sdgsDisplay = this.getSdgsForDisplay(this.form.sdgs);
     this.sdgIndex = 0;
     this.currentSdg = this.form.sdgs[this.sdgIndex];
   },
@@ -88,11 +86,11 @@ export default {
 </script>
 
 <style scoped>
-.mainDiv{
+.mainDiv {
   margin-left: 100px;
   margin-top: -150px;
 }
-.main_row{
+.main_row {
   margin-top: 100px;
 }
 h3 {

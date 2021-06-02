@@ -5,6 +5,7 @@ const certificateService = ServicesFactory.get("certificates");
 
 //import certificateObject from "./models/certificate";
 import certificateObject from "../../../SHARED.CODE/Objects/Certificate/certificateObject";
+import { certificateCases } from "../../../SHARED.CODE/Objects/Certificate/certificateObjects";
 //import {certificateObject} from "shared.code";
 //import organizationModel from ".././models/organization";
 import { awsConfig } from "@/models/constants"
@@ -47,7 +48,7 @@ const certificateStore = {
         organizationName: null,
         certificates: [],
         organizationID: null,
-        mode: "new",
+        mode: certificateCases.NEW,
         IsloggedIn: false,
         isNetworkConnected: null,
         uploadPolicy: null,
@@ -253,9 +254,10 @@ const certificateStore = {
             request.data = payload;
             try {
                 let webResponse;
-                if (context.getters.mode == "edit") {
+                if (context.getters.mode == certificateCases.UPDATE) {
                     webResponse = await certificateService.updateCertificate(request);
-                } else {
+                } else if (context.getters.mode == certificateCases.NEW) {
+                    request.status.case = certificateCases.NEW
                     webResponse = await certificateService.createCertificate(request);
                 }
                 response = webResponse.data;

@@ -1,6 +1,6 @@
 
 <template>
-  <div >
+  <div>
     <h4>Industry Description</h4>
     <b-row>
       <b-form-group
@@ -9,7 +9,7 @@
         ><b-form-checkbox
           class="flex_and_start"
           v-model="isAllSelected"
-          :indeterminate="indeterminate"
+          :indeterminate.sync="indeterminate"
           @change="toggleAll"
         >
           <b>{{ isAllSelected ? "Un-select All" : "Select All" }}</b>
@@ -65,12 +65,13 @@ import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import CertificateProfile from "../CertificateProfile.vue";
 
 export default {
-  name: "PartialSubIndustries",
+  name: "PartialIndustrySectors",
   data() {
     return {
       selectedSubIndustries: [],
       isAllSelected: false,
       currentSubIndustryList: [],
+      indeterminate: true,
     };
   },
   methods: {
@@ -88,7 +89,7 @@ export default {
       ) {
         this.$emit("isLast");
       }
-      this.form.subIndustries = this.selectedSubIndustries;
+      this.form.industrySectors = this.selectedSubIndustries;
       this.currentSubIndustryList = [];
       this.$emit("next");
       window.scrollTo(0, 0);
@@ -131,10 +132,10 @@ export default {
   font-family: "Montserrat";
   text-align: left;
 }
-.mainDiv{
+.mainDiv {
   margin-top: -150px;
 }
-.main_row{
+.main_row {
   margin-top: 100px;
 }
 #checkbox-group-1 {

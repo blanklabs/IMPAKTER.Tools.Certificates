@@ -19,15 +19,14 @@
             ><h1>{{ certificatesCount }}</h1>
           </CardItem>
         </b-col>
-
         <b-col
           ><CardItem
-            cardIcon="file-text"
-            cardTitle="Drafts"
-            iconColor="#E2CB2C"
+            cardIcon="newspaper"
+            cardTitle="News"
+            iconColor="#9966FF"
             buttonIcon="arrow-right"
-            btnLink="#"
-            ><h1>4</h1>
+            btnLink="/news"
+            ><h1>{{ newsCount }}</h1>
           </CardItem>
         </b-col>
         <b-col
@@ -44,24 +43,25 @@
       <b-row id="smallCards">
         <b-col
           ><CardItem
-            cardIcon="newspaper"
-            cardTitle="News"
-            iconColor="#9966FF"
-            buttonIcon="arrow-right"
-            btnLink="/news"
-            ><h1>{{ newsCount }}</h1>
-          </CardItem>
-        </b-col>
-        <b-col
-          ><CardItem
             cardIcon="folder2-open"
-            cardTitle="Documents"
+            cardTitle="Library"
             iconColor="#2880C3"
             buttonIcon="arrow-right"
             btnLink="/library"
             ><h1>5</h1>
           </CardItem>
         </b-col>
+        <b-col
+          ><CardItem
+            cardIcon="file-text"
+            cardTitle="view"
+            iconColor="#E2CB2C"
+            buttonIcon="arrow-right"
+            btnLink="/org/profile"
+            ><h1>Profile</h1>
+          </CardItem>
+        </b-col>
+
         <b-col>
           <CardItem
             cardIcon="check2-all"
@@ -125,6 +125,9 @@ export default {
       "certificate/getCertificatesCount"
     ];
     this.newsCount = this.$store.getters["news/getNewsCount"];
+    if (this.newsCount > 100) {
+      this.newsCount = "100+";
+    }
     this.publicationsCount = this.$store.getters[
       "publication/getPublicationsCount"
     ];

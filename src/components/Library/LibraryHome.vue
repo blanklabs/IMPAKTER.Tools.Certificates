@@ -1,7 +1,7 @@
 <template>
-  <div  class="libraryMain">
+  <div class="libraryMain">
     <DashBoardTabNav
-      :tabs="['My Documents', 'My Articles', 'News']"
+      :tabs="['My Documents', 'My Articles', 'Saved News']"
       @selectTab="tabSelect"
     >
       <DashBoardTab :isSelected="selectedTab === 'My Documents'">
@@ -52,6 +52,6 @@ export default {
 }
 .libraryMain {
   width: 85%;
-  min-height: 55vh;  
+  min-height: 55vh;
 }
 </style>

@@ -263,14 +263,14 @@ export default {
         });
       }
 
-      this.$store.dispatch("certificate/resetCertificate");
+      await this.$store.dispatch("certificate/resetCertificate");
       this.InProgress = false;
       if (this.responseStatus == 1) {
         this.ProgressCompleted = true;
       } else this.ProgressFailed = true;
     },
-    onReset() {
-      this.$store.dispatch("certificate/resetCertificate");
+    async onReset() {
+      await this.$store.dispatch("certificate/resetCertificate");
     },
     onSelect(items, lastSelectItem) {
       this.form.countries = items;
@@ -279,8 +279,8 @@ export default {
     reset() {
       this.items = []; // reset
     },
-    addNew() {
-      this.$store.dispatch("certificate/resetCertificate");
+    async addNew() {
+      await this.$store.dispatch("certificate/resetCertificate");
       this.$store.dispatch("certificate/resetComputed");
       this.$router.push({ name: "formPage1" });
     },

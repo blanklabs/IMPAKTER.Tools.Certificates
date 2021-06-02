@@ -47,7 +47,7 @@
         </template>
         <template #cell(computedPriority)="data">
           <p>
-            {{ data.item.certificate.priority }}
+            {{ data.item.certificate.priority | threeScaleFilter }}
           </p>
         </template>
         <template #head(sdgs)>
@@ -272,9 +272,6 @@ export default {
     if (this.allCertificates.length == 0 || this.allCertificates == undefined) {
       this.refresh();
     } else {
-      this.allCertificates = await this.getCertificatesForDisplay(
-        this.allCertificates
-      );
       await this.filterCertificates();
     }
     this.$store.commit("global/toggleLoading", "off");
@@ -309,19 +306,19 @@ export default {
         resolve();
       });
     },
-    add() {
-      this.$store.dispatch("certificate/changeMode", "new");
-      this.$store.dispatch("certificate/resetCertificate");
+    async add() {
+      this.$store.dispatch("certificate/changeMode", "NEW");
+      await this.$store.dispatch("certificate/resetCertificate");
       this.$router.push({ name: "formPage1" });
     },
     copy(item) {
-      this.$store.dispatch("certificate/changeMode", "new");
+      this.$store.dispatch("certificate/changeMode", "UPDATE");
       this.$store.dispatch("certificate/changeCertificate", item);
       this.$router.push({ name: "formPage1" });
     },
     edit(item) {
       this.$store.dispatch("certificate/changeCertificate", item);
-      this.$store.dispatch("certificate/changeMode", "edit");
+      this.$store.dispatch("certificate/changeMode", "UPDATE");
       this.$router.push({ name: "formPage1" });
     },
     updateStatus(item) {
@@ -331,9 +328,9 @@ export default {
       }, 1000);
       this.$store.responseMessage = "_blank_";
     },
-    view(item) {
+    async view(item) {
       console.log(item);
-      this.$store.dispatch("certificate/changeCertificate", item);
+      await this.$store.commit("certificate/setCertificate", item);
       setTimeout(() => {}, 500);
     },
     view2(record, index) {
@@ -365,9 +362,6 @@ export default {
       ) {
         //todo No Certificates Added message
       } else {
-        this.allCertificates = await this.getCertificatesForDisplay(
-          this.allCertificates
-        );
         await this.filterCertificates();
       }
       this.$store.commit("global/toggleLoading", "off");

@@ -1,58 +1,57 @@
 <template>
-<div class="mainDiv">
-
-  <b-container>
-    <b-row>
-      <progress-bar :currentStep="3"> </progress-bar>
-    </b-row>
-    <b-row class="main_row">
-      <b-col class="m" cols="6">
-        <div class="position-fixed" id="subb">
-          <h3>Industries</h3>
-          <p>You have selected the following industries</p>
-          <div
-            class="flex_and_start"
-            v-for="(industry, index) in computedIndustries"
-            :key="index"
-          >
-            <h5 :class="industry.value === currentIndustry ? 'bold' : ''">
-              <i class="far fa-envelope"></i>
-              {{ industry.value + ": " + industry.text }}
-            </h5>
+  <div class="mainDiv">
+    <b-container>
+      <b-row>
+        <progress-bar :currentStep="3"> </progress-bar>
+      </b-row>
+      <b-row class="main_row">
+        <b-col class="m" cols="6">
+          <div class="position-fixed" id="subb">
+            <h3>Industries</h3>
+            <p>You have selected the following industries</p>
+            <div
+              class="flex_and_start"
+              v-for="(industry, index) in form.industries"
+              :key="index"
+            >
+              <h5 :class="industry === currentIndustry ? 'bold' : ''">
+                <i class="far fa-envelope"></i>
+                {{ industry + ": " }} {{ industry | industryFilter }}
+              </h5>
+            </div>
+            <br />
+            <b-button class="btn" @click="reselect" variant="outline-primary"
+              >Reselect Industries</b-button
+            >
           </div>
-          <br />
-          <b-button class="btn" @click="reselect" variant="outline-primary"
-            >Reselect Industries</b-button
-          >
-        </div>
-      </b-col>
-      <b-col>
-        <scroll-view>
-          <template
-            ><PartialSubIndustries
-              @next="next"
-              @back="back"
-              @submit="submit"
-              @isLast="toggleIsLast"
-              :current-industry-index="currentIndustry" /></template
-        ></scroll-view>
-      </b-col>
-    </b-row>
+        </b-col>
+        <b-col>
+          <scroll-view>
+            <template
+              ><PartialIndustrySectors
+                @next="next"
+                @back="back"
+                @submit="submit"
+                @isLast="toggleIsLast"
+                :current-industry-index="currentIndustry" /></template
+          ></scroll-view>
+        </b-col>
+      </b-row>
 
-    <!--<b-card class="mt-3" header="Form result so far">
+      <!--<b-card class="mt-3" header="Form result so far">
       <pre class="m-0">{{ form }}</pre>
     </b-card>-->
-    <certificate-profile
-      ref="preview_modal"
-      :isSavePreview="true"
-      @submit="submit"
-    ></certificate-profile>
-  </b-container>
-</div>
+      <certificate-profile
+        ref="preview_modal"
+        :isSavePreview="true"
+        @submit="submit"
+      ></certificate-profile>
+    </b-container>
+  </div>
 </template>
 
 <script>
-import PartialSubIndustries from "@/components/Certificate/CertificateForm/PartialSubIndustries";
+import PartialIndustrySectors from "@/components/Certificate/CertificateForm/PartialIndustrySectors";
 
 import IndustryDisplayMixin from "@/mixins/IndustryDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
@@ -62,14 +61,13 @@ import CertificateProfile from "../CertificateProfile.vue";
 import CommonMixin from "@/mixins/CommonMixin";
 
 export default {
-  name: "FormSubIndustries",
-  components: { PartialSubIndustries, ProgressBar, CertificateProfile },
+  name: "FormIndustrySectors",
+  components: { PartialIndustrySectors, ProgressBar, CertificateProfile },
   data() {
     return {
       currentIndustry: null,
       industryIndex: 0,
       isLast: false,
-      computedIndustries: [],
     };
   },
   methods: {
@@ -78,7 +76,9 @@ export default {
       if (this.industryIndex < this.form.industries.length) {
         this.currentIndustry = this.form.industries[this.industryIndex];
       } else {
+        console.log("executing preview in IndustrySectors component");
         this.$refs.preview_modal.showModal();
+        //this.$refs["preview-modal"].show();
       }
     },
     async submit() {
@@ -89,11 +89,19 @@ export default {
       );
       this.$store.commit("global/toggleLoading", "off");
       if (this.response.status.code == this.transportCodes.SUCCESS) {
-        this.$store.commit("global/setMessagePopup", {
-          type: 1,
-          message: "Certificate posted successfully",
-          redirection: "CertificatesHome",
-        });
+        if (this.response.status.case == this.generalCases.FAILED) {
+          this.$store.commit("global/setMessagePopup", {
+            type: 0,
+            message: this.response.status.message,
+            redirection: "CertificatesHome",
+          });
+        } else {
+          this.$store.commit("global/setMessagePopup", {
+            type: 1,
+            message: "Certificate posted successfully",
+            redirection: "CertificatesHome",
+          });
+        }
       } else {
         this.$store.commit("global/setMessagePopup", {
           type: 0,
@@ -102,7 +110,7 @@ export default {
         });
       }
 
-      this.$refs["proceed-modal"].show();
+      //this.$refs["proceed-modal"].show();
       //this.$store.dispatch("certificate/resetCertificate");
       this.InProgress = false;
       if (this.responseStatus == 1) {
@@ -133,9 +141,6 @@ export default {
   computed: {},
   mounted() {
     this.industryIndex = 0;
-    this.computedIndustries = this.getIndustriesForDisplay(
-      this.form.industries
-    );
     this.currentIndustry = this.form.industries[this.industryIndex];
   },
   mixins: [
@@ -152,11 +157,11 @@ export default {
   font-family: "Montserrat";
   text-align: left;
 }
-.mainDiv{
+.mainDiv {
   margin-left: -100px;
   margin-top: -150px;
 }
-.main_row{
+.main_row {
   margin-top: 100px;
 }
 col {
