@@ -63,7 +63,7 @@
       >
       </b-form-input>
       <b-button class="action_btt" type="submit" variant="primary"
-        >Sign up</b-button
+        >Sign-up</b-button
       >
     </b-form>
   </b-container>

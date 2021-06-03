@@ -1,18 +1,18 @@
 <template>
   <div class="profileMain">
-     <h1 class="sectionTitle">Profile | <router-link to="/org/edit">
-    <b-icon icon="pencil"  ></b-icon>
-      </router-link></h1>
-    
-      <hr />
-    
+    <h1 class="sectionTitle">Profile | 
+      <router-link to="/org/edit">
+        <b-icon icon="pencil"  ></b-icon>
+      </router-link>
+    </h1>
+    <hr />
     <b-row>
       <b-col class="columnLeft">
         <div class="sectionDiv">
           <img class="image" :src="org.logo" />
           <h1>{{ org.name }}</h1>
         </div>
-
+        
         <div class="sectionDiv">
           <h2>INDUSTRY CATEGORY</h2>
           <p>MultiIndustry</p>
@@ -70,12 +70,12 @@
 
       <b-col class="columnRight">
         <div class="sectionDiv">
-          <h2>Description</h2>
+          <h2>DESCRIPTION</h2>
           <p>{{ org.description }}</p>
         </div>
 
         <div class="sectionDiv">
-          <h2>Certificate List</h2>
+          <h2>CERTIFICATE LIST</h2>
           <p>- Aquaculture Stewardship Council</p>
           <p>- B Corporation</p>
           <p>- CARES Sustainability Schemes</p>
@@ -110,6 +110,7 @@ export default {
 }
 h2 {
   font-size: 20px;
+  font-weight: 600;
 }
 .image {
   margin-bottom: 10px;
@@ -120,8 +121,8 @@ h2 {
   min-height: 50vh; 
 }
 .sectionDiv {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 30px 0 30px 0;
+  padding: 5px 0 5px 0;
 }
 hr {
   margin-top: 0;

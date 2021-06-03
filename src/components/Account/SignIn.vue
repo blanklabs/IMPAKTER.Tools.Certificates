@@ -13,8 +13,8 @@
         >{{ statusMessage }}</b-alert
       >
       <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
-        <img class="googleLogo" src="@/assets/google_logo.png" /> Sign in with
-        Google
+        <img class="googleLogo" src="@/assets/google_logo.png" /> 
+        Sign in with Google
       </b-button>
       <div class="separator">
         <hr />
@@ -44,11 +44,11 @@
         opacity="0.6"
         spinner-small
         spinner-variant="primary"
-        class="d-inline-block"
+       
         @hidden="onHidden"
       >
         <b-button class="signInButton" v-on:click="login('DIRECT')">
-          Sign in with Email
+          Sign in With Email
         </b-button>
       </b-overlay>
       <hr />

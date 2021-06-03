@@ -139,6 +139,8 @@ export default {
 .dashBoard {
   font-family: "Montserrat", sans-serif;
   justify-content: center;
+  margin-left: -80px;
+  margin-right: 100px;
 }
 .headerImg {
   max-height: auto;
