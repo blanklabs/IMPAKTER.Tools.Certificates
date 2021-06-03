@@ -4,13 +4,13 @@
       <h1 class="sectionTitle">Edit Profile</h1>
       <hr />
       <b-row class="main_row">
-        <b-col cols="8">
+        <b-col cols="7">
           <b-form @submit="onSubmit" @reset="onReset">
             <b-form-group
               class="title"
-              label-cols="4"
-              label-cols-lg="3"
-              label="Name of the Organization:"
+              label-cols="1"
+              label-cols-lg="6"
+              label="Name of the Organization"
               label-for="name"
               label-align-sm="left"
             >
@@ -21,18 +21,12 @@
                 required
               ></b-form-input>
             </b-form-group>
-            <br />
-            <UserCard
-              :profilePic="form.logo"
-              @url="changeLogoUrl"
-              @file="saveLogoFile"
-            />
-            <br />
+         
             <b-form-group
               class="title"
               label-cols="4"
               label-cols-lg="3"
-              label="Phone Number:"
+              label="Phone Number"
               label-for="phone"
               label-align-sm="left"
             >
@@ -48,7 +42,7 @@
               class="title"
               label-cols="4"
               label-cols-lg="3"
-              label="Email:"
+              label="Email"
               label-for="email"
               label-align-sm="left"
             >
@@ -64,7 +58,7 @@
               class="title"
               label-cols="4"
               label-cols-lg="3"
-              label="Website link:"
+              label="Website link"
               label-for="website"
               label-align-sm="left"
             >
@@ -80,7 +74,7 @@
             <b-form-group
               class="title"
               label-cols="4"
-              label-cols-lg="3"
+              label-cols-lg="6"
               label="Organization Description"
               label-for="description"
               label-align-sm="left"
@@ -108,7 +102,7 @@
               class="title"
               label-cols="4"
               label-cols-lg="3"
-              label="Key SDGs:"
+              label="Key SDGs"
               label-for="keySDGs"
               label-align-sm="left"
             >
@@ -121,9 +115,9 @@
             <br />
             <b-form-group
               label-cols="4"
-              label-cols-lg="3"
+              label-cols-lg="6"
               class="title"
-              label="Target Audience:"
+              label="Target Audience"
               label-for="targetAudience"
               label-align-sm="left"
               id="prio"
@@ -139,7 +133,7 @@
               class="title"
               label-cols="4"
               label-cols-lg="3"
-              label="Applies To:"
+              label="Applies To"
               label-for="appliesTo"
               label-align-sm="left"
             >
@@ -155,7 +149,7 @@
               class="title"
               label-cols="4"
               label-cols-lg="3"
-              label="Social Media:"
+              label="Social Media"
               label-for="socialMedia"
               label-align-sm="left"
             >
@@ -184,7 +178,7 @@
               class="title"
               label-cols="4"
               label-cols-lg="3"
-              label="Video:"
+              label="Video"
               label-for="video"
               label-align-sm="left"
             >
@@ -197,11 +191,18 @@
 
             <b-row class="buttons_row">
               <b-button class="actButton" type="reset">Reset</b-button>
-              <b-button class="actButton" type="submit">Submit</b-button>
+              <b-button class="actButton" type="submit">Save</b-button>
             </b-row>
           </b-form>
         </b-col>
-        <b-col></b-col>
+        <b-col>
+           <UserCard
+              :cardTitle="'Profile Picture'"
+              :profilePic="form.logo"
+              @url="changeLogoUrl"
+              @file="saveLogoFile"
+            />
+        </b-col>
       </b-row>
     
   </div>
@@ -260,8 +261,10 @@ export default {
 .sectionTitle {
   text-align: left;
 }
-.main_row {
-  display: grid;
+h2 {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 600;
 }
 #rating {
   display: flex;
@@ -280,7 +283,10 @@ export default {
   font-weight: bold;
 }
 .title {
-  font-weight: bold;
+   font-size: 20px;
+  font-weight: 600;
+  display: grid;
+  text-transform: uppercase;
 }
 .socialMediaInput {
   margin-bottom: 15px;

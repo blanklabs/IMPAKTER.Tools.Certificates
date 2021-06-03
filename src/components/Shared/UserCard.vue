@@ -1,8 +1,10 @@
 <template>
   <b-card :img-src="profilePic" class="cardPicture" img-left>
+    <h2>{{cardTitle}}</h2>
     <b-card-img class="image"></b-card-img>
+     
     <b-card-text>
-      <h5>{{ header }}</h5>
+     
       <input 
       class="customFile"
       type="file" 
@@ -27,7 +29,7 @@ export default {
   name: "ProfilePicture",
   props: {
     profilePic: String,
-    header: String,
+    cardTitle: String,
     imageLink: String,
   },
   methods: {
@@ -51,6 +53,11 @@ export default {
   padding: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border: none;
+}
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .image {
