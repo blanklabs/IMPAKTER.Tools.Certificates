@@ -6,7 +6,8 @@
       img-alt="Card image"
       img-top
     >
-      <p class="dateInfo">{{ article.sourceName.toUpperCase() }} - {{ article.datetime.slice(0, 10)}} 
+      <p class="dateInfo">
+        {{ article.sourceName }} - {{ article.datetime.slice(0, 10) }}
       </p>
       <b-card-title> {{ article.title }} </b-card-title>
       <b-card-text> {{ article.summary.substring(0, 150) }}... </b-card-text>
@@ -21,12 +22,8 @@ export default {
   name: "NewsArticle",
   props: {
     article: new NewsArticle(),
-    
   },
-
-  
 };
-
 </script>
 
 <style scoped>
@@ -50,9 +47,9 @@ export default {
 .img {
   max-height: 15rem;
 }
-.dateInfo{
-font-size: 12px;
-color: #989898;
+.dateInfo {
+  font-size: 12px;
+  color: #989898;
 }
 
 .newsLink,

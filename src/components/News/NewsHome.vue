@@ -10,7 +10,7 @@
     >
 
     <DashBoardTabNav :tabs="tabs" @selectTab="tabSelect">
-      <FilterBar @filter="search" />
+      <FilterBar @filter="search" :clear="clearSearch" />
       <b-row>
         <div
           class="newsArticle"
@@ -26,6 +26,7 @@
 
 <script>
 import CommonMixin from "@/mixins/CommonMixin";
+import NewsMixin from "@/mixins/NewsMixin";
 
 //import { NewsArticle } from "uicomponents";
 import NewsArticle from "@/components/Shared/NewsArticle";
@@ -43,9 +44,10 @@ export default {
       isShowMessage: false,
       isFetchSuccess: false,
       message: "",
+      clearSearch: false,
     };
   },
-  mixins: [CommonMixin],
+  mixins: [CommonMixin, NewsMixin],
   components: {
     NewsArticle,
     DashBoardTabNav,
@@ -72,6 +74,7 @@ export default {
       //do something with the selected tab if needed
     },
     filterArticles() {
+      this.clearSearch = !this.clearSearch;
       if (this.selectedTab == "All") {
         this.articles = this.allArticles;
       } else if (this.selectedTab == "") {
@@ -86,25 +89,59 @@ export default {
       this.fetch();
     },
     search(criteria) {
-      console.log("criteria:", JSON.stringify(criteria));
+      console.log("criteria of news search:", JSON.stringify(criteria));
 
-      this.articles = this.allArticles.filter((article) => {
-        let articleDate = new Date(article.datetime);
-        let dateFilter;
-        //let keywordFilter;
-        //let ratingFilter;
+      this.articles = this.articles.filter((article) => {
+        let articleDate;
+        let articleKeywords;
+        let dateFilter = true;
+        let keywordFilter = true;
+        let priorityFilter = true;
+
+        if (criteria.keywords) {
+          let searchKeywords;
+          if (article.keywords) {
+            articleKeywords = article.keywords;
+            if (criteria.keywords.includes(",")) {
+              searchKeywords = criteria.keywords.split(",");
+            } else {
+              searchKeywords = [criteria.keywords];
+            }
+
+            for (let i = 0; i < searchKeywords.length; i++) {
+              let isKeywordPresent = articleKeywords.includes(
+                searchKeywords[i]
+              );
+              if (isKeywordPresent) {
+                keywordFilter = true;
+                break;
+              }
+              keywordFilter = false;
+            }
+          } else {
+            keywordFilter = false;
+          }
+        }
+
         if (criteria.fromDate && criteria.toDate) {
-          if (
-            articleDate >= criteria.fromDate &&
-            articleDate <= criteria.toDate
-          ) {
+          articleDate = new Date(article.datetime);
+          let fromDate = new Date(criteria.fromDate);
+          let toDate = new Date(criteria.toDate);
+          if (articleDate >= fromDate && articleDate <= toDate) {
             dateFilter = true;
           } else {
             dateFilter = false;
           }
-          console.log(dateFilter);
-          return dateFilter;
         }
+        if (criteria.priority != 0 && criteria.priority) {
+          if (article.credibility == criteria.priority) {
+            priorityFilter = true;
+          } else {
+            priorityFilter = false;
+          }
+        }
+
+        return dateFilter && priorityFilter && keywordFilter;
       });
     },
   },

@@ -5,19 +5,18 @@
         class="newsInput keywords"
         id="keywords"
         v-model="form.keywords"
-        placeholder="Input Keywords..."
-        required
+        placeholder="Input Keywords... (separated by comma)"
       ></b-form-input>
       <b-form-datepicker
         class="newsInput date"
-        id="date"
+        id="fromDate"
         v-model="form.fromDate"
         placeholder="From Date"
         :options="dates"
       ></b-form-datepicker>
       <b-form-datepicker
         class="newsInput date"
-        id="date"
+        id="toDate"
         v-model="form.toDate"
         placeholder="To Date"
         :options="dates"
@@ -26,7 +25,7 @@
         class="newsInput"
         id="publicationPriority"
         v-model="form.priority"
-        :options="priorities"
+        :options="newsCredibilityList"
       ></b-form-select>
       <b-button class="formBtn" type="submit" variant="primary" @click="filter"
         >Go
@@ -36,8 +35,11 @@
 </template>
 
 <script>
+import NewsMixin from "@/mixins/NewsMixin";
+
 export default {
   name: "FilterBar",
+  mixins: [NewsMixin],
   data() {
     return {
       form: {
@@ -46,19 +48,27 @@ export default {
         toDate: null,
         priority: null,
       },
-      priorities: [
-        { text: "Publication Priority", value: null },
-        "Tier 1",
-        "Tier 2",
-        "Tier 3",
-        "Tier 4",
-      ],
       showSection: false,
     };
   },
+  props: {
+    clear: Boolean,
+  },
   methods: {
-    filter() {
+    filter(event) {
+      event.preventDefault();
       this.$emit("filter", this.form);
+    },
+  },
+  watch: {
+    clear: function () {
+      console.log("clearing search fields");
+      this.form = {
+        keywords: "",
+        fromDate: null,
+        toDate: null,
+        priority: null,
+      };
     },
   },
 };
