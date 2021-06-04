@@ -59,7 +59,7 @@ const publicationStore = {
             console.log(`fetchPublications - publicationStore with org:${JSON.stringify(org)}`);
             let response = new Transport();
             try {
-                let webResponse = await publications.fetchPublications(org.orgID);
+                let webResponse = await publications.fetchPublications(org.organization.orgID);
                 response = webResponse.data;
             } catch (err) {
                 //context.dispatch("global/setMessagePopup", { type: 0, message: err }, { root: true });
@@ -84,7 +84,7 @@ const publicationStore = {
             console.log("executing publicationStore - uploadPublicaiton")
             let org = await context.dispatch("org/fetchOrg", null, { root: true });
             let response = new Transport();
-            payload.orgID = org.orgID;
+            payload.orgID = org.organization.orgID;
             context.commit('setConfig', payload);
             if (payload.articlePhotos) {
                 const formData = new FormData();

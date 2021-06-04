@@ -1,18 +1,19 @@
 <template>
   <div class="profileMain">
-    <h1 class="sectionTitle">Profile | 
+    <h1 class="sectionTitle">
+      Profile |
       <router-link to="/org/edit">
-        <b-icon icon="pencil"  ></b-icon>
+        <b-icon icon="pencil"></b-icon>
       </router-link>
     </h1>
     <hr />
     <b-row>
       <b-col class="columnLeft">
         <div class="sectionDiv">
-          <img class="image" :src="org.logo" />
-          <h1>{{ org.name }}</h1>
+          <img class="image" :src="org.logoUrl" />
+          <h1>{{ org.organization.name }}</h1>
         </div>
-        
+
         <div class="sectionDiv">
           <h2>INDUSTRY CATEGORY</h2>
           <p>MultiIndustry</p>
@@ -30,39 +31,41 @@
 
         <div class="sectionDiv">
           <h2>KEY SDGs</h2>
-          <p>{{ org.keySDGs }}</p>
+          <p>{{ org.orgSustainability.sdgs }}</p>
         </div>
         <div class="sectionDiv">
           <h2>PHONE</h2>
-          <p>{{ org.phone }}</p>
+          <p>{{ org.orgCommunication.phone }}</p>
         </div>
         <div class="sectionDiv">
           <h2>EMAIL</h2>
-          <p>{{ org.email }}</p>
+          <p>{{ org.orgCommunication.email }}</p>
         </div>
         <div class="sectionDiv">
           <h2>WEBSITE</h2>
           <p>
             <b-icon icon="box-arrow-up-right"></b-icon
-            ><a :href="org.url" target="_blank">{{ org.url }}</a>
+            ><a :href="org.url" target="_blank">{{ org.organization.url }}</a>
           </p>
         </div>
         <div class="sectionDiv">
           <h2>SOCIAL MEDIA</h2>
           <p>
             Facebook: <b-icon icon="box-arrow-up-right"></b-icon
-            ><a :href="org.facebookUrl" target="_blank">{{
-              org.facebookUrl
+            ><a :href="org.orgCommunication.facebookUrl" target="_blank">{{
+              org.orgCommunication.facebookUrl
             }}</a>
           </p>
           <p>
             Twitter: <b-icon icon="box-arrow-up-right"></b-icon
-            ><a :href="org.twitterUrl" target="_blank">{{ org.twitterUrl }}</a>
+            ><a :href="org.orgCommunication.twitterUrl" target="_blank">{{
+              org.orgCommunication.twitterUrl
+            }}</a>
           </p>
           <p>
             Instagram: <b-icon icon="box-arrow-up-right"></b-icon
-            ><a :href="org.instagramUrl" target="_blank">{{
-              org.instagramUrl
+            ><a :href="org.orgCommunication.instagramUrl" target="_blank">{{
+              org.orgCommunication.instagramUrl
             }}</a>
           </p>
         </div>
@@ -71,7 +74,7 @@
       <b-col class="columnRight">
         <div class="sectionDiv">
           <h2>DESCRIPTION</h2>
-          <p>{{ org.description }}</p>
+          <p>{{ org.organization.description }}</p>
         </div>
 
         <div class="sectionDiv">
@@ -86,7 +89,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: "OrgProfile",
   data() {
@@ -118,7 +120,7 @@ h2 {
 
 .profileMain {
   width: 85%;
-  min-height: 50vh; 
+  min-height: 50vh;
 }
 .sectionDiv {
   margin: 30px 0 30px 0;

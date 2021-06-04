@@ -191,7 +191,7 @@ const certificateStore = {
     actions: {
         async resetCertificate(context) {
             let org = await context.dispatch("org/fetchOrg", null, { root: true });
-            let certificate = new certificateObject(org.orgID);
+            let certificate = new certificateObject(org.organization.orgID);
             await context.commit("setCertificate", certificate);
             return new Promise((resolve) => {
                 resolve(certificate);
@@ -234,7 +234,7 @@ const certificateStore = {
             console.log("Executing fetch Certificates")
             let response = new Transport();
             try {
-                let webResponse = await certificateService.fetchCertificates(org.orgID);
+                let webResponse = await certificateService.fetchCertificates(org.organization.orgID);
                 response = webResponse.data;
                 if (response.status.code == transportCodes.SUCCESS) {
                     await context.commit('setCertificates', response.data);

@@ -2,37 +2,55 @@
   <div class="sidenav">
     <b-nav vertical>
       <div class="p-4">
-        <img class="image" :src="org.logo" />
-        <h5>{{ org.name }}</h5>
+        <img class="image" :src="org.organization.logoUrl" />
+        <h5>{{ org.organization.name }}</h5>
       </div>
-      
-      <b-nav-item @click="tab = 'dashboard'" :class="{active : tab === 'dashboard'}"> 
+
+      <b-nav-item
+        @click="tab = 'dashboard'"
+        :class="{ active: tab === 'dashboard' }"
+      >
         <router-link to="/dashboard">Dashboard</router-link>
       </b-nav-item>
-      <b-nav-item @click="tab = 'certificates'" :class="{active : tab === 'certificates'}">
+      <b-nav-item
+        @click="tab = 'certificates'"
+        :class="{ active: tab === 'certificates' }"
+      >
         <router-link to="/certificates"
           >My Certificates</router-link
         ></b-nav-item
       >
-      <b-nav-item @click="tab = 'news'" :class="{active : tab === 'news'}"> 
+      <b-nav-item @click="tab = 'news'" :class="{ active: tab === 'news' }">
         <router-link to="/news">News</router-link>
       </b-nav-item>
-      <b-nav-item @click="tab = 'publications'" :class="{active : tab === 'publications'}">
+      <b-nav-item
+        @click="tab = 'publications'"
+        :class="{ active: tab === 'publications' }"
+      >
         <router-link to="/publications">Publications</router-link>
       </b-nav-item>
-      <b-nav-item @click="tab = 'matches'" :class="{active : tab === 'matches'}">
+      <b-nav-item
+        @click="tab = 'matches'"
+        :class="{ active: tab === 'matches' }"
+      >
         <router-link to="/matches">Matches</router-link>
       </b-nav-item>
-      <b-nav-item @click="tab = 'library'" :class="{active : tab === 'library'}">
+      <b-nav-item
+        @click="tab = 'library'"
+        :class="{ active: tab === 'library' }"
+      >
         <router-link to="/library">Library</router-link>
       </b-nav-item>
 
       <div class="bottomSection">
-        <hr/>
-        <b-nav-item @click="tab = 'faq'" :class="{active : tab === 'faq'}">
+        <hr />
+        <b-nav-item @click="tab = 'faq'" :class="{ active: tab === 'faq' }">
           <router-link to="/FAQ">FAQ</router-link>
         </b-nav-item>
-         <b-nav-item @click="tab = 'contact'" :class="{active : tab === 'contact'}">
+        <b-nav-item
+          @click="tab = 'contact'"
+          :class="{ active: tab === 'contact' }"
+        >
           <router-link to="/contact">Contact Us</router-link>
         </b-nav-item>
       </div>
@@ -44,7 +62,7 @@ export default {
   name: "Sidebar",
   data() {
     return {
-       tab: "",
+      tab: "",
       org: {},
     };
   },
@@ -52,7 +70,6 @@ export default {
     this.org = this.$store.getters["org/organization"];
   },
 };
-
 </script>
 
 <style scoped>
@@ -89,22 +106,17 @@ h5 {
 }
 .nav-item {
   padding: 10px;
-  border-left: 5px  solid transparent;
-
+  border-left: 5px solid transparent;
 }
-.nav-item:hover{
-
-  border-left: 5px  solid #fe6663;
+.nav-item:hover {
+  border-left: 5px solid #fe6663;
 }
 
 .active {
-    border-left: 5px solid #fe6663;
+  border-left: 5px solid #fe6663;
 }
-.bottomSection{
+.bottomSection {
   margin-top: 100%;
   font-size: 10px;
 }
-
-
-
 </style>

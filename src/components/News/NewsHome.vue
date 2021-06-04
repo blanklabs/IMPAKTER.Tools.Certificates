@@ -14,13 +14,22 @@
       <b-row>
         <div
           class="newsArticle"
-          v-for="article in articles"
+          v-for="article in itemsForList"
           :key="article.articleID"
         >
           <NewsArticle :article="article"></NewsArticle>
         </div>
       </b-row>
     </DashBoardTabNav>
+    <div>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="itemList"
+        align="center"
+      ></b-pagination>
+    </div>
   </div>
 </template>
 
@@ -37,6 +46,8 @@ export default {
   name: "NewsHome",
   data() {
     return {
+      currentPage: 1,
+      perPage: 10,
       tabs: ["All", "Tailored", "Social Media"], //replace from enums
       selectedTab: "All",
       articles: [],
@@ -147,6 +158,17 @@ export default {
   },
   mounted() {
     this.fetch();
+  },
+  computed: {
+    itemsForList() {
+      return this.articles.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      );
+    },
+    rows() {
+      return this.articles.length;
+    },
   },
 };
 </script>

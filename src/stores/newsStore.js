@@ -43,7 +43,7 @@ const newsStore = {
             let org = await context.dispatch("org/fetchOrg", null, { root: true });
             let response = new Transport();
             try {
-                let webResponse = await news.fetchNews(org.orgID);
+                let webResponse = await news.fetchNews(org.organization.orgID);
                 response = webResponse.data;
             } catch (err) {
                 //context.dispatch("global/setMessagePopup", { type: 0, message: err }, { root: true });
