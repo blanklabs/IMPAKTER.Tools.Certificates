@@ -44,14 +44,18 @@
       </b-modal>
       <div v-if="isLoggedIn">
         <FooterDash />
+       
       </div>
       <div v-else>
         <Footer />
       </div>
-
+        <footer class="site-footer">
+          <p>2021 Copyright © ImpakterLimited</p>
+      </footer>
+<!-- 
       <footer class="site-footer">
         <p>2021 Copyright © ImpakterLimited</p>
-      </footer>
+      </footer> -->
     </b-overlay>
   </div>
 </template>
@@ -177,12 +181,12 @@ export default {
 }
 
 .site-footer {
+  border-top: solid 1px #BBBBBB;
   padding-top: 15px;
   justify-content: center;
   text-align: center;
   height: 50px;
-  background: white;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  background: #f8f8f8;
 }
 
 button {

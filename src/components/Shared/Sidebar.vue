@@ -116,7 +116,7 @@ h5 {
   border-left: 5px solid #fe6663;
 }
 .bottomSection {
-  margin-top: 100%;
+  margin-top: 50%;
   font-size: 10px;
 }
 </style>
