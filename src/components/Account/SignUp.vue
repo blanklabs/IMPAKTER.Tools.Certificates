@@ -1,81 +1,78 @@
 <template>
   <div class="signUpDiv">
-  <b-container class="signup_main" fluid="md">
-    <img class="impakterLogo" src="@/assets/logo_index.png" />
+    <b-container class="signup_main" fluid="md">
+      <img class="impakterLogo" src="@/assets/logo_index.png" />
 
-    <h1>Sign-up</h1>
-    <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
-      <img class="googleLogo" src="@/assets/google_logo.png" /> Sign up with
-      Google
-    </b-button>
-    <div class="separator">
-      <hr />
-      <h5>OR</h5>
-      <hr />
-    </div>
-    <h4>Contact info</h4>
-    <b-alert
-      :show="isStatusMessage"
-      @dismissed="isStatusMessage = false"
-      variant="danger"
-      dismissible
-      fade
-      >{{ statusMessage }}</b-alert
-    >
-    <b-form @submit="onSubmit">
-      <b-form-input
-        class="identifier"
-        id="name"
-        v-model="user.firstName"
-        placeholder="First Name"
-        required
+      <h1>Sign-up</h1>
+      <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
+        <img class="googleLogo" src="@/assets/google_logo.png" /> Sign up with
+        Google
+      </b-button>
+      <div class="separator">
+        <hr />
+        <h5>OR</h5>
+        <hr />
+      </div>
+      <h4>Contact info</h4>
+      <b-alert
+        :show="isStatusMessage"
+        @dismissed="isStatusMessage = false"
+        variant="danger"
+        dismissible
+        fade
+        >{{ statusMessage }}</b-alert
       >
-      </b-form-input>
+      <b-form @submit="onSubmit">
+        <b-form-input
+          class="identifier"
+          id="name"
+          v-model="userObj.user.firstName"
+          placeholder="First Name"
+          required
+        >
+        </b-form-input>
 
-      <b-form-input
-        class="identifier"
-        id="lastName"
-        v-model="user.lastName"
-        placeholder="Last Name"
-      >
-      </b-form-input>
+        <b-form-input
+          class="identifier"
+          id="lastName"
+          v-model="userObj.user.lastName"
+          placeholder="Last Name"
+        >
+        </b-form-input>
 
-      <b-form-input
-        class="identifier"
-        id="email"
-        v-model="user.email"
-        placeholder="Email Address"
-      >
-      </b-form-input>
-      <b-form-input
-        class="identifier"
-        id="password"
-        v-model="user.password"
-        placeholder="New Password"
-      >
-      </b-form-input>
+        <b-form-input
+          class="identifier"
+          id="email"
+          v-model="userObj.user.email"
+          placeholder="Email Address"
+        >
+        </b-form-input>
+        <b-form-input
+          class="identifier"
+          id="password"
+          v-model="userObj.user.password"
+          placeholder="New Password"
+        >
+        </b-form-input>
 
-      <b-form-input
-        class="identifier"
-        id="confirmationPassword"
-        v-model="passwordConfirmation"
-        placeholder="Confirm Password"
-      >
-      </b-form-input>
-      <b-button class="action_btt" type="submit" variant="primary"
-        >Sign-up</b-button
-      >
-    </b-form>
-  </b-container>
+        <b-form-input
+          class="identifier"
+          id="confirmationPassword"
+          v-model="passwordConfirmation"
+          placeholder="Confirm Password"
+        >
+        </b-form-input>
+        <b-button class="action_btt" type="submit" variant="primary"
+          >Sign-up</b-button
+        >
+      </b-form>
+    </b-container>
   </div>
 </template>
 
 <script>
 import AccountMixin from "@/mixins/AccountMixin";
 import CommonMixin from "@/mixins/CommonMixin";
-
-import { ServicesFactory } from "@/services/ServicesFactory";
-const account = ServicesFactory.get("account");
 
 export default {
   name: "SignUp",
@@ -88,34 +85,21 @@ export default {
   methods: {
     async onSubmit(event) {
       event.preventDefault();
-      this.request.data = this.user;
-      try {
-        let webResponse = await account.signup(this.request);
-        this.response = webResponse.data;
-      } catch (err) {
-        this.statusMessage = "Something went wrong. Please retry";
-        this.isStatusMessage = true;
-      }
+      this.response = await this.$store.dispatch(
+        "account/signup",
+        this.userObj
+      );
       let responseStatus = this.response.status;
-
-      if (responseStatus.code == 1) {
-        if (responseStatus.case == this.signupCases.SUCCESS) {
-          this.$store.commit("account/setUser", { user: this.user });
-          this.$router.push("/signup/continue");
-        } else if (responseStatus.case == this.signupCases.EXISTING) {
-          this.statusMessage =
-            "You are already signed up. Please sign in instead";
-          this.isStatusMessage = true;
-        } else if (responseStatus.case == this.signupCases.FAILED) {
-          this.statusMessage = responseStatus.message;
-          this.isStatusMessage = true;
-        }
-      } else {
-        if (responseStatus.code == 0) {
-          this.statusMessage =
-            "Sign up failed. Please try again in a bit or contact administrator";
-          this.isStatusMessage = true;
-        }
+      if (responseStatus.case == this.signupCases.SUCCESS) {
+        this.$store.commit("account/setUser", { user: this.user });
+        this.$router.push("/signup/continue");
+      } else if (responseStatus.case == this.signupCases.EXISTING) {
+        this.statusMessage =
+          "You are already signed up. Please sign in instead";
+        this.isStatusMessage = true;
+      } else if (responseStatus.case == this.signupCases.FAILED) {
+        this.statusMessage = responseStatus.message;
+        this.isStatusMessage = true;
       }
     },
   },
@@ -123,9 +107,9 @@ export default {
 </script>
 
 <style scoped>
-.signUpDiv{
-    display: flex;
-    margin: 0 0 -35px -400px;
+.signUpDiv {
+  display: flex;
+  margin: 0 0 -35px -400px;
 }
 .signup_main {
   max-width: 500px;

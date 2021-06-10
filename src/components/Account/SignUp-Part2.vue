@@ -13,7 +13,7 @@
       <b-form-input
         class="identifier"
         id="company"
-        v-model="user.company"
+        v-model="company"
         placeholder="Company Name"
         required
       >
@@ -42,7 +42,9 @@ const account = ServicesFactory.get("account");
 export default {
   name: "SignUp-Part2",
   data() {
-    return {};
+    return {
+      company: "",
+    };
   },
   mixins: [AccountMixin, CommonMixin],
   mounted() {},

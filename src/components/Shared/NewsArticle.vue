@@ -7,7 +7,7 @@
       img-top
     >
       <p class="dateInfo">
-        {{ article.sourceName }} - {{ article.datetime.slice(0, 10) }}
+        {{ article.source.name }} - {{ article.datetime.slice(0, 10) }}
       </p>
       <b-card-title> {{ article.title }} </b-card-title>
       <b-card-text> {{ article.summary.substring(0, 150) }}... </b-card-text>
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import NewsArticle from "../../../../SHARED.CODE/Objects/News/article";
+import Article from "../../../../SHARED.CODE/Objects/News/article";
 
 export default {
   name: "NewsArticle",
   props: {
-    article: new NewsArticle(),
+    article: new Article(),
   },
 };
 </script>

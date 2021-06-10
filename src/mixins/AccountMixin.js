@@ -1,18 +1,18 @@
-import User from "../../../SHARED.CODE/Objects/User/user";
+import UserObject from "../../../SHARED.CODE/Objects/User/user";
 import {
     signupCases, loginCases
-} from "../../../SHARED.CODE/Objects/User/account";
+} from "../../../SHARED.CODE/Constants/Cases/account";
 
 export default {
     data() {
         return {
-            user: new User(),
+            userObj: new UserObject(),
             signupCases: signupCases,
             loginCases: loginCases
         }
     },
     mounted() {
-        this.user = this.$store.getters["account/signupForm"];
+        this.user = this.$store.getters["account/user"];
     }
 }
 

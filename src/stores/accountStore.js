@@ -1,11 +1,19 @@
-import User from "../../../SHARED.CODE/Objects/User/user";
+import UserObject from "../../../SHARED.CODE/Objects/User/user";
+
+import { ServicesFactory } from "@/services/ServicesFactory";
+const account = ServicesFactory.get("account");
 
 import { Subject } from 'rxjs';
 import VueJwtDecode from 'vue-jwt-decode'
 
+import {
+    Transport,
+    transportCodes,
+} from "../../../SHARED.CODE/Constants/Transport";
+
 const getdefaultState = () => {
     return {
-        user: new User(),
+        user: new UserObject(),
         isSignUpSuccess: false,
         isLoggedin: false,
         loginEvent: new Subject(),
@@ -17,7 +25,7 @@ const accountStore = {
     namespaced: true,
     state: getdefaultState(),
     getters: {
-        signupForm: state => {
+        user: state => {
             state.user.orgName = "Impakter"
             return state.user
         },
@@ -64,6 +72,27 @@ const accountStore = {
 
     },
     actions: {
+        async signup(context, payload) {
+            console.log("Executing signup")
+            let request = new Transport();
+            let response = new Transport();
+            request.data = payload;
+            try {
+                let webResponse;
+                webResponse = await account.signup(request);
+                response = webResponse.data;
+                if (response.status.code == transportCodes.SUCCESS) {
+                    return new Promise((resolve) => {
+                        context.commit("global/toggleLoading", "off", { root: true });
+                        resolve(response)
+                    })
+                }
+
+            }
+            catch (err) {
+                context.commit("global/setMessagePopup", { type: 0, message: err }, { root: true });
+            }
+        },
         async login(context, payload) {
             console.log("executing accountStore Login")
             context.commit('org/setOrg', payload.org, { root: true });

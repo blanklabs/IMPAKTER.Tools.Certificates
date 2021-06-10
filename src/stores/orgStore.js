@@ -1,4 +1,4 @@
-import Org from "../../../SHARED.CODE/Objects/Organization/organizationModel";
+import Org from "../../../SHARED.CODE/Objects/Organization/organization";
 
 import { ServicesFactory } from "@/services/ServicesFactory";
 const organizationService = ServicesFactory.get("organizations");

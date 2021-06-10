@@ -3,16 +3,16 @@ import axios from 'axios'
 
 const certificateService = ServicesFactory.get("certificates");
 
-//import certificateObject from "./models/certificate";
-import certificateObject from "../../../SHARED.CODE/Objects/Certificate/certificateObject";
-import { certificateCases } from "../../../SHARED.CODE/Objects/Certificate/certificateObjects";
-//import {certificateObject} from "shared.code";
+//import certificateModel from "./models/certificate";
+import CertificateObject from "../../../SHARED.CODE/Objects/Certificate/certificate";
+import { certificateCases } from "../../../SHARED.CODE/Constants/Cases/cases";
+//import {certificateModel} from "shared.code";
 //import organizationModel from ".././models/organization";
 import { awsConfig } from "@/models/constants"
 import {
     Transport,
     transportCodes,
-} from "../../../SHARED.CODE/Objects/Transport";
+} from "../../../SHARED.CODE/Constants/Transport";
 import compute from "@/models/compute";
 
 
@@ -43,7 +43,7 @@ const certificateStore = {
             industrySectors: [],
             activeStatus: true
         },
-        certificate: new certificateObject(),
+        certificate: new CertificateObject(),
         organization: {},
         organizationName: null,
         certificates: [],
@@ -129,7 +129,7 @@ const certificateStore = {
         },
 
         resetCertificate(state) {
-            state.certificate = new certificateObject()
+            state.certificate = new CertificateObject()
         },
 
         addCertificate(state, payload) {
@@ -149,7 +149,7 @@ const certificateStore = {
                 this.responseStatus = response.data.status
             });
             console.log(this.responseMessage)
-            state.certificate = new certificateObject.certificateObject()
+            state.certificate = new CertificateObject()
 
         },
 
@@ -159,7 +159,7 @@ const certificateStore = {
                 this.responseStatus = response.data.status
             });
             console.log(this.responseMessage)
-            state.certificate = new certificateObject.certificateObject()
+            state.certificate = new CertificateObject()
 
         },
 
@@ -177,7 +177,7 @@ const certificateStore = {
                 let certificatesResponse = payload;
                 state.certificates = [];
                 for (var i = 0; i < certificatesResponse.length; i++) {
-                    let cert = new certificateObject();
+                    let cert = CertificateObject();
                     cert = certificatesResponse[i];
                     state.certificates.push(cert);
                 }
@@ -191,7 +191,7 @@ const certificateStore = {
     actions: {
         async resetCertificate(context) {
             let org = await context.dispatch("org/fetchOrg", null, { root: true });
-            let certificate = new certificateObject(org.organization.orgID);
+            let certificate = new CertificateObject(org.organization.orgID);
             await context.commit("setCertificate", certificate);
             return new Promise((resolve) => {
                 resolve(certificate);

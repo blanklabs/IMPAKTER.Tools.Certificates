@@ -187,7 +187,7 @@ import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import FormGuardMixin from "@/mixins/FormGuardMixin";
 import ProgressBar from "./ProgressBar.vue";
 import ActionButton from "@/components/Shared/ActionButton";
-import { document } from "../../../../../SHARED.CODE/Objects/Certificate/certificateObjects";
+import { CertificateDocument } from "../../../../../SHARED.CODE/Objects/Certificate/certificateObjects";
 import { sdgEngagementOptions } from "../../../../../SHARED.CODE/Constants/Index/Certificates/sdgEngagement";
 
 export default {
@@ -242,7 +242,7 @@ export default {
       }
     },
     incrementDocumentCount() {
-      this.form.documents.push(new document());
+      this.form.documents.push(new CertificateDocument());
     },
   },
   mixins: [CertificateFormMixin, FormGuardMixin],

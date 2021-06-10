@@ -4,7 +4,7 @@ import {
     Transport,
     transportCodes,
     generalCases
-} from "../../../SHARED.CODE/Objects/Transport";
+} from "../../../SHARED.CODE/Constants/Transport";
 
 //import { User, Transport, transportCodes } from "shared.code";
 //import User from "shared.code/Objects/User/user";
