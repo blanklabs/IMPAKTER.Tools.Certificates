@@ -83,10 +83,12 @@
           <ActionButton
             btnIcon="person-circle"
             btnDescription="Complete your Profile"
+            btnLink="/org/edit"
           />
           <ActionButton
             btnIcon="file-earmark-text"
             btnDescription="Fill your First Certificate"
+            btnLink="/certificates/add"
           />
         </div>
       </div>

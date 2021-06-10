@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-overlay no-center :show="loading" rounded="sm">
+    <b-overlay className="loadSymbol" :show="loading" rounded="sm" opacity="0.30">
       <!--<Sidebar v-if="isInside" />-->
       <!-- <rise-loader :loading="isLoading" :color="color" :size="size"></rise-loader> -->
       <!-- <Spinner></Spinner> -->
@@ -247,5 +247,12 @@ button {
 .pagination {
   margin-top: 20px;
   margin-bottom: 40px;
+}
+
+.b-overlay{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background-color: none;
 }
 </style>
