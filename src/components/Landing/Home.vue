@@ -29,38 +29,38 @@
         <b-row id="smallCards">
             <b-col>
               <CardItem 
-                cardIcon="folder2-open" 
-                cardTitle="Sample Title" 
-                iconColor="#8EC184"
-                buttonIcon="arrow-right">
-                We analyze how sustainable the Top 100 Global Brands 2020 are.
+                cardIcon="files"
+                cardTitle="Certificates"
+                iconColor="#8EC184">
+          
+                DESCRIPTION goes here
               </CardItem>
             </b-col>
             <b-col>
               <CardItem 
-                cardIcon="folder2-open" 
-                cardTitle="Sample Title" 
-                iconColor="#E2CB2C"
-                buttonIcon="arrow-right">
-                We analyze how sustainable the Top 100 Global Brands 2020 are.
+                cardIcon="newspaper"
+                cardTitle="News"
+                iconColor="#9966FF"
+                >
+                DESCRIPTION goes here
               </CardItem>
             </b-col>
             <b-col>
               <CardItem 
-                cardIcon="folder2-open" 
-                cardTitle="Sample Title" 
+                cardIcon="file-earmark"
+                cardTitle="Articles"
                 iconColor="#F79755"
-                buttonIcon="arrow-right">
-                We analyze how sustainable the Top 100 Global Brands 2020 are.
+               >
+                DESCRIPTION goes here
               </CardItem>
             </b-col>
             <b-col>
               <CardItem 
-                cardIcon="folder2-open" 
-                cardTitle="Sample Title" 
-                iconColor="#2880C3"
-                buttonIcon="arrow-right">
-                We analyze how sustainable the Top 100 Global Brands 2020 are.
+                cardIcon="check2-all"
+                cardTitle="Matches"
+                iconColor="#CC0000"
+                >
+                DESCRIPTION goes here
               </CardItem>
             </b-col>
         </b-row>

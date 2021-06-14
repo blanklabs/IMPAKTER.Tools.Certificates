@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar class="nav" toggleable="lg" type="light" fixed="top">
-      <b-navbar-brand href="https://index.impakter.com">
+      <b-navbar-brand href="/">
         <img class="logo" src="@/assets/logo_index.png" />
       </b-navbar-brand>
 
