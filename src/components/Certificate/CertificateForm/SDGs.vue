@@ -7,7 +7,11 @@
       <b-row class="main_row">
         <b-col></b-col>
         <b-col cols="8">
-          <sdg-selector :selected-s-d-gs="form.sdgs" title="certificate" @next="next"/>
+          <sdg-selector
+            :selected-s-d-gs="form.sdgs"
+            title="certificate"
+            @next="next"
+          />
         </b-col>
         <b-col></b-col>
       </b-row>
@@ -28,25 +32,18 @@ import SdgSelector from "../../Shared/Forms/SdgSelector";
 export default {
   name: "FormSDGs",
   data() {
-    return {
-      selectedSDGs: [],
-    };
+    return {};
   },
   methods: {
     async next(selectedSDGs) {
-      this.selectedSDGs = selectedSDGs;
-      this.selectedSDGs.sort((a, b) => a - b);
-      this.form.sdgs = this.selectedSDGs;
+      this.form.sdgs = selectedSDGs;
       await this.$store.commit("certificate/setCertificate", this.form);
       this.permitNavigation = true;
-      this.$router.push({name: "formPage2-2"});
+      this.$router.push({ name: "formPage2-2" });
     },
   },
-  mounted() {
-    this.selectedSDGs = this.form.sdgs;
-  },
   mixins: [SdgDisplayMixin, CertificateFormMixin, FormGuardMixin],
-  components: {ProgressBar, SdgSelector},
+  components: { ProgressBar, SdgSelector },
 };
 </script>
 

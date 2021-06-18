@@ -5,14 +5,17 @@
     </b-row>
     <b-row class="main_row">
       <b-col>
-        <sdg-targets-selector/>
+        <sdg-targets-selector
+          :selectedSdgTargets="form.sdgTargets"
+          :selectedSdgs="form.sdgs"
+          @next="next"
+        />
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-
 import SdgDisplayMixin from "@/mixins/SdgDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import ProgressBar from "./ProgressBar.vue";
@@ -20,7 +23,7 @@ import SdgTargetsSelector from "../../Shared/Forms/SdgTargetsSelector";
 
 export default {
   name: "FormSDGtargets",
-  components: {ProgressBar, SdgTargetsSelector},
+  components: { ProgressBar, SdgTargetsSelector },
   data() {
     return {
       currentSdg: null,
@@ -29,33 +32,11 @@ export default {
     };
   },
   methods: {
-    async next() {
-      this.sdgIndex++;
-      if (this.sdgIndex < this.form.sdgs.length) {
-        this.currentSdg = this.form.sdgs[this.sdgIndex];
-      }
-      else {
-        await this.$store.commit("certificate/setCertificate", this.form);
-        this.$router.push({name: "formPage3-1"});
-      }
-
-      //else this.$router.push({name:'formPage3'})
+    async next(sdgTargets) {
+      this.form.sdgTargets = sdgTargets;
+      await this.$store.commit("certificate/setCertificate", this.form);
+      this.$router.push({ name: "formPage3-1" });
     },
-    back() {
-      if (this.sdgIndex == 0) {
-        this.$router.go(-1);
-      }
-      this.sdgIndex--;
-      this.currentSdg = this.form.sdgs[this.sdgIndex];
-    },
-    reselect() {
-      this.$router.go(-1);
-    },
-  },
-  computed: {},
-  mounted() {
-    this.sdgIndex = 0;
-    this.currentSdg = this.form.sdgs[this.sdgIndex];
   },
   mixins: [SdgDisplayMixin, CertificateFormMixin],
 };

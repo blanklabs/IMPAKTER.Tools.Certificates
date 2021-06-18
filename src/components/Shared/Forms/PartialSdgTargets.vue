@@ -4,38 +4,38 @@
       <b>Please select applicable UN SDG targets for each SDG</b>
       <!--<p>SDG Targets for </p>-->
     </div>
-    <br/>
+    <br />
     <div id="scroll">
       <!--<p>Current SDG Index: {{ currentSdgIndex }}</p>-->
       <b-row>
         <b-form-group v-slot="{ ariaDescribedby }">
           <b-form-checkbox
-              class="flex_and_start"
-              v-model="isAllSelected"
-              :indeterminate="indeterminate"
-              @change="toggleAll"
+            class="flex_and_start"
+            v-model="isAllSelected"
+            :indeterminate="indeterminate"
+            @change="toggleAll"
           >
             <b>{{ isAllSelected ? "Un-select All" : "Select All" }}</b>
           </b-form-checkbox>
           <b-form-checkbox-group
-              id="checkbox-group-1"
-              v-model="selectedSdgTargets"
-              :aria-describedby="ariaDescribedby"
-              name="flavour-1"
-              stacked
+            id="checkbox-group-1"
+            v-model="selectedSdgTargets"
+            :aria-describedby="ariaDescribedby"
+            name="flavour-1"
+            stacked
           >
             <b-form-checkbox
-                v-for="target in computedTargets"
-                :value="target.value"
-                class="mb-3"
-                :key="target.text"
-            ><b>{{ "Target " + target.value + ": " }} </b>
+              v-for="target in computedTargets"
+              :value="target.value"
+              class="mb-3"
+              :key="target.text"
+              ><b>{{ "Target " + target.value + ": " }} </b>
               {{ target.text }}
             </b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
       </b-row>
-      <hr/>
+      <hr />
       <b-row class="buttons_row">
         <b-button className="btn" @click="back">Previous</b-button>
         <b-button className="btn" @click="next">Next</b-button>
@@ -49,7 +49,6 @@
 
 <script>
 import SdgDisplayMixin from "@/mixins/SdgDisplayMixin";
-import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 
 export default {
   name: "PartialSdgTargets",
@@ -63,13 +62,13 @@ export default {
   methods: {
     toggleAll(checked) {
       this.selectedSdgTargets = checked
-          ? this.computedTargets.map((x) => {
+        ? this.computedTargets.map((x) => {
             return x.value;
           })
-          : [];
+        : [];
     },
     next() {
-      this.form.sdgTargets = this.selectedSdgTargets;
+      this.selected = this.selectedSdgTargets;
       this.currentSdgTargetsList = [];
       this.$emit("next");
       window.scrollTo(0, 0);
@@ -79,10 +78,10 @@ export default {
       this.$emit("back");
     },
     skip() {
-      this.$router.push({name: "formPage3-1"});
+      //todo
     },
   },
-  props: {currentSdgIndex: Number},
+  props: { currentSdgIndex: Number, selected: [] },
   computed: {
     computedTargets() {
       this.sdgTargets.forEach((element) => {
@@ -97,9 +96,9 @@ export default {
     },
   },
   mounted() {
-    this.selectedSdgTargets = this.form.sdgTargets;
+    this.selectedSdgTargets = this.selected;
   },
-  mixins: [SdgDisplayMixin, CertificateFormMixin],
+  mixins: [SdgDisplayMixin],
 };
 </script>
 

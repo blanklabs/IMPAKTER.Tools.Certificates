@@ -7,45 +7,39 @@
           <p>You selected the following SDGs</p>
 
           <div
-              class="flex_and_start"
-              v-for="(sdg, index) in form.sdgs"
-              :key="index"
+            class="flex_and_start"
+            v-for="(sdg, index) in this.selectedSdgs"
+            :key="index"
           >
             <h5 :class="sdg === currentSdg ? 'bold' : ''">
               {{ sdg | sdgFilter }}
             </h5>
           </div>
-          <br/>
+          <br />
           <b-button className="btn" @click="reselect" variant="outline-primary"
-          >Reselect SDGs
-          </b-button
-          >
+            >Reselect SDGs
+          </b-button>
         </div>
       </b-col>
-      <b-col
-      >
+      <b-col>
         <PartialSdgTargets
-            @next="next"
-            @back="back"
-            :current-sdg-index="currentSdg"
+          @next="next"
+          @back="back"
+          :current-sdg-index="currentSdg"
+          :selected="selectedSdgTargets"
         />
       </b-col>
     </b-row>
-
-    <!--<b-card class="mt-3" header="Form result so far">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card>-->
   </b-container>
 </template>
 
 <script>
 import PartialSdgTargets from "@/components/Shared/Forms/PartialSdgTargets";
 import SdgDisplayMixin from "@/mixins/SdgDisplayMixin";
-import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 
 export default {
-  name: "FormSDGtargets",
-  components: {PartialSdgTargets},
+  name: "sdgTargetSelector",
+  components: { PartialSdgTargets },
   data() {
     return {
       currentSdg: null,
@@ -53,25 +47,26 @@ export default {
       responseMessage: null,
     };
   },
+  props: {
+    title: String,
+    selectedSdgs: [],
+    selectedSdgTargets: [],
+  },
   methods: {
     async next() {
       this.sdgIndex++;
-      if (this.sdgIndex < this.form.sdgs.length) {
-        this.currentSdg = this.form.sdgs[this.sdgIndex];
+      if (this.sdgIndex < this.selectedSdgs.length) {
+        this.currentSdg = this.selectedSdgs[this.sdgIndex];
+      } else {
+        this.$emit("next", this.selectedSdgTargets);
       }
-      else {
-        await this.$store.commit("certificate/setCertificate", this.form);
-        this.$router.push({name: "formPage3-1"});
-      }
-
-      //else this.$router.push({name:'formPage3'})
     },
     back() {
       if (this.sdgIndex == 0) {
         this.$router.go(-1);
       }
       this.sdgIndex--;
-      this.currentSdg = this.form.sdgs[this.sdgIndex];
+      this.currentSdg = this.this.selectedSdgs[this.sdgIndex];
     },
     reselect() {
       this.$router.go(-1);
@@ -80,9 +75,9 @@ export default {
   computed: {},
   mounted() {
     this.sdgIndex = 0;
-    this.currentSdg = this.form.sdgs[this.sdgIndex];
+    this.currentSdg = this.selectedSdgs[this.sdgIndex];
   },
-  mixins: [SdgDisplayMixin, CertificateFormMixin],
+  mixins: [SdgDisplayMixin],
 };
 </script>
 

@@ -2,25 +2,25 @@
   <b-container>
     <b-row>
       <b-form-group
-          v-slot="{ ariaDescribedby }"
-          label-size="lg"
-          :label="titleShort + title"
+        v-slot="{ ariaDescribedby }"
+        label-size="lg"
+        :label="titleShort + title"
       >
         <b-form-checkbox
-            class="flex_and_start"
-            v-model="isAllSelected"
-            :indeterminate="indeterminate"
-            @change="toggleAll"
+          class="flex_and_start"
+          v-model="isAllSelected"
+          :indeterminate="indeterminate"
+          @change="toggleAll"
         >
           <b>{{ isAllSelected ? "Un-select All" : "Select All" }}</b>
         </b-form-checkbox>
         <b-form-checkbox-group
-            id="checkbox-group-1"
-            v-model="selectedSDGs"
-            :options="sdgs"
-            :aria-describedby="ariaDescribedby"
-            name="flavour-1"
-            stacked
+          id="checkbox-group-1"
+          v-model="selectedSDGs"
+          :options="sdgs"
+          :aria-describedby="ariaDescribedby"
+          name="flavour-1"
+          stacked
         ></b-form-checkbox-group>
       </b-form-group>
     </b-row>
@@ -40,22 +40,24 @@ export default {
   data() {
     return {
       isAllSelected: false,
-      titleShort: "Please select all the United Nations Sustainable Development Goals (SDGs) applicable to this "
+      titleShort:
+        "Please select all the United Nations Sustainable Development Goals (SDGs) applicable to this ",
     };
   },
   props: {
     title: String,
-    selectedSDGs: []
+    selectedSDGs: [],
   },
   methods: {
     toggleAll(checked) {
       this.selectedSDGs = checked
-          ? this.sdgs.map((x) => {
+        ? this.sdgs.map((x) => {
             return x.value;
           })
-          : [];
+        : [];
     },
     async next() {
+      this.selectedSDGs.sort((a, b) => a - b);
       this.$emit("next", this.selectedSDGs);
     },
     back() {

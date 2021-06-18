@@ -6,34 +6,13 @@
       </b-row>
       <b-row class="main_row">
         <b-col cols="8">
-          <b-form-group
-            label="Please select all the industries applicable to this certificate"
-            v-slot="{ ariaDescribedby }"
-            label-size="lg"
-          >
-            <b-form-checkbox
-              class="flex_and_start"
-              v-model="allSelected"
-              :indeterminate.sync="indeterminate"
-              @change="toggleAll"
-            >
-              <b>{{ allSelected ? "Un-select All" : "Select All" }}</b>
-            </b-form-checkbox>
-            <b-form-checkbox-group
-              id="checkbox-group-1"
-              v-model="selected"
-              :options="industries"
-              :aria-describedby="ariaDescribedby"
-              name="flavour-1"
-              stacked
-            ></b-form-checkbox-group> </b-form-group
-        ></b-col>
-
+          <industry-selector
+            :selected="form.industries"
+            :title="'certificate'"
+            @next="next"
+          />
+        </b-col>
         <b-col> </b-col>
-      </b-row>
-      <b-row class="buttons_row">
-        <b-button class="btn" @click="back">Back</b-button>
-        <b-button class="btn" variant="primary" @click="next">Next</b-button>
       </b-row>
     </b-container>
     <!--<b-card class="mt-3" header="Form result so far">
@@ -46,38 +25,21 @@
 import IndustryDisplayMixin from "../../../mixins/IndustryDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import ProgressBar from "./ProgressBar.vue";
+import IndustrySelector from "../../Shared/Forms/IndustrySelector.vue";
 export default {
   name: "FormIndustries",
   data() {
-    return {
-      selected: [],
-      allSelected: false,
-      indeterminate: true,
-    };
+    return {};
   },
   methods: {
-    toggleAll(checked) {
-      this.selected = checked
-        ? this.industries.map((x) => {
-            return x.value;
-          })
-        : [];
-    },
-    async next() {
-      this.selected.sort();
-      this.form.industries = this.selected;
+    async next(selected) {
+      this.form.industries = selected;
       await this.$store.commit("certificate/setCertificate", this.form);
       this.$router.push({ name: "formPage3-2" });
     },
-    back() {
-      this.$router.go(-1);
-    },
-  },
-  mounted() {
-    this.selected = this.form.industries;
   },
   mixins: [IndustryDisplayMixin, CertificateFormMixin],
-  components: { ProgressBar },
+  components: { ProgressBar, IndustrySelector },
 };
 </script>
 
