@@ -1,40 +1,62 @@
 <template>
   <div class="mainDiv">
     <b-container>
-      <b-row>
-        <progress-bar :currentStep="3"></progress-bar>
-      </b-row>
       <b-row class="main_row">
-        <b-col class="m">
-          <industry-sector-selector/>
+        <b-col class="m" cols="6">
+          <div class="position-fixed" id="subb">
+            <h3>Industries</h3>
+            <p>You have selected the following industries</p>
+            <div
+                class="flex_and_start"
+                v-for="(industry, index) in form.industries"
+                :key="index"
+            >
+              <h5 :class="industry === currentIndustry ? 'bold' : ''">
+                <i class="far fa-envelope"></i>
+                {{ industry + ": " }} {{ industry | industryFilter }}
+              </h5>
+            </div>
+            <br/>
+            <b-button class="btn" @click="reselect" variant="outline-primary"
+            >Reselect Industries
+            </b-button
+            >
+          </div>
+        </b-col>
+        <b-col>
+          <scroll-view>
+            <template
+            >
+              <PartialIndustrySectors
+                  @next="next"
+                  @back="back"
+                  @submit="submit"
+                  @isLast="toggleIsLast"
+                  :current-industry-index="currentIndustry"/>
+            </template
+            >
+          </scroll-view>
         </b-col>
       </b-row>
 
       <!--<b-card class="mt-3" header="Form result so far">
       <pre class="m-0">{{ form }}</pre>
     </b-card>-->
-      <certificate-profile
-          ref="preview_modal"
-          :isSavePreview="true"
-          @submit="submit"
-      ></certificate-profile>
     </b-container>
   </div>
 </template>
 
 <script>
+import PartialIndustrySectors from "@/components/Shared/Forms/PartialIndustrySectors";
+
 import IndustryDisplayMixin from "@/mixins/IndustryDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
 import SubmitMixin from "@/mixins/SubmitMixin";
-import ProgressBar from "./ProgressBar.vue";
-import CertificateProfile from "../CertificateProfile.vue";
 import CommonMixin from "@/mixins/CommonMixin";
-
-import IndustrySectorSelector from "../../Shared/Forms/IndustrySectorSelector";
 
 export default {
   name: "FormIndustrySectors",
-  components: {ProgressBar, CertificateProfile, IndustrySectorSelector},
+  components: {PartialIndustrySectors},
   data() {
     return {
       currentIndustry: null,

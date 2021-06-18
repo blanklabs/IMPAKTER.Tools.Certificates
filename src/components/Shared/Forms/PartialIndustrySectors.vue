@@ -1,33 +1,33 @@
-
 <template>
   <div>
     <h4>Industry Description</h4>
     <b-row>
       <b-form-group
-        label="Please select the industry description that applies to this certificate:"
-        v-slot="{ ariaDescribedby }"
-        ><b-form-checkbox
-          class="flex_and_start"
-          v-model="isAllSelected"
-          :indeterminate.sync="indeterminate"
-          @change="toggleAll"
+          label="Please select the industry description that applies to this certificate:"
+          v-slot="{ ariaDescribedby }"
+      >
+        <b-form-checkbox
+            class="flex_and_start"
+            v-model="isAllSelected"
+            :indeterminate.sync="indeterminate"
+            @change="toggleAll"
         >
           <b>{{ isAllSelected ? "Un-select All" : "Select All" }}</b>
         </b-form-checkbox>
 
         <b-form-checkbox-group
-          id="checkbox-group-1"
-          v-model="selectedSubIndustries"
-          :aria-describedby="ariaDescribedby"
-          name="flavour-1"
-          stacked
+            id="checkbox-group-1"
+            v-model="selectedSubIndustries"
+            :aria-describedby="ariaDescribedby"
+            name="flavour-1"
+            stacked
         >
           <b-form-checkbox
-            v-for="subIndustry in computedSubIndustries"
-            :value="subIndustry.value"
-            class="mb-3"
-            :key="subIndustry.text"
-            ><b>{{ subIndustry.value + ": " }} </b>
+              v-for="subIndustry in computedSubIndustries"
+              :value="subIndustry.value"
+              class="mb-3"
+              :key="subIndustry.text"
+          ><b>{{ subIndustry.value + ": " }} </b>
             {{ subIndustry.text }}
           </b-form-checkbox>
         </b-form-checkbox-group>
@@ -37,24 +37,26 @@
     <b-row class="buttons_row">
       <b-button @click="back">Previous</b-button>
       <b-button variant="primary" @click="next">{{
-        currentIndustryIndex == form.industries[form.industries.length - 1]
-          ? "Review & Submit"
-          : "Next"
-      }}</b-button>
+          currentIndustryIndex == form.industries[form.industries.length - 1]
+              ? "Review & Submit"
+              : "Next"
+        }}
+      </b-button>
     </b-row>
     <b-row class="buttons_row">
       <b-button
-        class="btn"
-        @click="$refs.preview_modal.showModal()"
-        v-if="!isLast"
-        variant="outline-primary"
-        >Skip & Review</b-button
+          class="btn"
+          @click="$refs.preview_modal.showModal()"
+          v-if="!isLast"
+          variant="outline-primary"
+      >Skip & Review
+      </b-button
       >
     </b-row>
     <certificate-profile
-      ref="preview_modal"
-      :isSavePreview="true"
-      @submit="submit"
+        ref="preview_modal"
+        :isSavePreview="true"
+        @submit="submit"
     ></certificate-profile>
   </div>
 </template>
@@ -62,7 +64,7 @@
 <script>
 import IndustryDisplayMixin from "@/mixins/IndustryDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
-import CertificateProfile from "../CertificateProfile.vue";
+import CertificateProfile from "../../Certificate/CertificateProfile.vue";
 
 export default {
   name: "PartialIndustrySectors",
@@ -77,15 +79,15 @@ export default {
   methods: {
     toggleAll(checked) {
       this.selectedSubIndustries = checked
-        ? this.computedSubIndustries.map((x) => {
+          ? this.computedSubIndustries.map((x) => {
             return x.value;
           })
-        : [];
+          : [];
     },
     next() {
       if (
-        this.currentIndustryIndex ==
-        this.form.industries[this.form.industries.length - 1]
+          this.currentIndustryIndex ==
+          this.form.industries[this.form.industries.length - 1]
       ) {
         this.$emit("isLast");
       }
@@ -98,12 +100,13 @@ export default {
       this.currentSubIndustryList = [];
       this.$emit("back");
     },
-    skip() {},
+    skip() {
+    },
     submit() {
       this.$emit("submit");
     },
   },
-  props: { currentIndustryIndex: String },
+  props: {currentIndustryIndex: String},
   computed: {
     computedSubIndustries() {
       this.subIndustries.forEach((element) => {
@@ -123,7 +126,7 @@ export default {
     this.selectedSubIndustries = this.form.industrySectors;
   },
   mixins: [IndustryDisplayMixin, CertificateFormMixin],
-  components: { CertificateProfile },
+  components: {CertificateProfile},
 };
 </script>
 
@@ -132,18 +135,22 @@ export default {
   font-family: "Montserrat";
   text-align: left;
 }
+
 .mainDiv {
   margin-top: -150px;
 }
+
 .main_row {
   margin-top: 100px;
 }
+
 #checkbox-group-1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left !important;
 }
+
 .btn {
   color: black;
   border: 2px solid #989898;

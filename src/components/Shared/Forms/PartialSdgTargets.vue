@@ -4,38 +4,38 @@
       <b>Please select applicable UN SDG targets for each SDG</b>
       <!--<p>SDG Targets for </p>-->
     </div>
-    <br />
+    <br/>
     <div id="scroll">
       <!--<p>Current SDG Index: {{ currentSdgIndex }}</p>-->
       <b-row>
         <b-form-group v-slot="{ ariaDescribedby }">
           <b-form-checkbox
-            class="flex_and_start"
-            v-model="isAllSelected"
-            :indeterminate="indeterminate"
-            @change="toggleAll"
+              class="flex_and_start"
+              v-model="isAllSelected"
+              :indeterminate="indeterminate"
+              @change="toggleAll"
           >
             <b>{{ isAllSelected ? "Un-select All" : "Select All" }}</b>
           </b-form-checkbox>
           <b-form-checkbox-group
-            id="checkbox-group-1"
-            v-model="selectedSdgTargets"
-            :aria-describedby="ariaDescribedby"
-            name="flavour-1"
-            stacked
+              id="checkbox-group-1"
+              v-model="selectedSdgTargets"
+              :aria-describedby="ariaDescribedby"
+              name="flavour-1"
+              stacked
           >
             <b-form-checkbox
-              v-for="target in computedTargets"
-              :value="target.value"
-              class="mb-3"
-              :key="target.text"
-              ><b>{{ "Target " + target.value + ": " }} </b>
+                v-for="target in computedTargets"
+                :value="target.value"
+                class="mb-3"
+                :key="target.text"
+            ><b>{{ "Target " + target.value + ": " }} </b>
               {{ target.text }}
             </b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group>
       </b-row>
-      <hr />
+      <hr/>
       <b-row class="buttons_row">
         <b-button className="btn" @click="back">Previous</b-button>
         <b-button className="btn" @click="next">Next</b-button>
@@ -63,10 +63,10 @@ export default {
   methods: {
     toggleAll(checked) {
       this.selectedSdgTargets = checked
-        ? this.computedTargets.map((x) => {
+          ? this.computedTargets.map((x) => {
             return x.value;
           })
-        : [];
+          : [];
     },
     next() {
       this.form.sdgTargets = this.selectedSdgTargets;
@@ -79,10 +79,10 @@ export default {
       this.$emit("back");
     },
     skip() {
-      this.$router.push({ name: "formPage3-1" });
+      this.$router.push({name: "formPage3-1"});
     },
   },
-  props: { currentSdgIndex: Number },
+  props: {currentSdgIndex: Number},
   computed: {
     computedTargets() {
       this.sdgTargets.forEach((element) => {
@@ -110,6 +110,7 @@ export default {
   align-items: flex-start;
   text-align: left !important;
 }
+
 .position-fixed {
   margin-bottom: 20px;
   background-color: rgb(255, 255, 255);
@@ -125,6 +126,7 @@ export default {
   border: 2px solid #989898;
   background: white;
 }
+
 hr {
   position: absolute;
   margin-top: 0;

@@ -1,26 +1,51 @@
 <template>
   <b-container class="mainDiv">
-    <b-row>
-      <progress-bar :currentStep="2"></progress-bar>
-    </b-row>
     <b-row class="main_row">
-      <b-col>
-        <sdg-targets-selector/>
+      <b-col cols="6">
+        <div class="position-fixed">
+          <h3>UN Sustainable Development Goals</h3>
+          <p>You selected the following SDGs</p>
+
+          <div
+              class="flex_and_start"
+              v-for="(sdg, index) in form.sdgs"
+              :key="index"
+          >
+            <h5 :class="sdg === currentSdg ? 'bold' : ''">
+              {{ sdg | sdgFilter }}
+            </h5>
+          </div>
+          <br/>
+          <b-button className="btn" @click="reselect" variant="outline-primary"
+          >Reselect SDGs
+          </b-button
+          >
+        </div>
+      </b-col>
+      <b-col
+      >
+        <PartialSdgTargets
+            @next="next"
+            @back="back"
+            :current-sdg-index="currentSdg"
+        />
       </b-col>
     </b-row>
+
+    <!--<b-card class="mt-3" header="Form result so far">
+      <pre class="m-0">{{ form }}</pre>
+    </b-card>-->
   </b-container>
 </template>
 
 <script>
-
+import PartialSdgTargets from "@/components/Shared/Forms/PartialSdgTargets";
 import SdgDisplayMixin from "@/mixins/SdgDisplayMixin";
 import CertificateFormMixin from "@/mixins/CertificateFormMixin";
-import ProgressBar from "./ProgressBar.vue";
-import SdgTargetsSelector from "../../Shared/Forms/SdgTargetsSelector";
 
 export default {
   name: "FormSDGtargets",
-  components: {ProgressBar, SdgTargetsSelector},
+  components: {PartialSdgTargets},
   data() {
     return {
       currentSdg: null,
