@@ -1,75 +1,75 @@
 <template>
   <div class="signInDiv">
     <b-container class="signin_main" fluid="md">
-      <img class="impakterLogo" src="@/assets/logo_index.png" />
+      <img class="impakterLogo" src="@/assets/logo_index.png"/>
       <h1>Sign In to Index Certificate Tool</h1>
       <p>We suggest you to sign in with the email address you use at work.</p>
       <b-alert
-        :show="isStatusMessage"
-        @dismissed="isStatusMessage = false"
-        variant="danger"
-        dismissible
-        fade
-        >{{ statusMessage }}</b-alert
+          :show="toggleStatusMessage"
+          @dismissed="toggleStatusMessage = false"
+          variant="danger"
+          dismissible
+          fade
+      >{{ statusMessage }}
+      </b-alert
       >
       <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
-        <img class="googleLogo" src="@/assets/google_logo.png" /> 
+        <img class="googleLogo" src="@/assets/google_logo.png"/>
         Sign in with Google
       </b-button>
       <div class="separator">
-        <hr />
+        <hr/>
         <h5>OR</h5>
-        <hr />
+        <hr/>
       </div>
       <b-form-input
-        class="identifier"
-        v-model="user.email"
-        id="email"
-        placeholder="name@work-email.com"
-        required
+          class="identifier"
+          v-model="user.email"
+          id="email"
+          placeholder="name@work-email.com"
+          required
       >
       </b-form-input>
 
       <b-form-input
-        class="identifier"
-        id="password"
-        v-model="user.password"
-        placeholder="password"
-        required
+          class="identifier"
+          id="password"
+          v-model="user.password"
+          placeholder="password"
+          required
       >
       </b-form-input>
       <b-overlay
-        :show="loading"
-        rounded
-        opacity="0.6"
-        spinner-small
-        spinner-variant="primary"
-       
-        @hidden="onHidden"
+          :show="toggleButtonLoading"
+          rounded
+          opacity="0.6"
+          spinner-small
+          spinner-variant="primary"
+          @hidden="toggleButtonLoading"
       >
         <b-button class="signInButton" v-on:click="login('DIRECT')">
           Sign in With Email
         </b-button>
       </b-overlay>
-      <hr />
+      <hr/>
       <p>
-        Don’t have an account? <router-link to="/signup">Sign Up</router-link>
+        Don’t have an account?
+        <router-link to="/signup">Sign Up</router-link>
       </p>
     </b-container>
   </div>
 </template>
 
 <script>
-import { ServicesFactory } from "@/services/ServicesFactory";
-const account = ServicesFactory.get("account");
 import CommonMixin from "@/mixins/CommonMixin";
 import AccountMixin from "@/mixins/AccountMixin";
+import {transportCodes} from "../../../../SHARED.CODE/Constants/Transport";
 
 export default {
   name: "SignIn",
   data() {
     return {
-      loading: false,
+      toggleButtonLoading: false,
     };
   },
   mixins: [CommonMixin, AccountMixin],
@@ -78,87 +78,73 @@ export default {
       if (type == "GOOGLE") {
         console.log("Executing Google login");
         this.$gAuth
-          .signIn()
-          .then(async (GoogleUser) => {
-            console.log("Google login success");
-            this.request.status.case = this.loginCases.GOOGLE;
-            this.request.data = GoogleUser;
-            try {
-              let webResponse = await account.login(this.request);
-              this.response = webResponse.data;
-              this.afterLogin();
-            } catch (err) {
+            .signIn()
+            .then(async (GoogleUser) => {
+              console.log("Google login success");
+              this.request.status.case = this.loginCases.GOOGLE;
+              this.request.data = GoogleUser;
+              this.response = await this.$store.dispatch(
+                  "account/login",
+                  this.request
+              );
+              await this.afterLogin();
+            })
+            .catch((err) => {
               console.error(err);
-              this.statusMessage = "Something went wrong. Please retry";
-              this.isStatusMessage = true;
-            }
-          })
-          .catch((err) => {
-            console.error(err);
-            this.statusMessage = "Google login failed. Please retry";
-            this.isStatusMessage = true;
-          });
-      } else {
+              this.statusMessage = "Google login failed. Please retry";
+              this.toggleStatusMessage = true;
+            });
+      }
+      else {
+        this.toggleButtonLoading = true;
         this.request.status.case = this.loginCases.DIRECT;
         this.request.data = this.user;
-        try {
-          let webResponse = await account.login(this.request);
-          this.response = webResponse.data;
-          this.afterLogin();
-        } catch (err) {
-          console.error(err);
-          this.statusMessage = "Something went wrong. Please retry";
-          this.isStatusMessage = true;
-        }
+        this.response = await this.$store.dispatch(
+            "account/login",
+            this.request
+        );
+        await this.afterLogin();
       }
     },
     async afterLogin() {
+      console.log("executing SignIN component: afterLogin")
       //this.$store.commit("global/toggleLoading", "on");
-      this.loading = true;
       let responseStatus = this.response.status;
-
-      //console.log("this.response.status:", this.response.status);
-      //console.log("responseStatus:", responseStatus);
-      if (responseStatus.code == 1) {
-        console.log("Impakter login Success");
-        if (responseStatus.case == this.loginCases.SUCCESS) {
-          let responseData = this.response.data;
-          if (responseData.accessToken) {
-            let payload = {
-              accessToken: responseData.accessToken,
-              user: responseData.user,
-              org: responseData.org,
-              case: "LOGIN",
-            };
-            await this.$store.dispatch("account/login", payload);
-            this.$store.commit("global/toggleLoading", "off");
-            this.loading = false;
-            this.$router.push("/dashboard");
-          } else {
-            this.statusMessage = "Something went wrong. Please retry";
-            this.isStatusMessage = true;
-          }
-        } else if (responseStatus.case == this.loginCases.NEWUSER) {
+      if (responseStatus.code === transportCodes.SUCCESS) {
+        this.toggleButtonLoading = false;
+        if (responseStatus.case === this.loginCases.SUCCESS) {
+          console.log("Login Success");
+          this.$store.commit("global/toggleLoading", "on");
+          await this.$store.dispatch("account/afterLogin", this.response.data);
+          this.$store.commit("global/toggleLoading", "off");
+          await this.$router.push("/dashboard");
+        }
+        else if (responseStatus.case === this.loginCases.NEWUSER) {
           this.statusMessage =
-            "Email is not registered. Please sign up instead";
-          this.isStatusMessage = true;
-        } else if (responseStatus.case == this.loginCases.INCORRECTPASSWORD) {
+              "Email is not registered. Please sign up instead";
+          this.toggleStatusMessage = true;
+        }
+        else if (responseStatus.case === this.loginCases.INCORRECTPASSWORD) {
           this.statusMessage = responseStatus.message;
-          this.isStatusMessage = true;
+          this.toggleStatusMessage = true;
         }
-      } else {
-        if (responseStatus.code == 0) {
-          this.statusMessage =
-            "Sign up failed. Please try again in a bit or contact administrator";
-          this.isStatusMessage = true;
+        else if (responseStatus.case === this.loginCases.FAILEDLOGIN) {
+          this.statusMessage = responseStatus.message;
+          this.toggleStatusMessage = true;
         }
+      }
+      else if (responseStatus.code === transportCodes.FAILURE) {
+        this.toggleButtonLoading = false;
+        this.statusMessage =
+            "Sign in failed. Please try again in a bit or contact administrator";
+        this.toggleStatusMessage = true;
       }
     },
   },
   watch: {
-    isStatusMessage: function () {
-      if (this.isStatusMessage) {
-        this.loading = false;
+    toggleStatusMessage: function () {
+      if (this.toggleStatusMessage) {
+        this.toggleButtonLoading = false;
       }
     },
   },
@@ -166,11 +152,12 @@ export default {
 </script>
 
 <style scoped>
-.signInDiv{
-    height: 55vh;
-    display: flex;
-    margin: 0 0 0 -400px;
+.signInDiv {
+  height: 55vh;
+  display: flex;
+  margin: 0 0 0 -400px;
 }
+
 .signin_main {
   max-width: 500px;
   height: 100%;
@@ -192,7 +179,6 @@ a:link {
   color: black;
   text-decoration: none;
 }
-
 
 
 .impakterLogo {
@@ -239,6 +225,7 @@ a:link {
 .separator h5 {
   padding: 0 2rem;
 }
+
 .identifier {
   margin-top: 10px;
   margin-bottom: 10px;

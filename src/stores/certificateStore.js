@@ -1,20 +1,19 @@
-import { ServicesFactory } from "@/services/ServicesFactory";
-import axios from 'axios'
+import {ServicesFactory} from "@/services/ServicesFactory";
+import axios from 'axios';
 
 const certificateService = ServicesFactory.get("certificates");
 
 //import certificateModel from "./models/certificate";
 import CertificateObject from "../../../SHARED.CODE/Objects/Certificate/certificate";
-import { certificateCases } from "../../../SHARED.CODE/Constants/Cases/cases";
+import {certificateCases} from "../../../SHARED.CODE/Constants/Cases/cases";
 //import {certificateModel} from "shared.code";
 //import organizationModel from ".././models/organization";
-import { awsConfig } from "@/models/constants"
+import {awsConfig} from "@/models/constants"
 import {
     Transport,
     transportCodes,
 } from "../../../SHARED.CODE/Constants/Transport";
 import compute from "@/models/compute";
-
 
 
 const certificateStore = {
@@ -87,7 +86,7 @@ const certificateStore = {
 
         },
         payload: state => {
-            var payload = state.certificate.getCertificatePayload()
+            let payload = state.certificate.getCertificatePayload()
             return payload
         },
         certificates: state => {
@@ -110,9 +109,9 @@ const certificateStore = {
     mutations: {
         setCertificate(state, payload) {
             return new Promise((resolve) => {
-                state.certificate = payload
-                resolve();
-            }
+                    state.certificate = payload
+                    resolve();
+                }
             )
 
         },
@@ -142,14 +141,14 @@ const certificateStore = {
         async updateCertificateStatus(state, payload) {
             state.certificate = payload
             state.certificate.mode = "statusChange"
-            var req = state.certificate.getCertificatePayload()
+            let req = state.certificate.getCertificatePayload()
 
             await certificateService.updateCertificate(req).then((response) => {
                 this.responseMessage = response.data.msg
                 this.responseStatus = response.data.status
             });
             console.log(this.responseMessage)
-            state.certificate = new CertificateObject()
+            state.certificate = new CertificateObject();
 
         },
 
@@ -169,14 +168,14 @@ const certificateStore = {
             state.uploadPolicy.key = `certificateLogos/${state.organizationName}_${payload.filename}`
         },
         async uploadImage(payload) {
-            let { data } = await axios.post(awsConfig.s3bucketUrl, payload)
+            let {data} = await axios.post(awsConfig.s3bucketUrl, payload)
             console.log(data)
         },
         setCertificates(state, payload) {
             return new Promise((resolve) => {
                 let certificatesResponse = payload;
                 state.certificates = [];
-                for (var i = 0; i < certificatesResponse.length; i++) {
+                for (let i = 0; i < certificatesResponse.length; i++) {
                     let cert = CertificateObject();
                     cert = certificatesResponse[i];
                     state.certificates.push(cert);
@@ -190,7 +189,7 @@ const certificateStore = {
     },
     actions: {
         async resetCertificate(context) {
-            let org = await context.dispatch("org/fetchOrg", null, { root: true });
+            let org = await context.dispatch("org/fetchOrg", null, {root: true});
             let certificate = new CertificateObject(org.organization.orgID);
             await context.commit("setCertificate", certificate);
             return new Promise((resolve) => {
@@ -230,21 +229,22 @@ const certificateStore = {
             context.commit("deleteCertificate")
         },
         async fetchCertificates(context) {
-            let org = await context.dispatch("org/fetchOrg", null, { root: true });
-            console.log("Executing fetch Certificates")
+            let org = await context.dispatch("org/fetchOrg", null, {root: true});
+            console.log("Executing fetch Certificates for org:", JSON.stringify(org))
             let response = new Transport();
             try {
                 let webResponse = await certificateService.fetchCertificates(org.organization.orgID);
                 response = webResponse.data;
-                if (response.status.code == transportCodes.SUCCESS) {
+                if (response.status.code === transportCodes.SUCCESS) {
                     await context.commit('setCertificates', response.data);
                     return new Promise((resolve) => {
-                        context.commit("global/toggleLoading", "off", { root: true });
+                        context.commit("global/toggleLoading", "off", {root: true});
                         resolve(context.getters.certificates)
                     })
                 }
-            } catch (err) {
-                context.commit("global/setMessagePopup", { type: 0, message: err }, { root: true });
+            }
+            catch (err) {
+                context.commit("global/setMessagePopup", {type: 0, message: err}, {root: true});
             }
         },
         async postCertificate(context, payload) {
@@ -254,24 +254,25 @@ const certificateStore = {
             request.data = payload;
             try {
                 let webResponse;
-                if (context.getters.mode == certificateCases.UPDATE) {
+                if (context.getters.mode === certificateCases.UPDATE) {
                     webResponse = await certificateService.updateCertificate(request);
-                } else if (context.getters.mode == certificateCases.NEW) {
+                }
+                else if (context.getters.mode === certificateCases.NEW) {
                     request.status.case = certificateCases.NEW
                     webResponse = await certificateService.createCertificate(request);
                 }
                 response = webResponse.data;
-                if (response.status.code == transportCodes.SUCCESS) {
+                if (response.status.code === transportCodes.SUCCESS) {
                     await context.dispatch('resetCertificate');
                     return new Promise((resolve) => {
-                        context.commit("global/toggleLoading", "off", { root: true });
+                        context.commit("global/toggleLoading", "off", {root: true});
                         resolve(response)
                     })
                 }
 
             }
             catch (err) {
-                context.commit("global/setMessagePopup", { type: 0, message: err }, { root: true });
+                context.commit("global/setMessagePopup", {type: 0, message: err}, {root: true});
             }
 
 
@@ -280,4 +281,4 @@ const certificateStore = {
 }
 
 
-export { certificateStore }
+export {certificateStore}

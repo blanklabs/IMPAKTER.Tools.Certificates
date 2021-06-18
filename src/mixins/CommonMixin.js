@@ -16,7 +16,7 @@ export default {
     data() {
         return {
             statusMessage: "",
-            isStatusMessage: false,
+            toggleStatusMessage: false,
             user: new User(),
             request: new Transport(),
             response: new Transport(),

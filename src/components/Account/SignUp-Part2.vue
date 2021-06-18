@@ -1,32 +1,34 @@
 <template>
   <b-container class="signup_main" fluid="md">
-    <img class="impakterLogo" src="@/assets/logo_index.png" />
+    <img class="impakterLogo" src="@/assets/logo_index.png"/>
 
     <h1>Sign-up</h1>
 
     <h4>Contact info</h4>
     <b-alert variant="success" show dismissible fade
-      >Signed up successfully. Please fill the below information</b-alert
+    >Signed up successfully. Please fill the below information
+    </b-alert
     >
 
     <b-form @submit="onSubmit">
       <b-form-input
-        class="identifier"
-        id="company"
-        v-model="company"
-        placeholder="Company Name"
-        required
+          class="identifier"
+          id="company"
+          v-model="company"
+          placeholder="Company Name"
+          required
       >
       </b-form-input>
 
       <b-form-input
-        class="identifier"
-        v-model="user.role"
-        placeholder="Your Role"
+          class="identifier"
+          v-model="user.role"
+          placeholder="Your Role"
       >
       </b-form-input>
       <b-button class="action_btt" type="submit" variant="primary"
-        >Sign Up</b-button
+      >Sign Up
+      </b-button
       >
     </b-form>
   </b-container>
@@ -36,7 +38,8 @@
 import AccountMixin from "@/mixins/AccountMixin";
 import CommonMixin from "@/mixins/CommonMixin";
 
-import { ServicesFactory } from "@/services/ServicesFactory";
+import {ServicesFactory} from "@/services/ServicesFactory";
+
 const account = ServicesFactory.get("account");
 
 export default {
@@ -47,7 +50,8 @@ export default {
     };
   },
   mixins: [AccountMixin, CommonMixin],
-  mounted() {},
+  mounted() {
+  },
   methods: {
     async onSubmit(event) {
       event.preventDefault();
@@ -56,9 +60,10 @@ export default {
       try {
         let webResponse = await account.signup(this.request);
         this.response = webResponse.data;
-      } catch (err) {
+      }
+      catch (err) {
         this.statusMessage = "Something went wrong. Please retry";
-        this.isStatusMessage = true;
+        this.toggleStatusMessage = true;
       }
       let responseStatus = this.response.status;
       if (responseStatus.code == 1) {
@@ -71,9 +76,10 @@ export default {
             };
             this.$store.dispatch("account/login", payload);
             this.$router.push("/dashboard");
-          } else {
+          }
+          else {
             this.statusMessage = "Something went wrong. Please retry";
-            this.isStatusMessage = true;
+            this.toggleStatusMessage = true;
           }
         }
       }
@@ -99,6 +105,7 @@ a:link {
   color: black;
   text-decoration: none;
 }
+
 .identifier {
   margin-top: 10px;
   margin-bottom: 10px;

@@ -1,10 +1,11 @@
 import Org from "../../../SHARED.CODE/Objects/Organization/organization";
 
-import { ServicesFactory } from "@/services/ServicesFactory";
+import {ServicesFactory} from "@/services/ServicesFactory";
+
 const organizationService = ServicesFactory.get("organizations");
 import VueJwtDecode from 'vue-jwt-decode'
 
-const getdefaultState = () => {
+const getDefaultState = () => {
     return {
         organization: new Org(),
     }
@@ -12,7 +13,7 @@ const getdefaultState = () => {
 
 const orgStore = {
     namespaced: true,
-    state: getdefaultState(),
+    state: getDefaultState(),
     getters: {
         organization: (state) => {
             return state.organization;
@@ -41,8 +42,10 @@ const orgStore = {
             console.log("executing updateOrganization in orgStore with payload:", JSON.stringify(payload));
             let response = await organizationService.updateOrganization(payload);
             console.log("updated org successfully with repsonse:", JSON.stringify(response));
-            context.commit("global/setMessagePopup", { type: 1, message: "org updated successfully" }, { root: true });
-            return new Promise((resolve) => { resolve() })
+            context.commit("global/setMessagePopup", {type: 1, message: "org updated successfully"}, {root: true});
+            return new Promise((resolve) => {
+                resolve()
+            })
         },
         fetchOrg(context) {
             if (!context.getters.organization) {
@@ -59,4 +62,4 @@ const orgStore = {
     }
 }
 
-export { orgStore };
+export {orgStore};

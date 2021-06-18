@@ -4,12 +4,12 @@ import {
 } from "../../../SHARED.CODE/Constants/Transport";
 
 
+import {ServicesFactory} from "@/services/ServicesFactory";
 
-import { ServicesFactory } from "@/services/ServicesFactory";
 const publications = ServicesFactory.get("publications");
 
 
-const getdefaultState = () => {
+const getDefaultState = () => {
     return {
         publications: [],
         fetchStatus: false,
@@ -19,7 +19,7 @@ const getdefaultState = () => {
 
 const publicationStore = {
     namespaced: true,
-    state: getdefaultState(),
+    state: getDefaultState(),
     getters: {
         publications: state => {
             return state.publications
@@ -55,13 +55,14 @@ const publicationStore = {
     },
     actions: {
         async fetchPublications(context) {
-            let org = await context.dispatch("org/fetchOrg", null, { root: true });
+            let org = await context.dispatch("org/fetchOrg", null, {root: true});
             console.log(`fetchPublications - publicationStore with org:${JSON.stringify(org)}`);
             let response = new Transport();
             try {
                 let webResponse = await publications.fetchPublications(org.organization.orgID);
                 response = webResponse.data;
-            } catch (err) {
+            }
+            catch (err) {
                 //context.dispatch("global/setMessagePopup", { type: 0, message: err }, { root: true });
                 context.commit('setFetchStatus', false)
                 console.log(err);
@@ -75,14 +76,14 @@ const publicationStore = {
                     console.log(response.status.message);
                     context.commit('setFetchStatus', false)
                 }
-                context.commit("global/toggleLoading", "off", { root: true });
-                resolve({ publications: context.getters.publications, status: context.getters.fetchStatus });
+                context.commit("global/toggleLoading", "off", {root: true});
+                resolve({publications: context.getters.publications, status: context.getters.fetchStatus});
             })
         },
 
         async uploadPublication(context, payload) {
             console.log("executing publicationStore - uploadPublicaiton")
-            let org = await context.dispatch("org/fetchOrg", null, { root: true });
+            let org = await context.dispatch("org/fetchOrg", null, {root: true});
             let response = new Transport();
             payload.orgID = org.organization.orgID;
             context.commit('setConfig', payload);
@@ -113,7 +114,7 @@ const publicationStore = {
                 }
             }
             return new Promise((resolve) => {
-                context.commit("global/toggleLoading", "off", { root: true });
+                context.commit("global/toggleLoading", "off", {root: true});
                 resolve(response);
             })
 
@@ -134,4 +135,4 @@ const publicationStore = {
     }
 }
 
-export { publicationStore };
+export {publicationStore};

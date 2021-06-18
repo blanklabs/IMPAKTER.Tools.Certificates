@@ -1,69 +1,71 @@
 <template>
   <div class="signUpDiv">
     <b-container class="signup_main" fluid="md">
-      <img class="impakterLogo" src="@/assets/logo_index.png" />
+      <img class="impakterLogo" src="@/assets/logo_index.png"/>
 
       <h1>Sign-up</h1>
       <b-button class="GoogleButton" v-on:click="login('GOOGLE')">
-        <img class="googleLogo" src="@/assets/google_logo.png" /> Sign up with
+        <img class="googleLogo" src="@/assets/google_logo.png"/> Sign up with
         Google
       </b-button>
       <div class="separator">
-        <hr />
+        <hr/>
         <h5>OR</h5>
-        <hr />
+        <hr/>
       </div>
       <h4>Contact info</h4>
       <b-alert
-        :show="isStatusMessage"
-        @dismissed="isStatusMessage = false"
-        variant="danger"
-        dismissible
-        fade
-        >{{ statusMessage }}</b-alert
+          :show="toggleStatusMessage"
+          @dismissed="toggleStatusMessage = false"
+          variant="danger"
+          dismissible
+          fade
+      >{{ statusMessage }}
+      </b-alert
       >
       <b-form @submit="onSubmit">
         <b-form-input
-          class="identifier"
-          id="name"
-          v-model="userObj.user.firstName"
-          placeholder="First Name"
-          required
+            class="identifier"
+            id="name"
+            v-model="userObj.user.firstName"
+            placeholder="First Name"
+            required
         >
         </b-form-input>
 
         <b-form-input
-          class="identifier"
-          id="lastName"
-          v-model="userObj.user.lastName"
-          placeholder="Last Name"
+            class="identifier"
+            id="lastName"
+            v-model="userObj.user.lastName"
+            placeholder="Last Name"
         >
         </b-form-input>
 
         <b-form-input
-          class="identifier"
-          id="email"
-          v-model="userObj.user.email"
-          placeholder="Email Address"
+            class="identifier"
+            id="email"
+            v-model="userObj.user.email"
+            placeholder="Email Address"
         >
         </b-form-input>
         <b-form-input
-          class="identifier"
-          id="password"
-          v-model="userObj.user.password"
-          placeholder="New Password"
+            class="identifier"
+            id="password"
+            v-model="userObj.user.password"
+            placeholder="New Password"
         >
         </b-form-input>
 
         <b-form-input
-          class="identifier"
-          id="confirmationPassword"
-          v-model="passwordConfirmation"
-          placeholder="Confirm Password"
+            class="identifier"
+            id="confirmationPassword"
+            v-model="passwordConfirmation"
+            placeholder="Confirm Password"
         >
         </b-form-input>
         <b-button class="action_btt" type="submit" variant="primary"
-          >Sign-up</b-button
+        >Sign-up
+        </b-button
         >
       </b-form>
     </b-container>
@@ -85,21 +87,24 @@ export default {
   methods: {
     async onSubmit(event) {
       event.preventDefault();
+      this.request.data = this.userObj;
       this.response = await this.$store.dispatch(
-        "account/signup",
-        this.userObj
+          "account/signup",
+          this.request
       );
       let responseStatus = this.response.status;
-      if (responseStatus.case == this.signupCases.SUCCESS) {
-        this.$store.commit("account/setUser", { user: this.user });
-        this.$router.push("/signup/continue");
-      } else if (responseStatus.case == this.signupCases.EXISTING) {
+      if (responseStatus.case === this.signupCases.SUCCESS) {
+        this.$store.commit("account/setUser", {user: this.user});
+        await this.$router.push("/signup/continue");
+      }
+      else if (responseStatus.case === this.signupCases.EXISTING) {
         this.statusMessage =
-          "You are already signed up. Please sign in instead";
-        this.isStatusMessage = true;
-      } else if (responseStatus.case == this.signupCases.FAILED) {
+            "You are already signed up. Please sign in instead";
+        this.toggleStatusMessage = true;
+      }
+      else if (responseStatus.case === this.signupCases.FAILED) {
         this.statusMessage = responseStatus.message;
-        this.isStatusMessage = true;
+        this.toggleStatusMessage = true;
       }
     },
   },
@@ -111,10 +116,12 @@ export default {
   display: flex;
   margin: 0 0 -35px -400px;
 }
+
 .signup_main {
   max-width: 500px;
   height: 100%;
 }
+
 h1 {
   padding: 10px;
   font-weight: bold;
@@ -153,6 +160,7 @@ a:link {
   white-space: nowrap;
   font-weight: bold;
 }
+
 .googleLogo {
   display: inline-block;
   margin-right: 15px;
