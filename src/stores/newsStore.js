@@ -39,12 +39,11 @@ const newsStore = {
 
     },
     actions: {
-        async fetchNews(context) {
+        async fetchNews(context, payload) {
             console.log("fetching News");
-            let org = await context.dispatch("org/fetchOrg", null, {root: true});
             let response = new Transport();
             try {
-                let webResponse = await news.fetchNews(org.organization.orgID);
+                let webResponse = await news.fetchNews(payload);
                 response = webResponse.data;
             }
             catch (err) {
@@ -53,7 +52,7 @@ const newsStore = {
                 console.error(err);
             }
             return new Promise((resolve) => {
-                if (response.status.code == transportCodes.SUCCESS) {
+                if (response.status.code === transportCodes.SUCCESS) {
                     context.commit('saveArticles', response.data);
                     context.commit('setFetchStatus', true)
                 }

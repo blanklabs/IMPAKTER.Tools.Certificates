@@ -5,8 +5,13 @@
     <h1>Sign-up</h1>
 
     <h4>Contact info</h4>
-    <b-alert variant="success" show dismissible fade
-    >Signed up successfully. Please fill the below information
+    <b-alert
+        :show="toggleStatusMessage"
+        @dismissed="toggleStatusMessage = false"
+        variant="danger"
+        dismissible
+        fade
+    >{{ statusMessage }}
     </b-alert
     >
 
@@ -14,7 +19,7 @@
       <b-form-input
           class="identifier"
           id="company"
-          v-model="company"
+          v-model="userObj.organization.name"
           placeholder="Company Name"
           required
       >
@@ -22,7 +27,7 @@
 
       <b-form-input
           class="identifier"
-          v-model="user.role"
+          v-model="userObj.userInformation.roleInOrg"
           placeholder="Your Role"
       >
       </b-form-input>
@@ -38,9 +43,6 @@
 import AccountMixin from "@/mixins/AccountMixin";
 import CommonMixin from "@/mixins/CommonMixin";
 
-import {ServicesFactory} from "@/services/ServicesFactory";
-
-const account = ServicesFactory.get("account");
 
 export default {
   name: "SignUp-Part2",
@@ -50,38 +52,32 @@ export default {
     };
   },
   mixins: [AccountMixin, CommonMixin],
-  mounted() {
+  async mounted() {
+    this.orgs = await this.$store.dispatch(
+        "org/fetchOrgs"
+    );
   },
   methods: {
     async onSubmit(event) {
       event.preventDefault();
-      //updateUser
-      this.request.data = this.user;
-      try {
-        let webResponse = await account.signup(this.request);
-        this.response = webResponse.data;
-      }
-      catch (err) {
-        this.statusMessage = "Something went wrong. Please retry";
-        this.toggleStatusMessage = true;
-      }
+      this.request.data = this.userObj;
+      this.response = await this.$store.dispatch(
+          "account/signup",
+          this.request
+      );
       let responseStatus = this.response.status;
-      if (responseStatus.code == 1) {
-        if (responseStatus.case == this.signupCases.SUCCESS) {
-          let responseData = this.response.data;
-          if (responseData.accessToken) {
-            let payload = {
-              accessToken: responseData.accessToken,
-              case: "SIGNUP",
-            };
-            this.$store.dispatch("account/login", payload);
-            this.$router.push("/dashboard");
-          }
-          else {
-            this.statusMessage = "Something went wrong. Please retry";
-            this.toggleStatusMessage = true;
-          }
+      if (responseStatus.case === this.signupCases.SUCCESS) {
+        let responseData = this.response.data;
+        if (responseData.accessToken) {
+          this.$store.commit("global/toggleLoading", "on");
+          await this.$store.dispatch("account/afterLoginOrSignUp", this.response);
+          this.$store.commit("global/toggleLoading", "off");
+          await this.$router.push("/dashboard");
         }
+      }
+      else if (responseStatus.case === this.signupCases.FAILED) {
+        this.statusMessage = responseStatus.message;
+        this.toggleStatusMessage = true;
       }
     },
   },

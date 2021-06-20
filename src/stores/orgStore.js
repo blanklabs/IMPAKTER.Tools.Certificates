@@ -4,10 +4,12 @@ import {ServicesFactory} from "@/services/ServicesFactory";
 
 const organizationService = ServicesFactory.get("organizations");
 import VueJwtDecode from 'vue-jwt-decode'
+import {Transport} from "../../../SHARED.CODE/Constants/Transport";
 
 const getDefaultState = () => {
     return {
-        organization: new Org(),
+        orgObj: new Org(),
+        organizations: []
     }
 }
 
@@ -15,23 +17,29 @@ const orgStore = {
     namespaced: true,
     state: getDefaultState(),
     getters: {
-        organization: (state) => {
-            return state.organization;
+        orgObj: (state) => {
+            return state.orgObj;
         },
         organizationForm: state => {
-            return state.organization
+            return state.orgObj
+        },
+        organizations: (state) => {
+            return state.organizations;
         },
     },
     mutations: {
         async updateOrganization(state, payload) {
-            state.organization = payload;
+            state.orgObj = payload;
         },
 
         resetOrganization(state) {
-            state.organization = new Org()
+            state.orgObj = new Org()
         },
         setOrg(state, payload) {
-            state.organization = payload;
+            state.orgObj = payload;
+        },
+        setOrgs(state, payload) {
+            state.organizations = payload;
         }
     },
     actions: {
@@ -47,16 +55,68 @@ const orgStore = {
                 resolve()
             })
         },
-        fetchOrg(context) {
-            if (!context.getters.organization) {
-                let accessToken = window.localStorage.getItem("accessToken");
-                if (accessToken) {
-                    let decoded = VueJwtDecode.decode(accessToken)
-                    context.commit('setOrg', decoded.org);
+        async fetchOrgDetails(context, payload) {
+            console.log("executing fetchOrgDetails in orgStore with payload:", JSON.stringify(payload))
+            let response = new Transport();
+            if (!context.getters.orgObj.organization.orgID) {
+                let webResponse;
+                try {
+                    webResponse = await organizationService.fetchOrganizationDetails(payload);
+                    response = webResponse.data;
+                    context.commit('setOrg', response.data.orgObj);
+                    console.log("response in orgStore fetchOrgDetails:", JSON.stringify(response));
+                }
+                catch (err) {
+                    context.commit("global/setMessagePopup", {type: 0, message: err}, {root: true});
                 }
             }
             return new Promise((resolve) => {
-                resolve(context.getters.organization);
+                resolve(context.getters.orgObj);
+            })
+        },
+        async fetchOrg(context) {
+            let response = new Transport();
+            if (!context.getters.orgObj) {
+                let accessToken = window.localStorage.getItem("accessToken");
+                let decoded = VueJwtDecode.decode(accessToken)
+                if (decoded.org) {
+                    context.commit('setOrg', decoded.org);
+                }
+                else {
+                    let webResponse;
+                    try {
+                        webResponse = await organizationService.fetchOrganizationByUser(decoded.user.userID);
+                        response = webResponse.data;
+                        context.commit('setOrg', response.org);
+                        console.log("response in orgStore fetchOrg:", JSON.stringify(response));
+                    }
+                    catch (err) {
+                        context.commit("global/setMessagePopup", {type: 0, message: err}, {root: true});
+                    }
+
+                }
+
+            }
+            return new Promise((resolve) => {
+                resolve(context.getters.orgObj);
+            })
+        },
+        async fetchOrgs(context) {
+            if (!context.getters.organizations) {
+                let response = new Transport();
+                let webResponse;
+                try {
+                    webResponse = await organizationService.fetchOrganizations();
+                    response = webResponse.data;
+                    context.commit('setOrgs', response.organizations);
+                    console.log("response in orgStore fetchOrgs:", JSON.stringify(response));
+                }
+                catch (err) {
+                    context.commit("global/setMessagePopup", {type: 0, message: err}, {root: true});
+                }
+            }
+            return new Promise((resolve) => {
+                resolve(context.getters.organizations);
             })
         }
     }

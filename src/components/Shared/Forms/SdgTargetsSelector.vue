@@ -7,26 +7,26 @@
           <p>You selected the following SDGs</p>
 
           <div
-            class="flex_and_start"
-            v-for="(sdg, index) in this.selectedSdgs"
-            :key="index"
+              class="flex_and_start"
+              v-for="(sdg, index) in this.selectedSdgs"
+              :key="index"
           >
             <h5 :class="sdg === currentSdg ? 'bold' : ''">
               {{ sdg | sdgFilter }}
             </h5>
           </div>
-          <br />
+          <br/>
           <b-button className="btn" @click="reselect" variant="outline-primary"
-            >Reselect SDGs
+          >Reselect SDGs
           </b-button>
         </div>
       </b-col>
       <b-col>
         <PartialSdgTargets
-          @next="next"
-          @back="back"
-          :current-sdg-index="currentSdg"
-          :selected="selectedSdgTargets"
+            @next="next"
+            @back="back"
+            :current-sdg-index="currentSdg"
+            :selected="selectedSdgTargets"
         />
       </b-col>
     </b-row>
@@ -39,7 +39,7 @@ import SdgDisplayMixin from "@/mixins/SdgDisplayMixin";
 
 export default {
   name: "sdgTargetSelector",
-  components: { PartialSdgTargets },
+  components: {PartialSdgTargets},
   data() {
     return {
       currentSdg: null,
@@ -57,7 +57,8 @@ export default {
       this.sdgIndex++;
       if (this.sdgIndex < this.selectedSdgs.length) {
         this.currentSdg = this.selectedSdgs[this.sdgIndex];
-      } else {
+      }
+      else {
         this.$emit("next", this.selectedSdgTargets);
       }
     },

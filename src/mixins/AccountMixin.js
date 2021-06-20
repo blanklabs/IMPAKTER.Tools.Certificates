@@ -12,7 +12,7 @@ export default {
         }
     },
     mounted() {
-        this.user = this.$store.getters["account/user"];
+        this.userObj = this.$store.getters["account/userObj"];
     }
 }
 

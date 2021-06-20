@@ -54,12 +54,10 @@ const publicationStore = {
 
     },
     actions: {
-        async fetchPublications(context) {
-            let org = await context.dispatch("org/fetchOrg", null, {root: true});
-            console.log(`fetchPublications - publicationStore with org:${JSON.stringify(org)}`);
+        async fetchPublications(context, payload) {
             let response = new Transport();
             try {
-                let webResponse = await publications.fetchPublications(org.organization.orgID);
+                let webResponse = await publications.fetchPublications(payload);
                 response = webResponse.data;
             }
             catch (err) {

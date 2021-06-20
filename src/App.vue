@@ -6,56 +6,59 @@
       <!-- <Spinner></Spinner> -->
 
       <b-row v-if="isLoggedIn">
-        <NavDashboard />
-        <Sidebar />
+        <NavDashboard/>
+        <Sidebar/>
       </b-row>
       <b-row v-else>
-        <NavigationBar />
+        <NavigationBar/>
       </b-row>
       <b-row>
         <b-container>
           <b-alert
-            v-if="showMessage"
-            :variant="messageType"
-            show
-            dismissible
-            fade
-            >{{ message }}</b-alert
+              v-if="showMessage"
+              :variant="messageType"
+              show
+              dismissible
+              fade
+          >{{ message }}
+          </b-alert
           >
         </b-container>
       </b-row>
       <b-row>
         <div id="router_view_container">
-          <router-view />
+          <router-view/>
         </div>
       </b-row>
       <b-modal ref="message-modal" hide-footer>
         <p>{{ message }}</p>
         <b-button
-          v-if="isMessageModalRedirectionButton"
-          class="mt-3"
-          block
-          @click="redirectionButtonClicked"
-          >{{ messageModalRedirectionText }}</b-button
+            v-if="isMessageModalRedirectionButton"
+            class="mt-3"
+            block
+            @click="redirectionButtonClicked"
+        >{{ messageModalRedirectionText }}
+        </b-button
         >
         <b-button class="mt-3" block @click="modalButtonClicked"
-          >Go to Dashboard</b-button
+        >Go to Dashboard
+        </b-button
         >
       </b-modal>
       <div v-if="isLoggedIn">
-        <FooterDash />
-       
+        <FooterDash/>
+
       </div>
       <div v-else>
-        <Footer />
+        <Footer/>
       </div>
-        <footer class="site-footer">
-          <p>2021 Copyright © ImpakterLimited</p>
-      </footer>
-<!-- 
       <footer class="site-footer">
         <p>2021 Copyright © ImpakterLimited</p>
-      </footer> -->
+      </footer>
+      <!--
+            <footer class="site-footer">
+              <p>2021 Copyright © ImpakterLimited</p>
+            </footer> -->
     </b-overlay>
   </div>
 </template>
@@ -93,11 +96,11 @@ export default {
   methods: {
     modalButtonClicked() {
       this.$refs["message-modal"].hide();
-      this.$router.push({ name: "Dashboard" });
+      this.$router.push({name: "Dashboard"});
     },
     redirectionButtonClicked() {
       this.$refs["message-modal"].hide();
-      this.$router.push({ name: this.redirection });
+      this.$router.push({name: this.redirection});
     },
   },
   components: {
@@ -109,34 +112,36 @@ export default {
   },
   async mounted() {
     window.scrollTo(0, 0);
-    this.isLoggedIn = await this.$store.dispatch("account/checkLoginStatus");
+    this.isLoggedIn = await this.$store.dispatch("account/reloadApp");
     //this.$refs["message-modal"].show();
   },
   created() {
     document.title = "Impakter - Certificates";
     this.logInEventSubscription = this.$store.getters[
-      "account/logInEvent"
-    ].subscribe((message) => {
+        "account/logInEvent"
+        ].subscribe((message) => {
       console.log("message from subscription on App.vue:", message);
       if (message == "loggedIn") {
         this.isLoggedIn = true;
-      } else {
+      }
+      else {
         this.isLoggedIn = false;
       }
     });
 
     this.messageEventSubscription = this.$store.getters[
-      "global/messageEvent"
-    ].subscribe((payload) => {
+        "global/messageEvent"
+        ].subscribe((payload) => {
       console.log(
-        "message from message subscription on App.vue:",
-        payload.message
+          "message from message subscription on App.vue:",
+          payload.message
       );
       if (payload.type == 0) {
         this.message = "Network failure: Please contact Administrator";
         this.$refs["message-modal"].show();
         //this.$alert("Network failure: Please contact Administrator");
-      } else {
+      }
+      else {
         this.message = payload.message;
         if (payload.redirection) {
           this.isMessageModalRedirectionButton = true;
@@ -148,11 +153,12 @@ export default {
     });
 
     this.loadingEventSubscription = this.$store.getters[
-      "global/loadingEvent"
-    ].subscribe((payload) => {
+        "global/loadingEvent"
+        ].subscribe((payload) => {
       if (payload == "on") {
         this.loading = true;
-      } else {
+      }
+      else {
         this.loading = false;
       }
     });
@@ -173,6 +179,7 @@ export default {
 * {
   font-family: "Montserrat";
 }
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -249,7 +256,7 @@ button {
   margin-bottom: 40px;
 }
 
-.b-overlay{
+.b-overlay {
   display: flex;
   align-content: center;
   justify-content: center;

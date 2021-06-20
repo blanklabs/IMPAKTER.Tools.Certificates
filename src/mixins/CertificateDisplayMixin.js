@@ -15,11 +15,11 @@ export default {
                 certificateObj.industries = this.getIndustriesForDisplay(certificateObj.industries)
             });
 
-            return new Promise((resolve) => { resolve(rawCertificates) });
+            return new Promise((resolve) => {
+                resolve(rawCertificates)
+            });
         },
 
     },
-    computed: {
-
-    }
+    computed: {}
 }

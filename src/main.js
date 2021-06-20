@@ -6,13 +6,31 @@ import VueRouter from 'vue-router'
 import store from "./store";
 import VueSimpleAlert from "vue-simple-alert";
 import VueCompositionAPI from '@vue/composition-api'
+import VueResource from 'vue-resource';
+
+
+Vue.use(VueResource);
+
+Vue.http.interceptors.push(function (request, next) {
+
+    // modifying request headers
+    request.headers.set('X-CSRF-TOKEN', 'TOKEN');
+    request.headers.set('Authorization', 'Bearer TOKEN');
+    request.headers.set('application', 'TOOLS_Certificates')
+
+    next(function (response) {
+        //logging the response body
+        console.log(response.body)
+    });
+})
 //import ScrollView from 'vue-scrollview'
 
 import GoogleAuth from '@/services/external//google_oAuth.js'
+
 const gauthOption = {
-  clientId: '1034424481051-2068pl88n61ofbmnocqbdgk9fk8i9o20.apps.googleusercontent.com',
-  scope: 'profile email',
-  prompt: 'select_account'
+    clientId: '1034424481051-2068pl88n61ofbmnocqbdgk9fk8i9o20.apps.googleusercontent.com',
+    scope: 'profile email',
+    prompt: 'select_account'
 }
 Vue.use(GoogleAuth, gauthOption)
 
@@ -32,7 +50,7 @@ Vue.use(VueFormulate)
 Vue.use(VueRouter)
 Vue.use(VueCompositionAPI)
 new Vue({
-  store,
-  router,
-  render: h => h(App)
+    store,
+    router,
+    render: h => h(App)
 }).$mount('#app')

@@ -119,7 +119,7 @@ export default {
     //this.isSessionActive = this.$store.getters["account/isSessionActive"];
     if (!this.isSessionActive) {
       this.$store.commit("global/toggleLoading", "on");
-      await this.$store.dispatch("account/afterLogin");
+      await this.$store.dispatch("account/afterLoginOrSignUp");
       this.$store.commit("global/toggleLoading", "off");
     }
     this.isSignupSuccess = this.$store.getters["account/signupStatus"];

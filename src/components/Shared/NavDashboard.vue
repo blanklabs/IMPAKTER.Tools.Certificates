@@ -2,7 +2,7 @@
   <div>
     <b-navbar class="nav" toggleable="lg" type="light" fixed="top">
       <b-navbar-brand href="https://index.impakter.com">
-        <img class="logo" src="@/assets/logo_index.png" />
+        <img class="logo" src="@/assets/logo_index.png"/>
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -11,7 +11,8 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item
-            ><router-link to="/dashboard"> <span>HOME</span></router-link>
+          >
+            <router-link to="/dashboard"><span>HOME</span></router-link>
           </b-nav-item>
           <b-nav-item>
             <router-link to="/news">NEWS</router-link>
@@ -27,14 +28,17 @@
                 <router-link to="/org/edit">Edit Org Profile</router-link>
               </b-dropdown-item>
               <b-dropdown-item href="https://index.impakter.com" target="_blank"
-                >Index</b-dropdown-item
+              >Index
+              </b-dropdown-item
               >
               <b-dropdown-item href="https://eco.impakter.com/" target="_blank"
-                >Marketplace</b-dropdown-item
+              >Marketplace
+              </b-dropdown-item
               >
-              <hr />
+              <hr/>
               <b-dropdown-item @click="accountSettings"
-                >Account Settings</b-dropdown-item
+              >Account Settings
+              </b-dropdown-item
               >
               <b-dropdown-item @click="logout">Logout</b-dropdown-item>
             </div>
@@ -69,15 +73,16 @@ export default {
   created() {
     document.title = "Impakter - Certificates";
     this.subscription = this.$store.getters["account/logInEvent"].subscribe(
-      (message) => {
-        if (message) {
-          // add message to local state if not empty
-          this.loggedIn = !this.loggedIn;
-        } else {
-          // clear messages when empty message received
-          this.messages = [];
+        (message) => {
+          if (message) {
+            // add message to local state if not empty
+            this.loggedIn = !this.loggedIn;
+          }
+          else {
+            // clear messages when empty message received
+            this.messages = [];
+          }
         }
-      }
     );
   },
   beforeDestroy() {
@@ -91,20 +96,24 @@ export default {
   background: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
+
 .nav a {
   font-weight: bold;
   font-size: 14px;
   color: #222222;
   text-decoration: none;
 }
+
 .nav-item {
   padding-left: 8px;
   padding-right: 8px;
   border-bottom: solid transparent;
 }
+
 .nav-item:hover {
   border-bottom: solid #fe6663;
 }
+
 a.router-link-exact-active {
   padding-bottom: 10px;
   border-bottom: solid #fe6663;
@@ -113,12 +122,15 @@ a.router-link-exact-active {
 button {
   margin-left: 10px;
 }
+
 .logo {
   width: 190px;
 }
+
 .profile {
   position: relative;
 }
+
 .profile-content {
   padding: 8px;
   display: none;
@@ -141,9 +153,8 @@ button {
 
 .profile:hover .profile-content {
   display: block;
- 
-}
 
+}
 
 
 </style>

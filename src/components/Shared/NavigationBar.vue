@@ -2,7 +2,7 @@
   <div>
     <b-navbar class="nav" toggleable="lg" type="light" fixed="top">
       <b-navbar-brand href="/">
-        <img class="logo" src="@/assets/logo_index.png" />
+        <img class="logo" src="@/assets/logo_index.png"/>
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -11,7 +11,8 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item
-            ><router-link to="/"> <span>HOME</span></router-link>
+          >
+            <router-link to="/"><span>HOME</span></router-link>
           </b-nav-item>
           <b-nav-item>
             <router-link to="/about">ABOUT US</router-link>
@@ -19,7 +20,7 @@
           <b-nav-item>
             <router-link to="/howitworks"> HOW IT WORKS</router-link>
           </b-nav-item>
-           <b-nav-item>
+          <b-nav-item>
             <router-link to="/FAQ"> FAQ</router-link>
           </b-nav-item>
           <b-nav-item>
@@ -28,7 +29,7 @@
           <b-nav-item>
             <router-link to="/signin">
               <span disabled="!loggedIn" v-if="loggedIn" @click="logout"
-                >SIGN-OUT</span
+              >SIGN-OUT</span
               >
               <span v-if="!loggedIn" @click="login">SIGN-IN</span>
             </router-link>
@@ -43,7 +44,7 @@
             <b-icon icon="search" style="color: #ea5456"></b-icon>
             <div class="search-content">
               <b-nav-form>
-                <input type="text" placeholder="Search..." />
+                <input type="text" placeholder="Search..."/>
               </b-nav-form>
             </div>
           </b-nav-item>
@@ -77,15 +78,16 @@ export default {
   created() {
     document.title = "Impakter - Certificates";
     this.subscription = this.$store.getters["account/logInEvent"].subscribe(
-      (message) => {
-        if (message) {
-          // add message to local state if not empty
-          this.loggedIn = !this.loggedIn;
-        } else {
-          // clear messages when empty message received
-          this.messages = [];
+        (message) => {
+          if (message) {
+            // add message to local state if not empty
+            this.loggedIn = !this.loggedIn;
+          }
+          else {
+            // clear messages when empty message received
+            this.messages = [];
+          }
         }
-      }
     );
   },
   beforeDestroy() {
@@ -99,17 +101,20 @@ export default {
   background: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
+
 .nav a {
   font-weight: bold;
   font-size: 14px;
   color: #222222;
   text-decoration: none;
 }
+
 .nav-item {
   padding-left: 8px;
   padding-right: 8px;
   border-bottom: solid transparent;
 }
+
 .nav-item:hover {
   border-bottom: solid #fe6663;
 }
@@ -122,9 +127,11 @@ export default {
 .logo {
   width: 190px;
 }
+
 .search {
   position: relative;
 }
+
 .search-content {
   display: none;
   position: absolute;
@@ -142,6 +149,7 @@ export default {
   text-decoration: none;
   display: inline-block;
 }
+
 .search-content a:hover {
   background-color: #ddd;
 }

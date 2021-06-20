@@ -31,6 +31,7 @@
     "vue-jwt-decode": "^0.1.0",
     "vue-loading-overlay": "^4.0.2",
     "vue-mc": "^0.6.0",
+    "vue-resource": "^1.5.3",
     "vue-router": "^3.4.9",
     "vue-scrollview": "^3.0.1",
     "vue-search-select": "^2.9.3",

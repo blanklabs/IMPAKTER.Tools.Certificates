@@ -1,22 +1,24 @@
 import UserObject from "../../../SHARED.CODE/Objects/User/user";
-
+import {
+    signupCases
+} from "../../../SHARED.CODE/Constants/Cases/account";
 import {ServicesFactory} from "@/services/ServicesFactory";
 
 const account = ServicesFactory.get("account");
-
-import {Subject} from 'rxjs';
 import VueJwtDecode from 'vue-jwt-decode'
+import {Subject} from 'rxjs';
 
 import {
     Transport,
     transportCodes,
 } from "../../../SHARED.CODE/Constants/Transport";
 
-const getdefaultState = () => {
+const getDefaultState = () => {
     return {
-        user: new UserObject(),
+        userObj: new UserObject(),
+        application: "",
         isSignUpSuccess: false,
-        isLoggedin: false,
+        isLoggedIn: false,
         loginEvent: new Subject(),
         messageEvent: new Subject()
     }
@@ -24,11 +26,13 @@ const getdefaultState = () => {
 
 const accountStore = {
     namespaced: true,
-    state: getdefaultState(),
+    state: getDefaultState(),
     getters: {
-        user: state => {
-            state.user.orgName = "Impakter"
-            return state.user
+        userObj: state => {
+            return state.userObj
+        },
+        application: state => {
+            return state.application;
         },
         signupStatus: state => {
             return state.isSignUpSuccess;
@@ -48,21 +52,20 @@ const accountStore = {
         signOut(state) {
             console.log("logging out and removing accessToken");
             state.loginEvent.next("loggedOut");
-            console.log("before reset state.user:", JSON.stringify(state.user));
+            console.log("before reset state.userObj:", JSON.stringify(state.userObj));
             console.log("resetting state");
-            state = getdefaultState();
-            console.log("after reset state.user:", JSON.stringify(state.user));
+            state = getDefaultState();
+            console.log("after reset state.userObj:", JSON.stringify(state.userObj));
             window.localStorage.removeItem("accessToken");
         },
         setUser(state, payload) {
-            state.user = payload.user;
-        },
-        setLoginStatus(state, payload) {
-            state.isLoggedIn = payload;
+            state.userObj = payload;
+            return new Promise((resolve) => {
+                resolve()
+            })
         },
         login(state, payload) {
             state.loginEvent.next("loggedIn");
-            state.user = payload.user;
             if (payload.case === "LOGIN") {
                 state.isLoggedin = true;
             }
@@ -101,7 +104,7 @@ const accountStore = {
                 let webResponse;
                 webResponse = await account.login(payload);
                 response = webResponse.data;
-                console.log("response:", JSON.stringify(response));
+                console.log("response in accountStore login:", JSON.stringify(response));
                 if (response.status.code === transportCodes.SUCCESS) {
                     return new Promise((resolve) => {
                             context.commit("global/toggleLoading", "off", {root: true});
@@ -114,26 +117,23 @@ const accountStore = {
                 context.commit("global/setMessagePopup", {type: 0, message: err}, {root: true});
             }
         },
-        async afterLogin(context, payload) {
-            console.log("executing accountStore: afterLogin");
+        async afterLoginOrSignUp(context, payload) {
+            console.log("executing accountStore: afterLoginOrSignUp");
+            let loginCase;
             if (payload) {
-                if (payload.accessToken) {
-                    let loginDetails = {
-                        accessToken: payload.accessToken,
-                        user: payload.user,
-                        org: payload.org,
-                        case: "LOGIN",
-                    };
-                    console.log("loginDetails:", JSON.stringify(loginDetails))
+                if (payload.status.case === signupCases.SUCCESS) {
+                    loginCase = "SIGNUP"
+                }
+                else {
+                    loginCase = "LOGIN"
+                }
+                let userObj = payload.data.userObj;
+                if (payload.data.accessToken) {
                     window.localStorage.setItem(
                         "accessToken",
-                        payload.accessToken
+                        payload.data.accessToken
                     );
-                    context.commit('org/setOrg', payload.org, {root: true});
-                    await context.commit("login", loginDetails);
-                    //await context.dispatch("certificate/fetchCertificates", null, {root: true});
-                    //await context.dispatch("news/fetchNews", null, {root: true});
-                    //await context.dispatch("publication/fetchPublications", null, {root: true})
+                    await context.dispatch("commonInit", {loginCase: loginCase, userObj: userObj});
                     return new Promise((resolve) => {
                         resolve(true)
                     })
@@ -152,21 +152,29 @@ const accountStore = {
         setMessagePopup(context, payload) {
             context.commit("setMessagePopup", payload)
         },
-        async checkLoginStatus(context) {
+
+        async commonInit(context, payload) {
+            await context.commit("login", {case: payload.loginCase});
+            await context.commit('setUser', payload.userObj);
+            await context.dispatch("init/appInit", null, {root: true});
+            return new Promise((resolve) => {
+                resolve()
+            })
+        },
+        async reloadApp(context) {
             let accessToken = window.localStorage.getItem("accessToken");
-            if (!context.state.isLoggedIn) {
-                if (accessToken) {
-                    let decoded = await VueJwtDecode.decode(accessToken)
-                    //console.log("decoded JWT:", JSON.stringify(decoded))
-                    context.commit('org/setOrg', decoded.org, {root: true})
-                    context.commit('setLoginStatus', true)
-                }
-                else {
-                    context.commit('setLoginStatus', false)
-                }
+            if (accessToken) {
+                let decoded = await VueJwtDecode.decode(accessToken)
+                //console.log("decoded JWT:", JSON.stringify(decoded))
+                await context.dispatch("commonInit", {loginCase: "LOGIN", userObj: decoded.userObj});
             }
             return new Promise((resolve) => {
                 resolve(context.getters.isLoggedIn)
+            });
+        },
+        async fetchCurrentUser(context) {
+            return new Promise((resolve) => {
+                resolve(context.getters.userObj)
             });
         }
     }

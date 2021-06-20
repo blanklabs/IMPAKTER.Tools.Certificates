@@ -1,5 +1,5 @@
 import {ServicesFactory} from "@/services/ServicesFactory";
-import axios from 'axios';
+//import axios from 'axios';
 
 const certificateService = ServicesFactory.get("certificates");
 
@@ -8,12 +8,12 @@ import CertificateObject from "../../../SHARED.CODE/Objects/Certificate/certific
 import {certificateCases} from "../../../SHARED.CODE/Constants/Cases/cases";
 //import {certificateModel} from "shared.code";
 //import organizationModel from ".././models/organization";
-import {awsConfig} from "@/models/constants"
+//import {awsConfig} from "@/models/constants"
 import {
     Transport,
     transportCodes,
 } from "../../../SHARED.CODE/Constants/Transport";
-import compute from "@/models/compute";
+import compute from "../../../SHARED.CODE/Utilities/compute.js";
 
 
 const certificateStore = {
@@ -162,15 +162,15 @@ const certificateStore = {
 
         },
 
-        fetchSignatureAndPolicy(state, payload) {
-            state.uploadPolicy = awsConfig.policy
-            state.uploadPolicy.content_type = payload.content_type
-            state.uploadPolicy.key = `certificateLogos/${state.organizationName}_${payload.filename}`
-        },
-        async uploadImage(payload) {
-            let {data} = await axios.post(awsConfig.s3bucketUrl, payload)
-            console.log(data)
-        },
+        // fetchSignatureAndPolicy(state, payload) {
+        //     state.uploadPolicy = awsConfig.policy
+        //     state.uploadPolicy.content_type = payload.content_type
+        //     state.uploadPolicy.key = `certificateLogos/${state.organizationName}_${payload.filename}`
+        // },
+        // async uploadImage(payload) {
+        //     let {data} = await axios.post(awsConfig.s3bucketUrl, payload)
+        //     console.log(data)
+        // },
         setCertificates(state, payload) {
             return new Promise((resolve) => {
                 let certificatesResponse = payload;
@@ -228,12 +228,10 @@ const certificateStore = {
         deleteCertificate(context) {
             context.commit("deleteCertificate")
         },
-        async fetchCertificates(context) {
-            let org = await context.dispatch("org/fetchOrg", null, {root: true});
-            console.log("Executing fetch Certificates for org:", JSON.stringify(org))
+        async fetchCertificates(context, payload) {
             let response = new Transport();
             try {
-                let webResponse = await certificateService.fetchCertificates(org.organization.orgID);
+                let webResponse = await certificateService.fetchCertificates(payload);
                 response = webResponse.data;
                 if (response.status.code === transportCodes.SUCCESS) {
                     await context.commit('setCertificates', response.data);

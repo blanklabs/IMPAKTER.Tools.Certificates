@@ -24,7 +24,7 @@
       </div>
       <b-form-input
           class="identifier"
-          v-model="user.email"
+          v-model="userObj.user.email"
           id="email"
           placeholder="name@work-email.com"
           required
@@ -34,7 +34,7 @@
       <b-form-input
           class="identifier"
           id="password"
-          v-model="user.password"
+          v-model="userObj.user.password"
           placeholder="password"
           required
       >
@@ -98,7 +98,7 @@ export default {
       else {
         this.toggleButtonLoading = true;
         this.request.status.case = this.loginCases.DIRECT;
-        this.request.data = this.user;
+        this.request.data = this.userObj;
         this.response = await this.$store.dispatch(
             "account/login",
             this.request
@@ -115,7 +115,7 @@ export default {
         if (responseStatus.case === this.loginCases.SUCCESS) {
           console.log("Login Success");
           this.$store.commit("global/toggleLoading", "on");
-          await this.$store.dispatch("account/afterLogin", this.response.data);
+          await this.$store.dispatch("account/afterLoginOrSignUp", this.response);
           this.$store.commit("global/toggleLoading", "off");
           await this.$router.push("/dashboard");
         }

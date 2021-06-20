@@ -10,10 +10,5 @@ module.exports = {
     "parserOptions": {
         "parser": "babel-eslint"
     },
-    "rules": {
-        "brace-style": [
-            "error",
-            "stroustrup"
-        ]
-    }
+    "rules": {}
 }

@@ -1,5 +1,5 @@
 //import { User, Transport } from "../../../../SHARED.CODE";
-import User from "../../../SHARED.CODE/Objects/User/user";
+//import User from "../../../SHARED.CODE/Objects/User/user";
 import {
     Transport,
     transportCodes,
@@ -11,13 +11,11 @@ import {
 //import { Transport, transportCodes } from "shared.code/Objects/Transport.js";
 
 
-
 export default {
     data() {
         return {
             statusMessage: "",
             toggleStatusMessage: false,
-            user: new User(),
             request: new Transport(),
             response: new Transport(),
             transportCodes: transportCodes,
@@ -26,8 +24,6 @@ export default {
         }
     },
     mounted() {
-        this.user = new User();
-
     }
 }
 

@@ -89,12 +89,12 @@ export default {
       event.preventDefault();
       this.request.data = this.userObj;
       this.response = await this.$store.dispatch(
-          "account/signup",
+          "user/checkUser",
           this.request
       );
       let responseStatus = this.response.status;
-      if (responseStatus.case === this.signupCases.SUCCESS) {
-        this.$store.commit("account/setUser", {user: this.user});
+      if (responseStatus.case === this.signupCases.NEWUSER) {
+        await this.$store.commit("account/setUser", this.userObj);
         await this.$router.push("/signup/continue");
       }
       else if (responseStatus.case === this.signupCases.EXISTING) {
