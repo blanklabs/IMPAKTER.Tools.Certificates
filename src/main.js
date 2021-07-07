@@ -35,7 +35,7 @@ const gauthOption = {
 Vue.use(GoogleAuth, gauthOption)
 
 import 'uicomponents/dist/impakter-ui-components.css'
-import './assets/custom-vars.scss'
+import './assets/scss/custom-vars.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-search-select/dist/VueSearchSelect.css'

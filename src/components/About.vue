@@ -44,14 +44,15 @@
     </div>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
 .aboutDiv{
   display: flex;
   align-content: center;
   align-items: center;
   flex-direction: column;
   text-align: left;
-  margin: 0 200px 0 -180px;
+  font-size: 15px;
+  margin: 0 300px 0 -130px;
 }
 .titleImg{
   height: 100px;
@@ -63,6 +64,7 @@
   align-content: center;
 }
 .div-img{
+  margin: 5px;
   height: 250px;
 }
 </style>
