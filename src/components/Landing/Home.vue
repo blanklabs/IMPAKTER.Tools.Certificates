@@ -97,6 +97,8 @@
         <div>
           <h3>Our Partners</h3>
           <img src="../../assets/LandingPage/Partners_Landing.png" id="partners"/>
+          <img src="../../assets/LandingPage/loghi-mobile1dpi-768x148.png" id="partners_Mobile"/>
+          <img src="../../assets/LandingPage/loghi-mobile2dpi-768x107.png" id="partners_Mobile"/>
         </div>     
     </div>
     
@@ -121,7 +123,8 @@ components:{
      }
 }
 </script>
-<style scoped>
+
+<style lang="scss" scoped>
 html{
   height: 100%;
   
@@ -144,7 +147,6 @@ div{
   padding: 15px;
 }
  #header{
-   /* min-height: 300px; */
    padding: 20px;
  }
  .buttonHeader{
@@ -174,12 +176,15 @@ div{
    width: 100%;
    height: auto;
  }
+ #partners_Mobile{
+   display:none;
+ }
 }
  
 @media screen and (max-width:600px) {
   
   .row{
-    align-content: stretch;
+    align-content:center;
     flex-direction: column;
     align-items: center;
   }
@@ -192,9 +197,7 @@ div{
   height: auto;
   }
    .fullscreen { 
-  top: 0px;
-  left: 0px;
-  right: 0px;
+  margin: 0 0 0 -360px;
   }
    #bigCards, #smallCards{
    padding: 5px;
@@ -204,6 +207,14 @@ div{
    display: none;
  }
   #imgImpactBig_Mobile{
+   align-items: center;
+   width:100%;
+   height: auto;
+ }
+ #partners{
+  display: none;
+ }
+ #partners_Mobile{
    align-items: center;
    width:100%;
    height: auto;
