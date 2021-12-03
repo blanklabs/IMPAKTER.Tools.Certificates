@@ -22,11 +22,17 @@
         <h5>OR</h5>
         <hr/>
       </div>
+      <p v-if = "errors.length">
+          <ul v-for = "e in errors" v-bind:key = "e.id">
+              {{ e }}
+          </ul>
+        </p>
       <b-form-input
           class="identifier"
           v-model="userObj.user.email"
           id="email"
           placeholder="name@work-email.com"
+          @change="validateEmail"
           required
       >
       </b-form-input>
@@ -35,6 +41,7 @@
           class="identifier"
           id="password"
           v-model="userObj.user.password"
+          type= password
           placeholder="password"
           required
       >
@@ -69,11 +76,28 @@ export default {
   name: "SignIn",
   data() {
     return {
+      errors: [],
+      errorsLabels: { errorMessage : "Email is not valid"},
       toggleButtonLoading: false,
     };
   },
   mixins: [CommonMixin, AccountMixin],
   methods: {
+    validateEmail(){
+      const emailregex = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/
+      const emailmatch = emailregex.test(this.userObj.user.email)
+      if((!emailmatch) || (this.userObj.user.email == undefined || this.userObj.user.email == "")){
+        this.errors = []
+        this.errors.push(this.errorsLabels.errorMessage)
+      }
+      var checkerror = this.errors.includes(this.errorsLabels.errorMessage)
+      if(checkerror && emailmatch){
+        const index = this.errors.indexOf(this.errorsLabels.errorMessage);
+        if (index > -1) {
+          this.errors.splice(index, 1);
+        }
+      }
+    },
     async login(type) {
       if (type == "GOOGLE") {
         console.log("Executing Google login");
